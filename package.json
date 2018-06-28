@@ -12,7 +12,8 @@
     "serve": "stencil-dev-server",
     "start": "npm run dev",
     "test": "jest",
-    "test.watch": "jest --watch"
+    "test.watch": "jest --watch",
+    "semantic-release": "semantic-release"
   },
   "dependencies": {
     "@stencil/core": "^0.9.11",
@@ -22,11 +23,12 @@
     "@stencil/dev-server": "latest",
     "@stencil/utils": "latest",
     "@types/jest": "^21.1.1",
-    "jest": "^21.2.1"
+    "jest": "^21.2.1",
+    "semantic-release": "^15.6.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/playtest-hq/pocketdragon.git"
+    "url": "https://github.com/playtest-hq/pocketdragon.git"
   },
   "author": "Adrian Schmidt",
   "license": "MIT",
