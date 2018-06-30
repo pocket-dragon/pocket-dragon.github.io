@@ -1,13 +1,11 @@
 {
   "name": "Stencil Starter",
   "short_name": "Stencil",
-  "start_url": "/",
+  "start_url": "/pocketdragon/",
   "display": "standalone",
   "icons": [{
     "src": "assets/icon/icon.png",
     "sizes": "512x512",
     "type": "image/png"
-  }],
-  "background_color": "#16161d",
-  "theme_color": "#16161d"
+  }]
 }
