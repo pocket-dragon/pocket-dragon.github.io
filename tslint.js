@@ -10,6 +10,7 @@ module.exports = {
     linterOptions: {
         exclude: [
             "src/components.d.ts",
+            "docs/",
         ],
     },
     rulesDirectory: ["tslint-plugin-prettier"],

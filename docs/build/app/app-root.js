@@ -1,7 +1,7 @@
 /*! Built with http://stenciljs.com */
 const { h } = window.App;
 
-import { c as MDCTopAppBar, d as MDCTopAppBarBaseFoundation, e as MDCTopAppBarFoundation, f as MDCFixedTopAppBarFoundation, g as MDCShortTopAppBarFoundation } from './chunk-d3ec1289.js';
+import { c as MDCTopAppBar, d as MDCTopAppBarFoundation, e as MDCTopAppBarFoundation$1, f as MDCFixedTopAppBarFoundation, g as MDCShortTopAppBarFoundation } from './chunk-d3ec1289.js';
 
 class AppRoot {
     componentDidLoad() {
