@@ -5,13 +5,17 @@ exports.config = {
     plugins: [
         sass()
     ],
-    outputTargets: [{ // prod-build
+    outputTargets: [{
+        baseUrl: '/pocketdragon',
         dir: 'docs',
+        type: 'www'
+    }, {
+        dir: 'www',
         type: 'www'
     }]
 };
 
 exports.devServer = {
-  root: 'docs',
+  root: 'www',
   watchGlob: '**/**'
 };

@@ -2,20 +2,20 @@
   "hosting": {
     "rules": [
       {
-        "include": "/",
+        "include": "/pocketdragon/",
         "headers": [
           {
             "name": "Link",
-            "value": "</build/app/app.eeqcbigw.js>;rel=preload;as=script"
+            "value": "</pocketdragon/build/app/app.eeqcbigw.js>;rel=preload;as=script"
           },
           {
             "name": "Link",
-            "value": "</build/app/fivx1xqm.js>;rel=preload;as=script"
+            "value": "</pocketdragon/build/app/fivx1xqm.js>;rel=preload;as=script"
           }
         ]
       },
       {
-        "include": "/build/app/**",
+        "include": "/pocketdragon/build/app/**",
         "headers": [
           {
             "name": "Cache-Control",
@@ -24,7 +24,7 @@
         ]
       },
       {
-        "include": "/sw.js",
+        "include": "/pocketdragon/sw.js",
         "headers": [
           {
             "name": "Cache-Control",
