@@ -33,7 +33,7 @@ self.__precacheManifest = [
   },
   {
     "url": "build/app.js",
-    "revision": "c7122b439857ba9aa1d283ab4a0c706c"
+    "revision": "4548493e953c5fde31aca4237d7a410a"
   },
   {
     "url": "build/app/app.67lcqu4c.js",
@@ -77,7 +77,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "b1e96dd32f91d2e7da15635cddd1f96f"
+    "revision": "f31c3193daf1efd5f357475fe2262100"
   },
   {
     "url": "manifest.json",
