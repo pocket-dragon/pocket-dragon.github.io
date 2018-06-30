@@ -177,10 +177,9 @@ class AppHome {
         this.clueTimer = Math.round(Math.random() * (maxClueTime - minClueTime) + minClueTime);
     }
     gameOver(result) {
-        result.heading = "You Won!";
-        result.text =
-            "Congratulations on successfully helping your Dragon find a happy life!";
-        result.buttonLabel = "Yay!";
+        this.resultHeading = result.heading;
+        this.resultText = result.text;
+        this.resultButtonLabel = result.buttonLabel;
         this.dialog.show();
     }
     static get is() { return "app-home"; }

@@ -298,10 +298,9 @@ export class AppHome {
     }
 
     private gameOver(result) {
-        result.heading = "You Won!";
-        result.text =
-            "Congratulations on successfully helping your Dragon find a happy life!";
-        result.buttonLabel = "Yay!";
+        this.resultHeading = result.heading;
+        this.resultText = result.text;
+        this.resultButtonLabel = result.buttonLabel;
         this.dialog.show();
     }
 }
