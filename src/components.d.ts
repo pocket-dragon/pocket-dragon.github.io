@@ -36,7 +36,9 @@ declare global {
 
   namespace StencilComponents {
     interface AppHome {
-
+      'isFeedingAllowed': () => boolean;
+      'isGeneralClueAllowed': () => boolean;
+      'isSpecificClueAllowed': () => boolean;
     }
   }
 

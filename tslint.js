@@ -103,7 +103,7 @@ module.exports = {
         "jsx-alignment": true,
         "jsx-curly-spacing": "never",
         "jsx-equals-spacing": "always",
-        "jsx-no-bind": true,
+        "jsx-no-bind": false,
         "jsx-no-lambda": true,
         "jsx-no-multiline-js": false,
         "jsx-no-string-ref": true,

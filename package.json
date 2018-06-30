@@ -7,8 +7,8 @@
     "dist/"
   ],
   "scripts": {
-    "build": "stencil build --prerender",
-    "dev": "stencil build --dev --watch --serve",
+    "build": "SASS_PATH=node_modules stencil build --prerender",
+    "dev": "SASS_PATH=node_modules stencil build --dev --watch --serve",
     "lint": "npx tslint --project . -t stylish -c tslint.js 'src/**/*.{ts,tsx}'",
     "lint:fix": "npx tslint --project . -t verbose --fix -c tslint.js 'src/**/*.{ts,tsx}'",
     "lint:lintfile": "npx tslint -t stylish -c tslint.js 'tslint.js'",
@@ -27,9 +27,11 @@
   },
   "dependencies": {
     "@stencil/core": "0.10.0-9",
-    "@stencil/router": "^0.2.2"
+    "@stencil/router": "^0.2.2",
+    "material-components-web": "^0.36.1"
   },
   "devDependencies": {
+    "@stencil/sass": "0.0.5",
     "@types/jest": "^21.1.1",
     "husky": "^1.0.0-rc.9",
     "jest": "^21.2.1",
