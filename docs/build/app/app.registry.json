@@ -2,18 +2,18 @@
   "namespace": "App",
   "fsNamespace": "app",
   "loader": "../app.js",
-  "corePolyfilled": "es5-build-disabled.js",
   "global": "app.global.js",
-  "core": "app.core.js",
+  "core": "app.iqjpnrrj.js",
+  "corePolyfilled": "app.eeqcbigw.js",
   "components": {
     "app-home": {
-      "$": "app-home"
+      "$": "cz9tggv8"
     },
     "app-profile": {
-      "$": "app-profile"
+      "$": "loettoy3"
     },
     "app-root": {
-      "$": "app-home"
+      "$": "cz9tggv8"
     }
   }
 }
