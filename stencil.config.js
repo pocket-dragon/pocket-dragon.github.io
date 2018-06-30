@@ -13,6 +13,6 @@ exports.config = {
 };
 
 exports.devServer = {
-  root: 'www',
+  root: 'docs',
   watchGlob: '**/**'
 };
