@@ -7,22 +7,13 @@
   "corePolyfilled": "app.eeqcbigw.js",
   "components": {
     "app-home": {
-      "$": "xevjnbnz"
+      "$": "fivx1xqm"
     },
     "app-profile": {
       "$": "loettoy3"
     },
     "app-root": {
-      "$": "nz2fdln1"
-    },
-    "stencil-route": {
-      "$": "nz2fdln1"
-    },
-    "stencil-route-switch": {
-      "$": "nz2fdln1"
-    },
-    "stencil-router": {
-      "$": "nz2fdln1"
+      "$": "fivx1xqm"
     }
   }
 }

@@ -5,8 +5,7 @@ exports.config = {
     plugins: [
         sass()
     ],
-    outputTargets: [{
-        baseUrl: '/pocketdragon',
+    outputTargets: [{ // prod-build
         dir: 'docs',
         type: 'www'
     }]

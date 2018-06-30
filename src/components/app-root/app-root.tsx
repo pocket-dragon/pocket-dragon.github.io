@@ -25,19 +25,7 @@ export class AppRoot {
                 </header>
 
                 <main>
-                    <stencil-router>
-                        <stencil-route-switch scrollTopOffset={0}>
-                            <stencil-route
-                                url="/pocketdragon/"
-                                component="app-home"
-                                exact={true}
-                            />
-                            <stencil-route
-                                url="/profile/:name"
-                                component="app-profile"
-                            />
-                        </stencil-route-switch>
-                    </stencil-router>
+                    <app-home />
                 </main>
             </div>
         );
