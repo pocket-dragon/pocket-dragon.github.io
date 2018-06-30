@@ -3,9 +3,6 @@
   "private": true,
   "version": "0.0.0-development",
   "description": "The companion app for the boardgame PocketDragon",
-  "files": [
-    "dist/"
-  ],
   "scripts": {
     "build": "SASS_PATH=node_modules stencil build",
     "dev": "SASS_PATH=node_modules stencil build --dev --watch --serve",
