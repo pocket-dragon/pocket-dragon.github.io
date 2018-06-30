@@ -1,0 +1,28 @@
+{
+  "namespace": "App",
+  "fsNamespace": "app",
+  "loader": "../app.js",
+  "global": "app.global.js",
+  "core": "app.noxf69c3.js",
+  "corePolyfilled": "app.67lcqu4c.js",
+  "components": {
+    "app-home": {
+      "$": "dgid3v0b"
+    },
+    "app-profile": {
+      "$": "loettoy3"
+    },
+    "app-root": {
+      "$": "p00b6sty"
+    },
+    "stencil-route": {
+      "$": "p00b6sty"
+    },
+    "stencil-route-switch": {
+      "$": "p00b6sty"
+    },
+    "stencil-router": {
+      "$": "p00b6sty"
+    }
+  }
+}
