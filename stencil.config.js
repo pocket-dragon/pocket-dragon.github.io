@@ -10,6 +10,7 @@ exports.config = {
         sass()
     ],
     outputTargets: [{
+        baseUrl: '/pocketdragon',
         dir: 'docs',
         type: 'www'
     }]
