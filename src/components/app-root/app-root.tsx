@@ -33,7 +33,7 @@ export class AppRoot {
                                 exact={true}
                             />
                             <stencil-route
-                                url="/pocketdragon/profile/:name"
+                                url="/profile/:name"
                                 component="app-profile"
                             />
                         </stencil-route-switch>

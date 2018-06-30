@@ -3,7 +3,7 @@
   "fsNamespace": "app",
   "loader": "../app.js",
   "global": "app.global.js",
-  "core": "app.iqjpnrrj.js",
+  "core": "app.apmbfxfl.js",
   "corePolyfilled": "app.eeqcbigw.js",
   "components": {
     "app-home": {
@@ -13,16 +13,16 @@
       "$": "loettoy3"
     },
     "app-root": {
-      "$": "wcqepp5q"
+      "$": "nz2fdln1"
     },
     "stencil-route": {
-      "$": "wcqepp5q"
+      "$": "nz2fdln1"
     },
     "stencil-route-switch": {
-      "$": "wcqepp5q"
+      "$": "nz2fdln1"
     },
     "stencil-router": {
-      "$": "wcqepp5q"
+      "$": "nz2fdln1"
     }
   }
 }
