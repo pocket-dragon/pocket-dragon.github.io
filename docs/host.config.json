@@ -1,0 +1,41 @@
+{
+  "hosting": {
+    "rules": [
+      {
+        "include": "/pocketdragon/",
+        "headers": [
+          {
+            "name": "Link",
+            "value": "</pocketdragon/build/app/app.eeqcbigw.js>;rel=preload;as=script"
+          },
+          {
+            "name": "Link",
+            "value": "</pocketdragon/build/app/w8fkr4ps.js>;rel=preload;as=script"
+          },
+          {
+            "name": "Link",
+            "value": "</pocketdragon/build/app/wcqepp5q.js>;rel=preload;as=script"
+          }
+        ]
+      },
+      {
+        "include": "/pocketdragon/build/app/**",
+        "headers": [
+          {
+            "name": "Cache-Control",
+            "value": "public, max-age=31536000"
+          }
+        ]
+      },
+      {
+        "include": "/pocketdragon/sw.js",
+        "headers": [
+          {
+            "name": "Cache-Control",
+            "value": "no-cache, no-store, must-revalidate"
+          }
+        ]
+      }
+    ]
+  }
+}
