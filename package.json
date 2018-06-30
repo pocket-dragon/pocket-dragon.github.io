@@ -7,7 +7,7 @@
     "dist/"
   ],
   "scripts": {
-    "build": "SASS_PATH=node_modules stencil build --prerender",
+    "build": "SASS_PATH=node_modules stencil build",
     "dev": "SASS_PATH=node_modules stencil build --dev --watch --serve",
     "lint": "npx tslint --project . -t stylish -c tslint.js 'src/**/*.{ts,tsx}'",
     "lint:fix": "npx tslint --project . -t verbose --fix -c tslint.js 'src/**/*.{ts,tsx}'",
