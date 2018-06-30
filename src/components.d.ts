@@ -25,12 +25,6 @@ declare global {
   interface HTMLAttributes {}
 }
 
-import '@stencil/router';
-import '@stencil/state-tunnel';
-
-import {
-  MatchResults,
-} from '@stencil/router';
 
 declare global {
 
@@ -62,39 +56,6 @@ declare global {
   namespace JSXElements {
     export interface AppHomeAttributes extends HTMLAttributes {
 
-    }
-  }
-}
-
-
-declare global {
-
-  namespace StencilComponents {
-    interface AppProfile {
-      'match': MatchResults;
-    }
-  }
-
-  interface HTMLAppProfileElement extends StencilComponents.AppProfile, HTMLStencilElement {}
-
-  var HTMLAppProfileElement: {
-    prototype: HTMLAppProfileElement;
-    new (): HTMLAppProfileElement;
-  };
-  interface HTMLElementTagNameMap {
-    'app-profile': HTMLAppProfileElement;
-  }
-  interface ElementTagNameMap {
-    'app-profile': HTMLAppProfileElement;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'app-profile': JSXElements.AppProfileAttributes;
-    }
-  }
-  namespace JSXElements {
-    export interface AppProfileAttributes extends HTMLAttributes {
-      'match'?: MatchResults;
     }
   }
 }

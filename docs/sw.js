@@ -33,7 +33,7 @@ self.__precacheManifest = [
   },
   {
     "url": "build/app.js",
-    "revision": "dfa7b9da2f1e9722e6cc0552d3597dc5"
+    "revision": "a5ac4f66b4a91a6f6c7a075a04b8d88f"
   },
   {
     "url": "build/app/app.eeqcbigw.js",
@@ -52,16 +52,8 @@ self.__precacheManifest = [
     "revision": "c015990912a37d15a2eb6ce118350959"
   },
   {
-    "url": "build/app/loettoy3.es5.js",
-    "revision": "341012f0e5919e03a63ef7878f559096"
-  },
-  {
-    "url": "build/app/loettoy3.js",
-    "revision": "b9c0b704c6a7571852e1884c41388781"
-  },
-  {
     "url": "index.html",
-    "revision": "5d93a4005f148dd1a444cddb9e8d097e"
+    "revision": "f25852a58de846ee5714f3bc7dbc8a45"
   },
   {
     "url": "manifest.json",
