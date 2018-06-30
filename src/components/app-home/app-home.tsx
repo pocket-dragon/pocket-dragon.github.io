@@ -6,16 +6,19 @@ const MINUTES = 60;
 const EASY = {
     goalNumberOfSuccesses: 3,
     initialGameTimer: 5,
+    name: "easy",
 };
 
 const MEDIUM = {
     goalNumberOfSuccesses: 5,
     initialGameTimer: 6,
+    name: "medium",
 };
 
 const HARD = {
     goalNumberOfSuccesses: 7,
     initialGameTimer: 7,
+    name: "hard",
 };
 
 const WON = {
@@ -49,6 +52,7 @@ export class AppHome {
     @State() protected resultHeading = "";
     @State() protected resultText = "";
     @State() protected specificCluesDisabled = true;
+    @State() protected difficultyLevel = "";
     @State() private clueTimer = 0;
     @State() private dialog;
     @State() private feedTimer = 0;
@@ -76,25 +80,38 @@ export class AppHome {
     }
 
     protected render() {
+        const OUTLINED_BUTTON = "mdc-button--outlined";
         return (
             <section class="app-home">
                 <section class="difficulty-controls">
                     <button
-                        class="mdc-button"
+                        class={`mdc-button ${
+                            this.difficultyLevel === "easy"
+                                ? OUTLINED_BUTTON
+                                : ""
+                        }`}
                         onClick={this.setDifficulty.bind(this, EASY)}
                         disabled={this.isRunning}
                     >
                         Easy
                     </button>
                     <button
-                        class="mdc-button"
+                        class={`mdc-button ${
+                            this.difficultyLevel === "medium"
+                                ? OUTLINED_BUTTON
+                                : ""
+                        }`}
                         onClick={this.setDifficulty.bind(this, MEDIUM)}
                         disabled={this.isRunning}
                     >
                         Medium
                     </button>
                     <button
-                        class="mdc-button"
+                        class={`mdc-button ${
+                            this.difficultyLevel === "hard"
+                                ? OUTLINED_BUTTON
+                                : ""
+                        }`}
                         onClick={this.setDifficulty.bind(this, HARD)}
                         disabled={this.isRunning}
                     >
@@ -230,6 +247,7 @@ export class AppHome {
     private setDifficulty(config) {
         this.initialGameTimer = config.initialGameTimer;
         this.goalNumberOfSuccesses = config.goalNumberOfSuccesses;
+        this.difficultyLevel = config.name;
         this.resetGame();
     }
 

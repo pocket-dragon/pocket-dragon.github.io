@@ -6,11 +6,11 @@
         "headers": [
           {
             "name": "Link",
-            "value": "</pocketdragon/www/build/app/app.eeqcbigw.js>;rel=preload;as=script"
+            "value": "</pocketdragon/build/app/app.eeqcbigw.js>;rel=preload;as=script"
           },
           {
             "name": "Link",
-            "value": "</pocketdragon/build/app/cz9tggv8.js>;rel=preload;as=script"
+            "value": "</pocketdragon/build/app/xecsytb0.js>;rel=preload;as=script"
           }
         ]
       },
