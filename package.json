@@ -4,7 +4,7 @@
   "version": "0.0.0-development",
   "description": "The companion app for the boardgame PocketDragon",
   "scripts": {
-    "build": "SASS_PATH=node_modules stencil build",
+    "build": "SASS_PATH=node_modules stencil build --dev",
     "dev": "SASS_PATH=node_modules sd concurrent \"stencil build --dev --watch\" \"stencil-dev-server\" ",
     "lint": "npx tslint --project . -t stylish -c tslint.js 'src/**/*.{ts,tsx}'",
     "lint:fix": "npx tslint --project . -t verbose --fix -c tslint.js 'src/**/*.{ts,tsx}'",
