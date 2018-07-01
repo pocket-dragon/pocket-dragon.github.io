@@ -12,7 +12,7 @@
     "lint:lintfile": "npx tslint -t stylish -c tslint.js 'tslint.js'",
     "lint:lintfile:fix": "npx tslint --fix -t stylish -c tslint.js 'tslint.js'",
     "prepublishOnly": "npm run build",
-    "publishApp": "npm run build && cd dist && git add --all && git commit -m \"Publishing to gh-pages\" && git push origin gh-pages",
+    "publishApp": "npm run build && cd dist && git add --all && git commit -m \"Publishing to gh-pages\" && git push && cd ..",
     "semantic-release": "semantic-release",
     "serve": "stencil-dev-server",
     "start": "npm run dev",
