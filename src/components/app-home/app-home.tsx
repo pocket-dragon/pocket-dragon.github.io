@@ -5,18 +5,21 @@ const MINUTES = 60;
 
 const EASY = {
     goalNumberOfSuccesses: 3,
+    initialFeedTimer: 2,
     initialGameTimer: 5,
     name: "easy",
 };
 
 const MEDIUM = {
     goalNumberOfSuccesses: 5,
+    initialFeedTimer: 2,
     initialGameTimer: 6,
     name: "medium",
 };
 
 const HARD = {
     goalNumberOfSuccesses: 7,
+    initialFeedTimer: 2,
     initialGameTimer: 7,
     name: "hard",
 };
@@ -58,7 +61,7 @@ export class AppHome {
     @State() private feedTimer = 0;
     @State() private gameTimer = 0;
     @State() private goalNumberOfSuccesses = 0;
-    @State() private initialFeedTimer = 2;
+    @State() private initialFeedTimer = 0;
     @State() private initialGameTimer = 0;
     @State() private initialNumberOfClues = 3;
     @State() private intervalHandle;
@@ -238,14 +241,15 @@ export class AppHome {
     private resetGame() {
         clearInterval(this.intervalHandle);
         this.isRunning = false;
-        this.gameTimer = this.initialGameTimer * MINUTES;
-        this.feedTimer = this.initialFeedTimer * MINUTES;
+        this.gameTimer = this.initialGameTimer;
+        this.feedTimer = this.initialFeedTimer;
         this.successesUntilVictory = this.goalNumberOfSuccesses;
         this.remainingClues = this.initialNumberOfClues;
     }
 
     private setDifficulty(config) {
-        this.initialGameTimer = config.initialGameTimer;
+        this.initialFeedTimer = config.initialFeedTimer * MINUTES;
+        this.initialGameTimer = config.initialGameTimer * MINUTES;
         this.goalNumberOfSuccesses = config.goalNumberOfSuccesses;
         this.difficultyLevel = config.name;
         this.resetGame();

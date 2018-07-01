@@ -2,15 +2,15 @@
   "namespace": "App",
   "fsNamespace": "app",
   "loader": "../app.js",
+  "corePolyfilled": "es5-build-disabled.js",
   "global": "app.global.js",
-  "core": "app.iqjpnrrj.js",
-  "corePolyfilled": "app.eeqcbigw.js",
+  "core": "app.core.js",
   "components": {
     "app-home": {
-      "$": "xecsytb0"
+      "$": "app-home"
     },
     "app-root": {
-      "$": "xecsytb0"
+      "$": "app-home"
     }
   }
 }
