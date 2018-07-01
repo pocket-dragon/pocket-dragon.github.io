@@ -6,6 +6,6 @@ This is the companion app to the boardgame Pocket Dragon. The game has not been 
 
 ## Shoulders we stand on
 
-- Built with [Stencil](https://stenciljs.com/).
+- Built with [Stencil](https://stenciljs.com/)
 - Styles by [Material Design](https://material.io/)
 - Favicon and touch icons generated with [favicon-generator.org](https://www.favicon-generator.org/)
