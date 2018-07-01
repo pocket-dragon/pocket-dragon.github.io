@@ -11,7 +11,7 @@
     "lint:lintfile": "npx tslint -t stylish -c tslint.js 'tslint.js'",
     "lint:lintfile:fix": "npx tslint --fix -t stylish -c tslint.js 'tslint.js'",
     "prepublishOnly": "npm run build",
-    "publish": "git subtree push --prefix dist origin gh-pages",
+    "publishApp": "git push origin `git subtree split --prefix dist master`:gh-pages --force",
     "semantic-release": "semantic-release",
     "serve": "stencil-dev-server",
     "start": "npm run dev",
