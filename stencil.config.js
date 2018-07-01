@@ -10,7 +10,7 @@ exports.config = {
     ],
     outputTargets: [{
         baseUrl: '/pocketdragon',
-        dir: 'docs',
+        dir: 'dist',
         type: 'www'
     }, {
         dir: 'www',
