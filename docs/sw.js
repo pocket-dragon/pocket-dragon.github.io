@@ -129,7 +129,7 @@ self.__precacheManifest = [
   },
   {
     "url": "build/app.js",
-    "revision": "b7e913fdf0d6b2ac727ec55a99d94dfa"
+    "revision": "0a354f5729e62945cf129afbdba4322b"
   },
   {
     "url": "build/app/app.apmbfxfl.js",
@@ -149,7 +149,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "f6a15229f06ce4c77afcd73cad204796"
+    "revision": "510d07de2e0822ffd7c27049690d9a4d"
   },
   {
     "url": "manifest.json",

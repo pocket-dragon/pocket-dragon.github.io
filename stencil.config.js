@@ -1,6 +1,9 @@
 const sass = require('@stencil/sass');
 
 exports.config = {
+    copy: [{
+        src: 'browserconfig.xml'
+    }],
     globalStyle: 'src/global/app.css',
     plugins: [
         sass()
