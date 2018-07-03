@@ -9,17 +9,13 @@ exports.config = {
         sass()
     ],
     outputTargets: [{
-        baseUrl: '/pocketdragon',
         dir: 'dist',
         empty: false,
-        type: 'www'
-    }, {
-        dir: 'www',
         type: 'www'
     }]
 };
 
 exports.devServer = {
-  root: 'www',
+  root: 'dist',
   watchGlob: '**/**'
 };
