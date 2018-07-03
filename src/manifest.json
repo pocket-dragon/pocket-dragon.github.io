@@ -1,7 +1,7 @@
 {
   "name": "Pocket Dragon",
   "short_name": "Pocket Dragon",
-  "start_url": "/pocketdragon/",
+  "start_url": "/",
   "display": "standalone",
   "icons": [{
    "src": "assets/icon/android-icon-36x36.png",

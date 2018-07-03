@@ -1,6 +1,6 @@
 # Pocket Dragon Companion App
 
-[Try the app](https://playtest-hq.github.io/pocketdragon/)
+[Try the app](http://pocketdragon.co.uk/)
 
 This is the companion app to the boardgame Pocket Dragon. The game has not been released yet, but is slated for Kickstarter later this year.
 
