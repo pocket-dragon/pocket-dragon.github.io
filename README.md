@@ -4,6 +4,8 @@
 
 This is the companion app to the boardgame Pocket Dragon. The game has not been released yet, but is slated for Kickstarter later this year.
 
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+
 ## Shoulders we stand on
 
 - Built with [Stencil](https://stenciljs.com/)
