@@ -20,6 +20,10 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.3.0/workbox
  */
 self.__precacheManifest = [
   {
+    "url": "assets/font/stylesheet.css",
+    "revision": "96a83fb85f2eca38fb132d17b9a9063f"
+  },
+  {
     "url": "assets/icon/android-icon-144x144.png",
     "revision": "424315f40ebae1d3d219bfa0ec5bc20b"
   },
@@ -125,11 +129,19 @@ self.__precacheManifest = [
   },
   {
     "url": "build/app.css",
-    "revision": "0c5dad92482d9a7c7c253510f5082465"
+    "revision": "3d69bde6de95a7903b8d8124a94aa23a"
   },
   {
     "url": "build/app.js",
-    "revision": "b2c53c3a379fbf369fd53e03f1078f55"
+    "revision": "e8d8236072c6fb0344dc9596bd80cb88"
+  },
+  {
+    "url": "build/app/8ltd2as4.es5.js",
+    "revision": "e7971bad7e8ddc966cccf7472c475351"
+  },
+  {
+    "url": "build/app/8ltd2as4.js",
+    "revision": "16a265812c66c366b81d29a6dd896782"
   },
   {
     "url": "build/app/app.eeqcbigw.js",
@@ -140,16 +152,8 @@ self.__precacheManifest = [
     "revision": "12eed75e3519e4955ea666c2f7f0ef7b"
   },
   {
-    "url": "build/app/g0l46j6o.es5.js",
-    "revision": "d10ab62305cebb9932e6d5891b0a4c2c"
-  },
-  {
-    "url": "build/app/g0l46j6o.js",
-    "revision": "edfb2df49308966ceada4395a1546eba"
-  },
-  {
     "url": "index.html",
-    "revision": "77e7ca8758796a85015648aaf45018c0"
+    "revision": "ad8f95a20c0e33e5f0f31c246fd2f6c0"
   },
   {
     "url": "manifest.json",
