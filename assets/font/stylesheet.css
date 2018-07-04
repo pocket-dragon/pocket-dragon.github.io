@@ -4,8 +4,8 @@
 
 @font-face {
     font-family: 'cartoons_123regular';
-    src: url('cartoons_123-webfont.woff2') format('woff2'),
-         url('cartoons_123-webfont.woff') format('woff');
+    src: url('/assets/font/cartoons_123-webfont.woff2') format('woff2'),
+         url('/assets/font/cartoons_123-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 

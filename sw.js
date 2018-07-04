@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.3.0/workbox
 self.__precacheManifest = [
   {
     "url": "assets/font/stylesheet.css",
-    "revision": "96a83fb85f2eca38fb132d17b9a9063f"
+    "revision": "5c41e6a384c9f31713297844428233c9"
   },
   {
     "url": "assets/icon/android-icon-144x144.png",
@@ -133,7 +133,7 @@ self.__precacheManifest = [
   },
   {
     "url": "build/app.js",
-    "revision": "e8d8236072c6fb0344dc9596bd80cb88"
+    "revision": "860f98b94ec40158e5d87d814590379a"
   },
   {
     "url": "build/app/8ltd2as4.es5.js",
@@ -153,7 +153,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "ad8f95a20c0e33e5f0f31c246fd2f6c0"
+    "revision": "d0ceeafcfee77506a048d21b424a86d5"
   },
   {
     "url": "manifest.json",
