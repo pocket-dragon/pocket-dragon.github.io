@@ -1,4 +1,4 @@
-import { Component, Element, Method, State } from '@stencil/core';
+import { Component, Element, State } from '@stencil/core';
 import { dialog } from 'material-components-web';
 
 const MINUTES = 60;
@@ -83,58 +83,39 @@ export class AppHome {
     }
 
     protected render() {
-        const OUTLINED_BUTTON = 'mdc-button--outlined';
         return (
             <section class="app-home">
                 <section class="difficulty-controls">
-                    <button
-                        class={`mdc-button ${
-                            this.difficultyLevel === 'easy'
-                                ? OUTLINED_BUTTON
-                                : ''
-                        }`}
+                    <pd-button
+                        label="Easy"
                         onClick={this.setDifficulty.bind(this, EASY)}
                         disabled={this.isRunning}
-                    >
-                        Easy
-                    </button>
-                    <button
-                        class={`mdc-button ${
-                            this.difficultyLevel === 'medium'
-                                ? OUTLINED_BUTTON
-                                : ''
-                        }`}
+                        selected={this.difficultyLevel === 'easy'}
+                    />
+                    <pd-button
+                        label="Medium"
                         onClick={this.setDifficulty.bind(this, MEDIUM)}
                         disabled={this.isRunning}
-                    >
-                        Medium
-                    </button>
-                    <button
-                        class={`mdc-button ${
-                            this.difficultyLevel === 'hard'
-                                ? OUTLINED_BUTTON
-                                : ''
-                        }`}
+                        selected={this.difficultyLevel === 'medium'}
+                    />
+                    <pd-button
+                        label="Hard"
                         onClick={this.setDifficulty.bind(this, HARD)}
                         disabled={this.isRunning}
-                    >
-                        Hard
-                    </button>
+                        selected={this.difficultyLevel === 'hard'}
+                    />
                 </section>
                 <section class="game-controls">
-                    <button
-                        class="mdc-button mdc-button--raised"
+                    <pd-button
+                        label={this.isRunning ? 'Pause' : 'Start'}
                         onClick={this.playOrPause.bind(this)}
-                    >
-                        {this.isRunning ? 'Pause' : 'Start'}
-                    </button>
-                    <button
-                        class="mdc-button"
+                        primary={true}
+                    />
+                    <pd-button
+                        label="Reset"
                         onClick={this.resetGame.bind(this)}
                         disabled={this.isRunning}
-                    >
-                        Reset
-                    </button>
+                    />
                 </section>
                 <p>
                     Game time left: <b>{this.gameTimer}</b>
@@ -143,48 +124,44 @@ export class AppHome {
                     Feeder time left: <b>{this.feedTimer}</b>
                 </p>
                 <p>
-                    <button
-                        class="mdc-button mdc-button--raised"
+                    <pd-button
+                        label="Feed!"
                         onClick={this.feed.bind(this)}
                         disabled={!this.isFeedingAllowed()}
-                    >
-                        Feed!
-                    </button>
+                        primary={true}
+                    />
                 </p>
                 <p>
                     Number of successes left:{' '}
                     <b>{this.successesUntilVictory}</b>
                 </p>
                 <p>
-                    <button
-                        class="mdc-button mdc-button--raised"
+                    <pd-button
+                        label="Log success"
                         onClick={this.logSuccess.bind(this)}
                         disabled={!this.isRunning}
-                    >
-                        Log success
-                    </button>
+                        primary={true}
+                    />
                 </p>
                 <section>
                     <p>
                         Remaining clues: <b>{this.remainingClues}</b>
                     </p>
                     <p>
-                        <button
-                            class="mdc-button mdc-button--raised"
+                        <pd-button
+                            label="Use general clue"
                             onClick={this.useGeneralClue.bind(this)}
                             disabled={!this.isGeneralClueAllowed()}
-                        >
-                            Use general clue
-                        </button>
+                            primary={true}
+                        />
                     </p>
                     <p>
-                        <button
-                            class="mdc-button mdc-button--raised"
+                        <pd-button
+                            label="Use specific clue"
                             onClick={this.useSpecificClue.bind(this)}
                             disabled={!this.isSpecificClueAllowed()}
-                        >
-                            Use specific clue
-                        </button>
+                            primary={true}
+                        />
                     </p>
                 </section>
 
@@ -207,12 +184,11 @@ export class AppHome {
                             {this.resultText}
                         </section>
                         <footer class="mdc-dialog__footer">
-                            <button
-                                type="button"
-                                class="mdc-button mdc-button--raised mdc-dialog__footer__button mdc-dialog__footer__button--accept"
-                            >
-                                {this.resultButtonLabel}
-                            </button>
+                            <pd-button
+                                label={this.resultButtonLabel}
+                                primary={true}
+                                onClick={this.closeDialog.bind(this)}
+                            />
                         </footer>
                     </div>
                     <div class="mdc-dialog__backdrop" />
@@ -221,19 +197,16 @@ export class AppHome {
         );
     }
 
-    @Method()
     private isFeedingAllowed() {
         return (
             this.isRunning && this.feedTimer <= CAN_FEED_WHEN_FEEDTIMER_IS_BELOW
         );
     }
 
-    @Method()
     private isGeneralClueAllowed() {
         return this.isRunning && this.remainingClues >= GENERIC_CLUE_COST;
     }
 
-    @Method()
     private isSpecificClueAllowed() {
         return this.isRunning && this.remainingClues >= SPECIFIC_CLUE_COST;
     }
@@ -323,6 +296,11 @@ export class AppHome {
         this.resultHeading = result.heading;
         this.resultText = result.text;
         this.resultButtonLabel = result.buttonLabel;
+        this.resetGame();
         this.dialog.show();
+    }
+
+    private closeDialog() {
+        this.dialog.close();
     }
 }

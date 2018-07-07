@@ -1,3 +1,6 @@
-$mdc-typography-font-family: "cartoons_123regular";
-
+@import "../../variables";
 @import "@material/top-app-bar/mdc-top-app-bar";
+
+.mdc-top-app-bar {
+    color: $mdc-theme-on-primary;
+}
