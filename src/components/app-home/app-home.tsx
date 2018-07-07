@@ -43,8 +43,8 @@ const SPECIFIC_CLUE_COST = 2;
 const CAN_FEED_WHEN_FEEDTIMER_IS_BELOW = 30;
 
 @Component({
-    styleUrl: 'app-home.scss',
     tag: 'app-home',
+    styleUrl: 'app-home.scss',
 })
 export class AppHome {
     @Element() public htmlElement: HTMLElement;

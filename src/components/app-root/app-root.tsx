@@ -2,8 +2,8 @@ import { Component } from '@stencil/core';
 import { topAppBar } from 'material-components-web';
 
 @Component({
-    styleUrl: 'app-root.scss',
     tag: 'app-root',
+    styleUrl: 'app-root.scss',
 })
 export class AppRoot {
     protected componentDidLoad() {
