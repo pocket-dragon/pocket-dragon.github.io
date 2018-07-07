@@ -1,0 +1,110 @@
+@import "../../variables";
+@import "@material/button/mdc-button";
+
+$color-disabled-background: rgba(0, 0, 0, 0.12);
+
+:host {
+    display: inline-block;
+}
+
+:host([disabled]) {
+    pointer-events: none;
+}
+
+button {
+    border: 0 !important;
+    position: relative;
+    width: 100%;
+    padding: 0 14px !important;
+
+    > .label {
+        color: inherit;
+        position: relative;
+        z-index: 1;
+    }
+
+    > .background {
+        color: white;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        > svg {
+            display: block;
+            fill: transparent;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            stroke-width: 0;
+            stroke: transparent;
+            top: 0;
+            width: 100%;
+        }
+    }
+
+    &[disabled] {
+        > .label {
+            color: inherit !important;
+        }
+        > .background {
+            color: white !important;
+        }
+    }
+
+    &.mdc-button--raised {
+        background-color: white !important;
+        box-shadow: none !important;
+        overflow: visible;
+
+        > .background {
+            color: $mdc-theme-primary;
+
+            > svg {
+                overflow: visible;
+                stroke: transparent;
+                stroke-width: 0;
+                fill: currentColor;
+
+                > path {
+                    filter: url(#shadow);
+                }
+            }
+        }
+
+        &[disabled] {
+            > .background {
+                color: $color-disabled-background !important;
+
+                > svg {
+                    > path {
+                        filter: none;
+                    }
+                }
+            }
+        }
+    }
+
+    &.mdc-button--outlined {
+        > .background {
+            color: $blue-color;
+            bottom: 1px;
+            left: 2px;
+            right: 2px;
+            top: 1px;
+
+            > svg {
+                overflow: visible;
+                stroke: currentColor;
+                stroke-width: 2;
+            }
+        }
+
+        &[disabled] {
+            > .background {
+                color: inherit !important;
+            }
+        }
+    }
+}

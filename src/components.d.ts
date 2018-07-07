@@ -30,9 +30,7 @@ declare global {
 
   namespace StencilComponents {
     interface AppHome {
-      'isFeedingAllowed': () => boolean;
-      'isGeneralClueAllowed': () => boolean;
-      'isSpecificClueAllowed': () => boolean;
+
     }
   }
 
@@ -89,6 +87,45 @@ declare global {
   namespace JSXElements {
     export interface AppRootAttributes extends HTMLAttributes {
 
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
+    interface PdButton {
+      'disabled': boolean;
+      'label': string;
+      'primary': boolean;
+      'selected': boolean;
+    }
+  }
+
+  interface HTMLPdButtonElement extends StencilComponents.PdButton, HTMLStencilElement {}
+
+  var HTMLPdButtonElement: {
+    prototype: HTMLPdButtonElement;
+    new (): HTMLPdButtonElement;
+  };
+  interface HTMLElementTagNameMap {
+    'pd-button': HTMLPdButtonElement;
+  }
+  interface ElementTagNameMap {
+    'pd-button': HTMLPdButtonElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'pd-button': JSXElements.PdButtonAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface PdButtonAttributes extends HTMLAttributes {
+      'disabled'?: boolean;
+      'label'?: string;
+      'primary'?: boolean;
+      'selected'?: boolean;
     }
   }
 }

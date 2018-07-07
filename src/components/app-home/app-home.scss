@@ -1,7 +1,5 @@
-$mdc-typography-font-family: "cartoons_123regular";
-
+@import "../../variables";
 @import "@material/dialog/mdc-dialog";
-@import "@material/button/mdc-button";
 
 .app-home {
     padding-bottom: 10px;
@@ -20,8 +18,4 @@ $mdc-typography-font-family: "cartoons_123regular";
     justify-content: space-between;
     margin-bottom: 1em;
     margin-top: 1em;
-
-    button {
-        width: 30%;
-    }
 }
