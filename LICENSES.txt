@@ -355,6 +355,11 @@
 │  ├─ publisher: ForbesLindesay
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/@stencil/core/node_modules/acorn-globals
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/@stencil/core/node_modules/acorn-globals/LICENSE
+├─ acorn-jsx@4.1.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/RReverser/acorn-jsx
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/acorn-jsx
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/acorn-jsx/LICENSE
 ├─ acorn@4.0.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/ternjs/acorn
@@ -381,6 +386,12 @@
 │  ├─ url: sindresorhus.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/aggregate-error
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/aggregate-error/license
+├─ ajv-keywords@3.2.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/epoberezkin/ajv-keywords
+│  ├─ publisher: Evgeny Poberezkin
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/ajv-keywords
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/ajv-keywords/LICENSE
 ├─ ajv@4.11.8
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/epoberezkin/ajv
@@ -393,6 +404,12 @@
 │  ├─ publisher: Evgeny Poberezkin
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/ajv
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/ajv/LICENSE
+├─ ajv@6.5.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/epoberezkin/ajv
+│  ├─ publisher: Evgeny Poberezkin
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/table/node_modules/ajv
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/table/node_modules/ajv/LICENSE
 ├─ align-text@0.1.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jonschlinkert/align-text
@@ -462,8 +479,8 @@
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/tslint/node_modules/ansi-styles
-│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/tslint/node_modules/ansi-styles/license
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/table/node_modules/ansi-styles
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/table/node_modules/ansi-styles/license
 ├─ ansicolors@0.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/thlorenz/ansicolors
@@ -1131,6 +1148,22 @@
 │  ├─ url: http://www.limulus.net/
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/call-me-maybe
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/call-me-maybe/LICENSE
+├─ caller-path@0.1.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sindresorhus/caller-path
+│  ├─ publisher: Sindre Sorhus
+│  ├─ email: sindresorhus@gmail.com
+│  ├─ url: http://sindresorhus.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/caller-path
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/caller-path/readme.md
+├─ callsites@0.2.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sindresorhus/callsites
+│  ├─ publisher: Sindre Sorhus
+│  ├─ email: sindresorhus@gmail.com
+│  ├─ url: http://sindresorhus.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/caller-path/node_modules/callsites
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/caller-path/node_modules/callsites/readme.md
 ├─ callsites@2.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/callsites
@@ -1243,8 +1276,8 @@
 ├─ chalk@2.4.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/chalk/chalk
-│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/tslint/node_modules/chalk
-│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/tslint/node_modules/chalk/license
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/table/node_modules/chalk
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/table/node_modules/chalk/license
 ├─ chardet@0.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/runk/node-chardet
@@ -1297,6 +1330,13 @@
 │  ├─ email: calvin.metcalf@gmail.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/cipher-base
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/cipher-base/LICENSE
+├─ circular-json@0.3.3
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/WebReflection/circular-json
+│  ├─ publisher: Andrea Giammarchi
+│  ├─ url: http://webreflection.blogspot.com/
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/circular-json
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/circular-json/LICENSE.txt
 ├─ class-utils@0.3.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jonschlinkert/class-utils
@@ -1809,6 +1849,12 @@
 │  ├─ repository: https://github.com/Level/deferred-leveldown
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/deferred-leveldown
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/deferred-leveldown/README.md
+├─ define-properties@1.1.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/define-properties
+│  ├─ publisher: Jordan Harband
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/define-properties
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/define-properties/LICENSE
 ├─ define-property@0.2.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jonschlinkert/define-property
@@ -1830,6 +1876,14 @@
 │  ├─ url: https://github.com/jonschlinkert
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/define-property
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/define-property/LICENSE
+├─ del@2.2.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sindresorhus/del
+│  ├─ publisher: Sindre Sorhus
+│  ├─ email: sindresorhus@gmail.com
+│  ├─ url: sindresorhus.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/del
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/del/license
 ├─ delayed-stream@1.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/felixge/node-delayed-stream
@@ -1920,6 +1974,11 @@
 │  ├─ repository: https://github.com/eslint/doctrine
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/doctrine
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/doctrine/LICENSE.BSD
+├─ doctrine@2.1.0
+│  ├─ licenses: Apache-2.0
+│  ├─ repository: https://github.com/eslint/doctrine
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/eslint/node_modules/doctrine
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/eslint/node_modules/doctrine/LICENSE
 ├─ domexception@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jsdom/domexception
@@ -2005,6 +2064,20 @@
 │  ├─ email: raynos2@gmail.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/error
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/error/README.md
+├─ es-abstract@1.12.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/es-abstract
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  ├─ url: http://ljharb.codes
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/es-abstract
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/es-abstract/LICENSE
+├─ es-to-primitive@1.1.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/es-to-primitive
+│  ├─ publisher: Jordan Harband
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/es-to-primitive
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/es-to-primitive/LICENSE
 ├─ es6-promise@4.2.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/stefanpenner/es6-promise
@@ -2037,12 +2110,44 @@
 │  ├─ repository: https://github.com/estools/escodegen
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/escodegen
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/escodegen/LICENSE.BSD
-├─ eslint-plugin-prettier@2.6.1
+├─ eslint-config-prettier@2.9.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/prettier/eslint-config-prettier
+│  ├─ publisher: Simon Lydell
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/eslint-config-prettier
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/eslint-config-prettier/LICENSE
+├─ eslint-plugin-prettier@2.6.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/prettier/eslint-plugin-prettier
 │  ├─ publisher: Teddy Katz
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/eslint-plugin-prettier
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/eslint-plugin-prettier/LICENSE.md
+├─ eslint-scope@4.0.0
+│  ├─ licenses: BSD-2-Clause
+│  ├─ repository: https://github.com/eslint/eslint-scope
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/eslint-scope
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/eslint-scope/LICENSE
+├─ eslint-visitor-keys@1.0.0
+│  ├─ licenses: Apache-2.0
+│  ├─ repository: https://github.com/eslint/eslint-visitor-keys
+│  ├─ publisher: Toru Nagashima
+│  ├─ url: https://github.com/mysticatea
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/eslint-visitor-keys
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/eslint-visitor-keys/LICENSE
+├─ eslint@5.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/eslint/eslint
+│  ├─ publisher: Nicholas C. Zakas
+│  ├─ email: nicholas+npm@nczconsulting.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/eslint
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/eslint/LICENSE
+├─ espree@4.0.0
+│  ├─ licenses: BSD-2-Clause
+│  ├─ repository: https://github.com/eslint/espree
+│  ├─ publisher: Nicholas C. Zakas
+│  ├─ email: nicholas+npm@nczconsulting.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/espree
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/espree/LICENSE
 ├─ esprima@2.7.3
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/jquery/esprima
@@ -2071,6 +2176,18 @@
 │  ├─ email: ariya.hidayat@gmail.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/js-yaml/node_modules/esprima
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/js-yaml/node_modules/esprima/LICENSE.BSD
+├─ esquery@1.0.1
+│  ├─ licenses: BSD-3-Clause
+│  ├─ repository: https://github.com/jrfeenst/esquery
+│  ├─ publisher: Joel Feenstra
+│  ├─ email: jrfeenst+esquery@gmail.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/esquery
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/esquery/license.txt
+├─ esrecurse@4.2.1
+│  ├─ licenses: BSD-2-Clause
+│  ├─ repository: https://github.com/estools/esrecurse
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/esrecurse
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/esrecurse/README.md
 ├─ estraverse@1.9.3
 │  ├─ licenses: BSD
 │  ├─ repository: https://github.com/estools/estraverse
@@ -2243,6 +2360,12 @@
 │  ├─ publisher: Evgeny Poberezkin
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/fast-deep-equal
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/fast-deep-equal/LICENSE
+├─ fast-deep-equal@2.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/epoberezkin/fast-deep-equal
+│  ├─ publisher: Evgeny Poberezkin
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/table/node_modules/fast-deep-equal
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/table/node_modules/fast-deep-equal/LICENSE
 ├─ fast-diff@1.1.2
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/jhchen/fast-diff
@@ -2305,6 +2428,13 @@
 │  ├─ url: sindresorhus.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/opencollective/node_modules/figures
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/opencollective/node_modules/figures/license
+├─ file-entry-cache@2.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/royriojas/file-entry-cache
+│  ├─ publisher: Roy Riojas
+│  ├─ url: http://royriojas.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/file-entry-cache
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/file-entry-cache/LICENSE
 ├─ filename-regex@2.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/regexhq/filename-regex
@@ -2384,6 +2514,13 @@
 │  ├─ publisher: "Cowboy" Ben Alman
 │  ├─ url: http://benalman.com
 │  └─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/findup-sync
+├─ flat-cache@1.3.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/royriojas/flat-cache
+│  ├─ publisher: Roy Riojas
+│  ├─ url: http://royriojas.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/flat-cache
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/flat-cache/LICENSE
 ├─ focus-trap@2.4.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/davidtheclark/focus-trap
@@ -2532,6 +2669,19 @@
 │  ├─ url: http://blog.izs.me/
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/fstream
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/fstream/LICENSE
+├─ function-bind@1.1.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/Raynos/function-bind
+│  ├─ publisher: Raynos
+│  ├─ email: raynos2@gmail.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/function-bind
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/function-bind/LICENSE
+├─ functional-red-black-tree@1.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/mikolalysenko/functional-red-black-tree
+│  ├─ publisher: Mikola Lysenko
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/functional-red-black-tree
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/functional-red-black-tree/LICENSE
 ├─ fwd-stream@1.0.4
 │  ├─ licenses: MIT*
 │  ├─ repository: https://github.com/mafintosh/fwd-stream
@@ -2586,6 +2736,14 @@
 │  ├─ url: http://sindresorhus.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/node-sass/node_modules/get-stdin
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/node-sass/node_modules/get-stdin/readme.md
+├─ get-stdin@5.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sindresorhus/get-stdin
+│  ├─ publisher: Sindre Sorhus
+│  ├─ email: sindresorhus@gmail.com
+│  ├─ url: sindresorhus.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/eslint-config-prettier/node_modules/get-stdin
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/eslint-config-prettier/node_modules/get-stdin/license
 ├─ get-stdin@6.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/get-stdin
@@ -2702,6 +2860,14 @@
 │  ├─ url: https://github.com/jonschlinkert
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/global-prefix
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/global-prefix/LICENSE
+├─ globals@11.7.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sindresorhus/globals
+│  ├─ publisher: Sindre Sorhus
+│  ├─ email: sindresorhus@gmail.com
+│  ├─ url: sindresorhus.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/eslint/node_modules/globals
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/eslint/node_modules/globals/license
 ├─ globals@9.18.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/globals
@@ -2710,6 +2876,14 @@
 │  ├─ url: http://sindresorhus.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/globals
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/globals/license
+├─ globby@5.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sindresorhus/globby
+│  ├─ publisher: Sindre Sorhus
+│  ├─ email: sindresorhus@gmail.com
+│  ├─ url: sindresorhus.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/del/node_modules/globby
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/del/node_modules/globby/license
 ├─ globby@8.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/globby
@@ -2826,8 +3000,8 @@
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/tslint/node_modules/has-flag
-│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/tslint/node_modules/has-flag/license
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/table/node_modules/has-flag
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/table/node_modules/has-flag/license
 ├─ has-symbol-support-x@1.4.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Xotic750/has-symbol-support-x
@@ -2835,6 +3009,14 @@
 │  ├─ email: xotic750@gmail.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/has-symbol-support-x
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/has-symbol-support-x/LICENSE
+├─ has-symbols@1.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/has-symbols
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  ├─ url: http://ljharb.codes
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/has-symbols
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/has-symbols/LICENSE
 ├─ has-to-string-tag-x@1.4.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Xotic750/has-to-string-tag-x
@@ -2877,6 +3059,13 @@
 │  ├─ url: https://github.com/jonschlinkert
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/has-values
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/has-values/LICENSE
+├─ has@1.0.3
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/tarruda/has
+│  ├─ publisher: Thiago de Arruda
+│  ├─ email: tpadilha84@gmail.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/has
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/has/LICENSE-MIT
 ├─ hash-base@3.0.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/crypto-browserify/hash-base
@@ -3157,6 +3346,13 @@
 │  ├─ email: admin@simonboudrias.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/opencollective/node_modules/inquirer
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/opencollective/node_modules/inquirer/README.md
+├─ inquirer@5.2.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/SBoudrias/Inquirer.js
+│  ├─ publisher: Simon Boudrias
+│  ├─ email: admin@simonboudrias.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/eslint/node_modules/inquirer
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/eslint/node_modules/inquirer/README.md
 ├─ interpret@1.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/tkellen/node-interpret
@@ -3232,6 +3428,14 @@
 │  ├─ url: sindresorhus.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-builtin-module
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-builtin-module/license
+├─ is-callable@1.1.4
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/is-callable
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  ├─ url: http://ljharb.codes
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-callable
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-callable/LICENSE
 ├─ is-ci@1.0.10
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/watson/is-ci
@@ -3262,6 +3466,12 @@
 │  ├─ url: https://github.com/jonschlinkert
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/base/node_modules/is-data-descriptor
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/base/node_modules/is-data-descriptor/LICENSE
+├─ is-date-object@1.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/is-date-object
+│  ├─ publisher: Jordan Harband
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-date-object
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-date-object/LICENSE
 ├─ is-descriptor@0.1.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jonschlinkert/is-descriptor
@@ -3439,6 +3649,30 @@
 │  ├─ url: https://github.com/jonschlinkert
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-odd
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-odd/LICENSE
+├─ is-path-cwd@1.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sindresorhus/is-path-cwd
+│  ├─ publisher: Sindre Sorhus
+│  ├─ email: sindresorhus@gmail.com
+│  ├─ url: http://sindresorhus.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-path-cwd
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-path-cwd/readme.md
+├─ is-path-in-cwd@1.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sindresorhus/is-path-in-cwd
+│  ├─ publisher: Sindre Sorhus
+│  ├─ email: sindresorhus@gmail.com
+│  ├─ url: http://sindresorhus.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-path-in-cwd
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-path-in-cwd/license
+├─ is-path-inside@1.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sindresorhus/is-path-inside
+│  ├─ publisher: Sindre Sorhus
+│  ├─ email: sindresorhus@gmail.com
+│  ├─ url: sindresorhus.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-path-inside
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-path-inside/license
 ├─ is-plain-obj@1.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/is-plain-obj
@@ -3480,6 +3714,19 @@
 │  ├─ publisher: Mikola Lysenko
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-property
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-property/LICENSE
+├─ is-regex@1.0.4
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/is-regex
+│  ├─ publisher: Jordan Harband
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-regex
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-regex/LICENSE
+├─ is-resolvable@1.1.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/shinnn/is-resolvable
+│  ├─ publisher: Shinnosuke Watanabe
+│  ├─ url: https://github.com/shinnn
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-resolvable
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-resolvable/LICENSE
 ├─ is-retry-allowed@1.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/floatdrop/is-retry-allowed
@@ -3511,6 +3758,12 @@
 │  ├─ email: t.wiszniewski@gmail.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-subset
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-subset/License.md
+├─ is-symbol@1.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/is-symbol
+│  ├─ publisher: Jordan Harband
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-symbol
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-symbol/LICENSE
 ├─ is-text-path@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/is-text-path
@@ -3866,6 +4119,12 @@
 │  ├─ publisher: Evgeny Poberezkin
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/json-schema-traverse
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/json-schema-traverse/LICENSE
+├─ json-schema-traverse@0.4.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/epoberezkin/json-schema-traverse
+│  ├─ publisher: Evgeny Poberezkin
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/table/node_modules/json-schema-traverse
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/table/node_modules/json-schema-traverse/LICENSE
 ├─ json-schema@0.2.3
 │  ├─ licenses
 │  │  ├─ 0: AFLv2.1
@@ -3874,6 +4133,14 @@
 │  ├─ publisher: Kris Zyp
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/json-schema
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/json-schema/README.md
+├─ json-stable-stringify-without-jsonify@1.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/samn/json-stable-stringify
+│  ├─ publisher: James Halliday
+│  ├─ email: mail@substack.net
+│  ├─ url: http://substack.net
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/json-stable-stringify-without-jsonify
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/json-stable-stringify-without-jsonify/LICENSE
 ├─ json-stable-stringify@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/substack/json-stable-stringify
@@ -4828,6 +5095,14 @@
 │  ├─ publisher: Jordan Harband
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/level-js/node_modules/object-keys
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/level-js/node_modules/object-keys/README.md
+├─ object-keys@1.0.12
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/object-keys
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  ├─ url: http://ljharb.codes
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/define-properties/node_modules/object-keys
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/define-properties/node_modules/object-keys/LICENSE
 ├─ object-visit@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jonschlinkert/object-visit
@@ -5216,6 +5491,14 @@
 │  ├─ url: sindresorhus.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/path-is-absolute
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/path-is-absolute/license
+├─ path-is-inside@1.0.2
+│  ├─ licenses: (WTFPL OR MIT)
+│  ├─ repository: https://github.com/domenic/path-is-inside
+│  ├─ publisher: Domenic Denicola
+│  ├─ email: d@domenic.me
+│  ├─ url: https://domenic.me
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/path-is-inside
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/path-is-inside/LICENSE.txt
 ├─ path-key@2.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/path-key
@@ -5322,6 +5605,14 @@
 │  ├─ url: sindresorhus.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/pkg-dir
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/pkg-dir/license
+├─ pluralize@7.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/blakeembrey/pluralize
+│  ├─ publisher: Blake Embrey
+│  ├─ email: hello@blakeembrey.com
+│  ├─ url: http://blakeembrey.me
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/pluralize
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/pluralize/LICENSE
 ├─ pn@1.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/cscott/node-pn
@@ -5409,6 +5700,13 @@
 │  ├─ repository: https://github.com/calvinmetcalf/process-nextick-args
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/process-nextick-args
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/process-nextick-args/license.md
+├─ progress@2.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/visionmedia/node-progress
+│  ├─ publisher: TJ Holowaychuk
+│  ├─ email: tj@vision-media.ca
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/progress
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/progress/LICENSE
 ├─ protocols@1.4.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/IonicaBizau/protocols
@@ -5719,6 +6017,19 @@
 │  ├─ url: https://github.com/jonschlinkert
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/regex-not
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/regex-not/LICENSE
+├─ regexp.prototype.flags@1.2.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/es-shims/RegExp.prototype.flags
+│  ├─ publisher: Jordan Harband
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/regexp.prototype.flags
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/regexp.prototype.flags/LICENSE
+├─ regexpp@1.1.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/mysticatea/regexpp
+│  ├─ publisher: Toru Nagashima
+│  ├─ url: https://github.com/mysticatea
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/regexpp
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/regexpp/LICENSE
 ├─ registry-auth-token@3.3.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/rexxars/registry-auth-token
@@ -5804,6 +6115,14 @@
 │  ├─ email: ben@npmjs.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/require-main-filename
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/require-main-filename/LICENSE.txt
+├─ require-uncached@1.0.3
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sindresorhus/require-uncached
+│  ├─ publisher: Sindre Sorhus
+│  ├─ email: sindresorhus@gmail.com
+│  ├─ url: sindresorhus.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/require-uncached
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/require-uncached/license
 ├─ resolve-dir@0.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jonschlinkert/resolve-dir
@@ -5811,6 +6130,14 @@
 │  ├─ url: https://github.com/jonschlinkert
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/resolve-dir
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/resolve-dir/LICENSE
+├─ resolve-from@1.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sindresorhus/resolve-from
+│  ├─ publisher: Sindre Sorhus
+│  ├─ email: sindresorhus@gmail.com
+│  ├─ url: sindresorhus.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/require-uncached/node_modules/resolve-from
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/require-uncached/node_modules/resolve-from/license
 ├─ resolve-from@3.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/resolve-from
@@ -5988,6 +6315,13 @@
 │  ├─ url: https://github.com/Reactive-Extensions/RxJS/blob/master/authors.txt
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/rx
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/rx/license.txt
+├─ rxjs@5.5.11
+│  ├─ licenses: Apache-2.0
+│  ├─ repository: https://github.com/ReactiveX/RxJS
+│  ├─ publisher: Ben Lesh
+│  ├─ email: ben@benlesh.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/rxjs
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/rxjs/LICENSE.txt
 ├─ safe-buffer@5.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/feross/safe-buffer
@@ -6178,6 +6512,13 @@
 │  ├─ url: sindresorhus.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/husky/node_modules/slash
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/husky/node_modules/slash/license
+├─ slice-ansi@1.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/chalk/slice-ansi
+│  ├─ publisher: David Caccavella
+│  ├─ email: threedeecee@gmail.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/slice-ansi
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/slice-ansi/license
 ├─ slide@1.1.6
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/isaacs/slide-flow-control
@@ -6493,6 +6834,13 @@
 │  ├─ url: sindresorhus.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/jest-runtime/node_modules/string-width
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/jest-runtime/node_modules/string-width/license
+├─ string.prototype.matchall@2.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/String.prototype.matchAll
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/string.prototype.matchall
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/string.prototype.matchall/LICENSE
 ├─ string_decoder@0.10.31
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/rvagg/string_decoder
@@ -6618,8 +6966,15 @@
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/tslint/node_modules/supports-color
-│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/tslint/node_modules/supports-color/license
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/table/node_modules/supports-color
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/table/node_modules/supports-color/license
+├─ symbol-observable@1.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/blesh/symbol-observable
+│  ├─ publisher: Ben Lesh
+│  ├─ email: ben@benlesh.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/symbol-observable
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/symbol-observable/license
 ├─ symbol-tree@3.2.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jsdom/js-symbol-tree
@@ -6633,6 +6988,14 @@
 │  ├─ publisher: David Clark
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/tabbable
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/tabbable/LICENSE
+├─ table@4.0.3
+│  ├─ licenses: BSD-3-Clause
+│  ├─ repository: https://github.com/gajus/table
+│  ├─ publisher: Gajus Kuizinas
+│  ├─ email: gajus@gajus.com
+│  ├─ url: http://gajus.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/table
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/table/LICENSE
 ├─ tar-pack@3.4.0
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/ForbesLindesay/tar-pack
@@ -6669,6 +7032,14 @@
 │  ├─ url: sindresorhus.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/text-extensions
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/text-extensions/license
+├─ text-table@0.2.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/substack/text-table
+│  ├─ publisher: James Halliday
+│  ├─ email: mail@substack.net
+│  ├─ url: http://substack.net
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/text-table
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/text-table/LICENSE
 ├─ throat@4.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/ForbesLindesay/throat
@@ -7019,6 +7390,13 @@
 │  ├─ email: agelos.pikoulas@gmail.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/upath
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/upath/LICENSE
+├─ uri-js@4.2.2
+│  ├─ licenses: BSD-2-Clause
+│  ├─ repository: https://github.com/garycourt/uri-js
+│  ├─ publisher: Gary Court
+│  ├─ email: gary.court@gmail.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/uri-js
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/uri-js/README.md
 ├─ urix@0.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/lydell/urix
@@ -7368,6 +7746,13 @@
 │  ├─ url: http://re-becca.org
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/write-file-atomic
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/write-file-atomic/LICENSE
+├─ write@0.2.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/jonschlinkert/write
+│  ├─ publisher: Jon Schlinkert
+│  ├─ url: https://github.com/jonschlinkert
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/write
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/write/LICENSE
 ├─ xml-name-validator@2.0.1
 │  ├─ licenses: WTFPL
 │  ├─ repository: https://github.com/jsdom/xml-name-validator
