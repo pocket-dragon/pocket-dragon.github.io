@@ -91,18 +91,21 @@ export class AppHome {
                         onClick={this.setDifficulty.bind(this, EASY)}
                         disabled={this.isRunning}
                         selected={this.difficultyLevel === 'easy'}
+                        color="green"
                     />
                     <pd-button
                         label="Medium"
                         onClick={this.setDifficulty.bind(this, MEDIUM)}
                         disabled={this.isRunning}
                         selected={this.difficultyLevel === 'medium'}
+                        color="yellow"
                     />
                     <pd-button
                         label="Hard"
                         onClick={this.setDifficulty.bind(this, HARD)}
                         disabled={this.isRunning}
                         selected={this.difficultyLevel === 'hard'}
+                        color="red"
                     />
                 </div>
                 <div class="game-controls">
@@ -110,6 +113,7 @@ export class AppHome {
                         label={this.isRunning ? 'Pause' : 'Start'}
                         onClick={this.playOrPause.bind(this)}
                         primary={true}
+                        color="green"
                     />
                     <pd-button
                         label="Reset"
@@ -133,6 +137,7 @@ export class AppHome {
                         onClick={this.feed.bind(this)}
                         disabled={!this.isFeedingAllowed()}
                         primary={true}
+                        color="red"
                     />
                 </div>
                 <div class="successes">
