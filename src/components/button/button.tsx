@@ -1,4 +1,5 @@
-import { Component, Prop } from '@stencil/core';
+import { Component, Element, Prop, State } from '@stencil/core';
+import { ripple } from 'material-components-web';
 
 @Component({
     tag: 'pd-button',
@@ -17,6 +18,19 @@ export class Button {
 
     @Prop({ reflectToAttr: true })
     public primary = false;
+
+    @Element() private button: HTMLElement;
+
+    @State() private mdcRipple;
+
+    public componentDidLoad() {
+        const element = this.button.shadowRoot.querySelector('button');
+        this.mdcRipple = new ripple.MDCRipple(element);
+    }
+
+    public componentDidUnload() {
+        this.mdcRipple.destroy();
+    }
 
     public render() {
         return (
