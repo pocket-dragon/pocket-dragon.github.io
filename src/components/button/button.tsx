@@ -19,6 +19,9 @@ export class Button {
     @Prop({ reflectToAttr: true })
     public primary = false;
 
+    @Prop({ reflectToAttr: true })
+    public color = '';
+
     @Element() private button: HTMLElement;
 
     @State() private mdcRipple;
@@ -38,6 +41,7 @@ export class Button {
                 class={`mdc-button
                     ${this.primary ? 'mdc-button--raised' : ''}
                     ${this.selected ? 'mdc-button--outlined' : ''}
+                    ${this.color}
                 `}
                 disabled={this.disabled}
             >

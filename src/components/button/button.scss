@@ -44,6 +44,16 @@ button {
         }
     }
 
+    &.green:not(:disabled) {
+        color: $green-color;
+    }
+    &.yellow:not(:disabled) {
+        color: $yellow-color;
+    }
+    &.red:not(:disabled) {
+        color: $red-color;
+    }
+
     &[disabled] {
         > .label {
             color: inherit !important;
@@ -58,6 +68,10 @@ button {
         box-shadow: none !important;
         overflow: visible;
 
+        &:not(:disabled) > .label {
+            color: white;
+        }
+
         > .background {
             color: $mdc-theme-primary;
 
@@ -70,6 +84,22 @@ button {
                 > path {
                     filter: url(#shadow);
                 }
+            }
+        }
+
+        &.green {
+            > .background {
+                color: $green-color;
+            }
+        }
+        &.yellow {
+            > .background {
+                color: $yellow-color;
+            }
+        }
+        &.red {
+            > .background {
+                color: $red-color;
             }
         }
 
@@ -88,7 +118,7 @@ button {
 
     &.mdc-button--outlined {
         > .background {
-            color: $blue-color;
+            color: $mdc-theme-primary;
             bottom: 1px;
             left: 2px;
             right: 2px;
@@ -98,6 +128,22 @@ button {
                 overflow: visible;
                 stroke: currentColor;
                 stroke-width: 2;
+            }
+        }
+
+        &.green {
+            > .background {
+                color: $green-color;
+            }
+        }
+        &.yellow {
+            > .background {
+                color: $yellow-color;
+            }
+        }
+        &.red {
+            > .background {
+                color: $red-color;
             }
         }
 
