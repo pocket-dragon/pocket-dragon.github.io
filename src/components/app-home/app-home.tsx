@@ -85,7 +85,7 @@ export class AppHome {
     protected render() {
         return (
             <section class="app-home">
-                <section class="difficulty-controls">
+                <div class="difficulty-controls">
                     <pd-button
                         label="Easy"
                         onClick={this.setDifficulty.bind(this, EASY)}
@@ -104,8 +104,8 @@ export class AppHome {
                         disabled={this.isRunning}
                         selected={this.difficultyLevel === 'hard'}
                     />
-                </section>
-                <section class="game-controls">
+                </div>
+                <div class="game-controls">
                     <pd-button
                         label={this.isRunning ? 'Pause' : 'Start'}
                         onClick={this.playOrPause.bind(this)}
@@ -116,25 +116,32 @@ export class AppHome {
                         onClick={this.resetGame.bind(this)}
                         disabled={this.isRunning}
                     />
-                </section>
-                <p>
-                    Game time left: <b>{this.gameTimer}</b>
-                </p>
-                <p class={this.isFeedingAllowed() ? 'warning' : ''}>
-                    Feeder time left: <b>{this.feedTimer}</b>
-                </p>
-                <p>
+                </div>
+                <div class="timers">
+                    <div>
+                        <p>Game time left:</p>
+                        <p class="timer">{this.gameTimer}</p>
+                    </div>
+                    <div class={this.isFeedingAllowed() ? 'warning' : ''}>
+                        <p>Feeder time left:</p>
+                        <p class="timer">{this.feedTimer}</p>
+                    </div>
+                </div>
+                <div>
                     <pd-button
                         label="Feed!"
                         onClick={this.feed.bind(this)}
                         disabled={!this.isFeedingAllowed()}
                         primary={true}
                     />
-                </p>
-                <p>
-                    Number of successes left:{' '}
-                    <b>{this.successesUntilVictory}</b>
-                </p>
+                </div>
+                <div class="successes">
+                    <div>
+                        Number of<br />
+                        successes left:
+                    </div>
+                    <div class="counter">{this.successesUntilVictory}</div>
+                </div>
                 <p>
                     <pd-button
                         label="Log success"
@@ -143,29 +150,31 @@ export class AppHome {
                         primary={true}
                     />
                 </p>
-                <section>
+                <div>
                     <p>
                         Remaining clues: <b>{this.remainingClues}</b>
                     </p>
-                    <p>
-                        <pd-button
-                            label="Use general clue"
-                            onClick={this.useGeneralClue.bind(this)}
-                            disabled={!this.isGeneralClueAllowed()}
-                            primary={true}
-                        />
-                    </p>
-                    <p>
-                        <pd-button
-                            label="Use specific clue"
-                            onClick={this.useSpecificClue.bind(this)}
-                            disabled={!this.isSpecificClueAllowed()}
-                            primary={true}
-                        />
-                    </p>
-                </section>
+                    <div class="clue-buttons">
+                        <div>
+                            <pd-button
+                                label="Use general clue"
+                                onClick={this.useGeneralClue.bind(this)}
+                                disabled={!this.isGeneralClueAllowed()}
+                                primary={true}
+                            />
+                        </div>
+                        <div>
+                            <pd-button
+                                label="Use specific clue"
+                                onClick={this.useSpecificClue.bind(this)}
+                                disabled={!this.isSpecificClueAllowed()}
+                                primary={true}
+                            />
+                        </div>
+                    </div>
+                </div>
 
-                <p>Rules version: 0.3</p>
+                <p class="rules-version">Rules version: 0.3</p>
 
                 <aside
                     id="game-over-dialog"

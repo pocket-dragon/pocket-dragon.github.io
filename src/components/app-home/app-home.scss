@@ -2,14 +2,18 @@
 @import "@material/dialog/mdc-dialog";
 
 .app-home {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 500px;
     padding-bottom: 10px;
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 66px;
+    text-align: center;
 }
 
 .warning {
-    color: red;
+    color: $red-color;
 }
 
 .difficulty-controls,
@@ -18,4 +22,53 @@
     justify-content: space-between;
     margin-bottom: 1em;
     margin-top: 1em;
+}
+
+.timers {
+    display: flex;
+    justify-content: space-around;
+
+    > div {
+        margin-left: 10px;
+        margin-right: 10px;
+        text-align: center;
+
+        > .timer {
+            font-size: 36px;
+            margin-bottom: 0.5em;
+            margin-top: 0.5em;
+        }
+    }
+}
+
+.successes {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1em;
+
+    > div {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    > .counter {
+        font-size: 36px;
+    }
+}
+
+.clue-buttons {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    > div {
+        margin-bottom: 1em;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+.rules-version {
+    color: $grey-color;
+    font-size: 10px;
 }
