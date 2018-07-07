@@ -1,23 +1,28 @@
+/* eslint-env es6 */
+
 const sass = require('@stencil/sass');
 
 exports.config = {
-    copy: [{
-        src: 'browserconfig.xml'
-    }, {
-        src: 'CNAME'
-    }],
-    globalStyle: 'src/global/app.css',
-    plugins: [
-        sass()
+    copy: [
+        {
+            src: 'browserconfig.xml',
+        },
+        {
+            src: 'CNAME',
+        },
     ],
-    outputTargets: [{
-        dir: 'dist',
-        empty: false,
-        type: 'www'
-    }]
+    globalStyle: 'src/global/app.css',
+    plugins: [sass()],
+    outputTargets: [
+        {
+            dir: 'dist',
+            empty: false,
+            type: 'www',
+        },
+    ],
 };
 
 exports.devServer = {
-  root: 'dist',
-  watchGlob: '**/**'
+    root: 'dist',
+    watchGlob: '**/**',
 };

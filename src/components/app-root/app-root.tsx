@@ -1,13 +1,13 @@
-import { Component } from "@stencil/core";
-import { topAppBar } from "material-components-web";
+import { Component } from '@stencil/core';
+import { topAppBar } from 'material-components-web';
 
 @Component({
-    styleUrl: "app-root.scss",
-    tag: "app-root",
+    styleUrl: 'app-root.scss',
+    tag: 'app-root',
 })
 export class AppRoot {
     protected componentDidLoad() {
-        const topAppBarElement = document.querySelector(".mdc-top-app-bar");
+        const topAppBarElement = document.querySelector('.mdc-top-app-bar');
         new topAppBar.MDCTopAppBar(topAppBarElement); // tslint:disable-line:no-unused-expression
     }
 

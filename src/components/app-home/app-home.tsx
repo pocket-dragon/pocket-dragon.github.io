@@ -1,5 +1,5 @@
-import { Component, Element, Method, State } from "@stencil/core";
-import { dialog } from "material-components-web";
+import { Component, Element, Method, State } from '@stencil/core';
+import { dialog } from 'material-components-web';
 
 const MINUTES = 60;
 
@@ -7,33 +7,33 @@ const EASY = {
     goalNumberOfSuccesses: 3,
     initialFeedTimer: 2,
     initialGameTimer: 5,
-    name: "easy",
+    name: 'easy',
 };
 
 const MEDIUM = {
     goalNumberOfSuccesses: 5,
     initialFeedTimer: 2,
     initialGameTimer: 6,
-    name: "medium",
+    name: 'medium',
 };
 
 const HARD = {
     goalNumberOfSuccesses: 7,
     initialFeedTimer: 2,
     initialGameTimer: 7,
-    name: "hard",
+    name: 'hard',
 };
 
 const WON = {
-    buttonLabel: "Yay!",
-    heading: "You Won!",
+    buttonLabel: 'Yay!',
+    heading: 'You Won!',
     text:
-        "Congratulations on successfully helping your Dragon find a happy life!",
+        'Congratulations on successfully helping your Dragon find a happy life!',
 };
 
 const LOST = {
-    buttonLabel: "Try again!",
-    heading: "Oh noes!",
+    buttonLabel: 'Try again!',
+    heading: 'Oh noes!',
     text: "Unfortunately, you didn't do so well this time…",
 };
 
@@ -43,19 +43,19 @@ const SPECIFIC_CLUE_COST = 2;
 const CAN_FEED_WHEN_FEEDTIMER_IS_BELOW = 30;
 
 @Component({
-    styleUrl: "app-home.scss",
-    tag: "app-home",
+    styleUrl: 'app-home.scss',
+    tag: 'app-home',
 })
 export class AppHome {
     @Element() public htmlElement: HTMLElement;
 
-    @State() protected feedingClass = "";
+    @State() protected feedingClass = '';
     @State() protected generalCluesDisabled = true;
-    @State() protected resultButtonLabel = "";
-    @State() protected resultHeading = "";
-    @State() protected resultText = "";
+    @State() protected resultButtonLabel = '';
+    @State() protected resultHeading = '';
+    @State() protected resultText = '';
     @State() protected specificCluesDisabled = true;
-    @State() protected difficultyLevel = "";
+    @State() protected difficultyLevel = '';
     @State() private clueTimer = 0;
     @State() private dialog;
     @State() private feedTimer = 0;
@@ -72,26 +72,26 @@ export class AppHome {
     protected componentDidLoad() {
         this.setDifficulty(EASY);
         this.dialog = new dialog.MDCDialog(
-            document.querySelector("#game-over-dialog")
+            document.querySelector('#game-over-dialog')
         );
-        this.dialog.listen("MDCDialog:accept", () => {
+        this.dialog.listen('MDCDialog:accept', () => {
             this.resetGame();
         });
-        this.dialog.listen("MDCDialog:cancel", () => {
+        this.dialog.listen('MDCDialog:cancel', () => {
             this.resetGame();
         });
     }
 
     protected render() {
-        const OUTLINED_BUTTON = "mdc-button--outlined";
+        const OUTLINED_BUTTON = 'mdc-button--outlined';
         return (
             <section class="app-home">
                 <section class="difficulty-controls">
                     <button
                         class={`mdc-button ${
-                            this.difficultyLevel === "easy"
+                            this.difficultyLevel === 'easy'
                                 ? OUTLINED_BUTTON
-                                : ""
+                                : ''
                         }`}
                         onClick={this.setDifficulty.bind(this, EASY)}
                         disabled={this.isRunning}
@@ -100,9 +100,9 @@ export class AppHome {
                     </button>
                     <button
                         class={`mdc-button ${
-                            this.difficultyLevel === "medium"
+                            this.difficultyLevel === 'medium'
                                 ? OUTLINED_BUTTON
-                                : ""
+                                : ''
                         }`}
                         onClick={this.setDifficulty.bind(this, MEDIUM)}
                         disabled={this.isRunning}
@@ -111,9 +111,9 @@ export class AppHome {
                     </button>
                     <button
                         class={`mdc-button ${
-                            this.difficultyLevel === "hard"
+                            this.difficultyLevel === 'hard'
                                 ? OUTLINED_BUTTON
-                                : ""
+                                : ''
                         }`}
                         onClick={this.setDifficulty.bind(this, HARD)}
                         disabled={this.isRunning}
@@ -126,7 +126,7 @@ export class AppHome {
                         class="mdc-button mdc-button--raised"
                         onClick={this.playOrPause.bind(this)}
                     >
-                        {this.isRunning ? "Pause" : "Start"}
+                        {this.isRunning ? 'Pause' : 'Start'}
                     </button>
                     <button
                         class="mdc-button"
@@ -139,7 +139,7 @@ export class AppHome {
                 <p>
                     Game time left: <b>{this.gameTimer}</b>
                 </p>
-                <p class={this.isFeedingAllowed() ? "warning" : ""}>
+                <p class={this.isFeedingAllowed() ? 'warning' : ''}>
                     Feeder time left: <b>{this.feedTimer}</b>
                 </p>
                 <p>
@@ -152,7 +152,7 @@ export class AppHome {
                     </button>
                 </p>
                 <p>
-                    Number of successes left:{" "}
+                    Number of successes left:{' '}
                     <b>{this.successesUntilVictory}</b>
                 </p>
                 <p>
