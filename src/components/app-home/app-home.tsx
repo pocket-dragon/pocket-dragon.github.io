@@ -80,11 +80,12 @@ export class AppHome {
         if (this.isServer === false) {
             this.storage = new Storage();
             this.storage.get('soundEnabled').then(soundEnabled => {
-                if (soundEnabled !== null) {
-                    this.soundEnabled = soundEnabled;
-                    if (this.toggleSoundButton) {
-                        this.toggleSoundButton.on = this.soundEnabled;
-                    }
+                if (soundEnabled === null) {
+                    soundEnabled = true;
+                }
+                this.soundEnabled = soundEnabled;
+                if (this.toggleSoundButton) {
+                    this.toggleSoundButton.on = this.soundEnabled;
                 }
                 this.storage.set('soundEnabled', this.soundEnabled);
             });
