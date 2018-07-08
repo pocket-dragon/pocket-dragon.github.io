@@ -15,7 +15,8 @@ button {
     border: 0 !important;
     position: relative;
     width: 100%;
-    padding: 0 14px !important;
+    padding: 4px 18px !important;
+    height: 44px !important;
 
     > .label {
         color: inherit;
@@ -25,11 +26,12 @@ button {
 
     > .background {
         color: white;
-        bottom: 0;
-        left: 0;
         position: absolute;
-        right: 0;
-        top: 0;
+
+        bottom: 4px;
+        left: 4px;
+        right: 4px;
+        top: 4px;
 
         > svg {
             display: block;
@@ -66,7 +68,6 @@ button {
     &.mdc-button--raised {
         background-color: white !important;
         box-shadow: none !important;
-        overflow: visible;
 
         &:not(:disabled) > .label {
             color: white;
@@ -119,10 +120,10 @@ button {
     &.mdc-button--outlined {
         > .background {
             color: $mdc-theme-primary;
-            bottom: 1px;
-            left: 2px;
-            right: 2px;
-            top: 1px;
+            bottom: 5px;
+            left: 6px;
+            right: 6px;
+            top: 5px;
 
             > svg {
                 overflow: visible;
