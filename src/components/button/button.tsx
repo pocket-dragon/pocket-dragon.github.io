@@ -20,7 +20,7 @@ export class Button {
     public primary = false;
 
     @Prop({ reflectToAttr: true })
-    public color = '';
+    public color: string;
 
     @Element() private button: HTMLElement;
 
@@ -41,7 +41,7 @@ export class Button {
                 class={`mdc-button
                     ${this.primary ? 'mdc-button--raised' : ''}
                     ${this.selected ? 'mdc-button--outlined' : ''}
-                    ${this.color}
+                    ${this.color || ''}
                 `}
                 disabled={this.disabled}
             >
