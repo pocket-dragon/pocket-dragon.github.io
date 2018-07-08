@@ -85,6 +85,7 @@ module.exports = {
         'no-unused-variable': true,
 
         // Style
+        'arrow-return-shorthand': false,
         'object-literal-sort-keys': false,
 
         // ECMAScript 6
