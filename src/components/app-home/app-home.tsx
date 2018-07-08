@@ -1,11 +1,12 @@
-import { Component, Element, State } from '@stencil/core';
-import { dialog } from 'material-components-web';
+import { Component, Element, Prop, State } from '@stencil/core';
+import { dialog, iconButton } from 'material-components-web';
+import Storage from '../../services/storage';
 
 const MINUTES = 60;
 
 const EASY = {
     goalNumberOfSuccesses: 3,
-    initialFeedTimer: 2,
+    initialFeedTimer: 0.6,
     initialGameTimer: 5,
     name: 'easy',
 };
@@ -49,10 +50,13 @@ const CAN_FEED_WHEN_FEEDTIMER_IS_BELOW = 30;
 export class AppHome {
     @Element() public htmlElement: HTMLElement;
 
+    @Prop({ context: 'isServer' })
+    private isServer: boolean;
+
     @State() private clueTimer = 0;
-    @State() private dialog;
     @State() private difficultyLevel = '';
     @State() private feedTimer = 0;
+    @State() private gameOverDialog;
     @State() private gameTimer = 0;
     @State() private goalNumberOfSuccesses = 0;
     @State() private initialFeedTimer = 0;
@@ -65,18 +69,55 @@ export class AppHome {
     @State() private resultHeading = '';
     @State() private resultText = '';
     @State() private successesUntilVictory = 0;
+    @State() private toggleSoundButton;
+    @State() private soundEnabled: boolean;
+    @State() private storage: Storage;
+    @State() private timerBeep: HTMLAudioElement;
+    @State() private timerBeep2x: HTMLAudioElement;
+    @State() private timerBeep3x: HTMLAudioElement;
+
+    public componentWillLoad() {
+        if (this.isServer === false) {
+            this.storage = new Storage();
+            this.storage.get('soundEnabled').then(soundEnabled => {
+                if (soundEnabled !== null) {
+                    this.soundEnabled = soundEnabled;
+                    if (this.toggleSoundButton) {
+                        this.toggleSoundButton.on = this.soundEnabled;
+                    }
+                }
+                this.storage.set('soundEnabled', this.soundEnabled);
+            });
+        }
+    }
 
     public componentDidLoad() {
         this.setDifficulty(EASY);
-        this.dialog = new dialog.MDCDialog(
+        this.timerBeep = this.htmlElement.querySelector('#timer-beep');
+        this.timerBeep2x = this.htmlElement.querySelector('#timer-beep-2x');
+        this.timerBeep3x = this.htmlElement.querySelector('#timer-beep-3x');
+        this.gameOverDialog = new dialog.MDCDialog(
             document.querySelector('#game-over-dialog')
         );
-        this.dialog.listen('MDCDialog:accept', () => {
+        this.gameOverDialog.listen('MDCDialog:accept', () => {
             this.resetGame();
         });
-        this.dialog.listen('MDCDialog:cancel', () => {
+        this.gameOverDialog.listen('MDCDialog:cancel', () => {
             this.resetGame();
         });
+
+        this.toggleSoundButton = new iconButton.MDCIconButtonToggle(
+            this.htmlElement.querySelector('#toggle-sound')
+        );
+        this.toggleSoundButton.listen('MDCIconButtonToggle:change', data => {
+            this.soundEnabled = data.detail.isOn;
+            this.storage.set('soundEnabled', this.soundEnabled);
+        });
+    }
+
+    public componentDidUnload() {
+        this.gameOverDialog.destroy();
+        this.toggleSoundButton.destroy();
     }
 
     public render() {
@@ -178,13 +219,21 @@ export class AppHome {
 
                 <p class="rules-version">Rules version: 0.3</p>
 
-                <aside
-                    id="game-over-dialog"
-                    class="mdc-dialog"
-                    role="alertdialog"
-                    aria-labelledby="my-mdc-dialog-label"
-                    aria-describedby="my-mdc-dialog-description"
-                >
+                <aside class="settings">
+                    <button
+                        id="toggle-sound"
+                        class="mdc-icon-button material-icons"
+                        aria-label="Toggle sound"
+                        aria-hidden="true"
+                        aria-pressed={this.soundEnabled}
+                        data-toggle-on-content="volume_up"
+                        data-toggle-on-label="Disable sound"
+                        data-toggle-off-content="volume_off"
+                        data-toggle-off-label="Enable sound"
+                    />
+                </aside>
+
+                <aside id="game-over-dialog" class="mdc-dialog">
                     <div class="mdc-dialog__surface">
                         <header class="mdc-dialog__header">
                             <h2 class="mdc-dialog__header__title">
@@ -204,6 +253,64 @@ export class AppHome {
                     </div>
                     <div class="mdc-dialog__backdrop" />
                 </aside>
+
+                <audio id="timer-beep" preload="auto">
+                    <source
+                        src="/assets/sound/beep-hightone.mp3"
+                        type="audio/mp3"
+                    />
+                    <source
+                        src="/assets/sound/beep-hightone.ogg"
+                        type="audio/ogg"
+                    />
+                    <source
+                        src="/assets/sound/beep-hightone.wav"
+                        type="audio/wave"
+                    />
+                    <source
+                        src="/assets/sound/beep-hightone.wav"
+                        type="audio/wav"
+                    />
+                    <p>Your browser does not support html5 audio.</p>
+                </audio>
+                <audio id="timer-beep-2x" preload="auto">
+                    <source
+                        src="/assets/sound/beep-hightone-2x.mp3"
+                        type="audio/mp3"
+                    />
+                    <source
+                        src="/assets/sound/beep-hightone-2x.ogg"
+                        type="audio/ogg"
+                    />
+                    <source
+                        src="/assets/sound/beep-hightone-2x.wav"
+                        type="audio/wave"
+                    />
+                    <source
+                        src="/assets/sound/beep-hightone-2x.wav"
+                        type="audio/wav"
+                    />
+                    <p>Your browser does not support html5 audio.</p>
+                </audio>
+                <audio id="timer-beep-3x" preload="auto">
+                    <source
+                        src="/assets/sound/beep-hightone-3x.mp3"
+                        type="audio/mp3"
+                    />
+                    <source
+                        src="/assets/sound/beep-hightone-3x.ogg"
+                        type="audio/ogg"
+                    />
+                    <source
+                        src="/assets/sound/beep-hightone-3x.wav"
+                        type="audio/wave"
+                    />
+                    <source
+                        src="/assets/sound/beep-hightone-3x.wav"
+                        type="audio/wav"
+                    />
+                    <p>Your browser does not support html5 audio.</p>
+                </audio>
             </section>
         );
     }
@@ -245,10 +352,22 @@ export class AppHome {
             this.setClueTimer();
         }
         const ONE_SECOND = 1000;
+        const FEED_WARNING_1 = 30;
+        const FEED_WARNING_2 = 20;
+        const FEED_WARNING_3 = 10;
         this.intervalHandle = setInterval(() => {
             this.gameTimer -= 1;
             this.feedTimer -= 1;
             this.clueTimer -= 1;
+            if (this.soundEnabled && this.feedTimer === FEED_WARNING_1) {
+                this.timerBeep.play();
+            }
+            if (this.soundEnabled && this.feedTimer === FEED_WARNING_2) {
+                this.timerBeep2x.play();
+            }
+            if (this.soundEnabled && this.feedTimer === FEED_WARNING_3) {
+                this.timerBeep3x.play();
+            }
             if (this.clueTimer < 1) {
                 this.remainingClues += 1;
                 this.setClueTimer();
@@ -307,6 +426,6 @@ export class AppHome {
         this.resultHeading = result.heading;
         this.resultText = result.text;
         this.resultButtonLabel = result.buttonLabel;
-        this.dialog.show();
+        this.gameOverDialog.show();
     }
 }

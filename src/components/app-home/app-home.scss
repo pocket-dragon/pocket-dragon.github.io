@@ -1,14 +1,17 @@
 @import "../../variables";
+@import "@material/icon-button/mdc-icon-button";
 @import "@material/dialog/mdc-dialog";
 
 .app-home {
     margin-left: auto;
     margin-right: auto;
     max-width: 500px;
+    min-width: 295px;
     padding-bottom: 10px;
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 66px;
+    position: relative;
     text-align: center;
 }
 
@@ -70,4 +73,11 @@
 .rules-version {
     color: $grey-color;
     font-size: 10px;
+}
+
+.settings {
+    bottom: 5px;
+    color: $grey-color;
+    position: absolute;
+    right: 5px;
 }

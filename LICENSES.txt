@@ -3253,6 +3253,11 @@
 │  ├─ publisher: kael
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/ignore
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/ignore/README.md
+├─ immediate@3.0.6
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/calvinmetcalf/immediate
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/immediate
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/immediate/LICENSE.txt
 ├─ immutable@3.8.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/facebook/immutable-js
@@ -4355,6 +4360,11 @@
 │  ├─ email: davglass@gmail.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/license-checker
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/license-checker/LICENSE
+├─ lie@3.1.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/calvinmetcalf/lie
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/lie
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/lie/license.md
 ├─ livereload-js@2.3.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/livereload/livereload-js
@@ -4384,6 +4394,12 @@
 │  ├─ url: sindresorhus.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/meow/node_modules/load-json-file
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/meow/node_modules/load-json-file/license
+├─ localforage@1.7.2
+│  ├─ licenses: Apache-2.0
+│  ├─ repository: https://github.com/localForage/localForage
+│  ├─ publisher: Mozilla
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/localforage
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/localforage/LICENSE
 ├─ locate-path@2.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/locate-path
