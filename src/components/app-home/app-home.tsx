@@ -199,9 +199,9 @@ export class AppHome {
                         </section>
                         <footer class="mdc-dialog__footer">
                             <pd-button
+                                class="mdc-dialog__footer__button--accept"
                                 label={this.resultButtonLabel}
                                 primary={true}
-                                onClick={this.closeDialog.bind(this)}
                             />
                         </footer>
                     </div>
@@ -310,11 +310,6 @@ export class AppHome {
         this.resultHeading = result.heading;
         this.resultText = result.text;
         this.resultButtonLabel = result.buttonLabel;
-        this.resetGame();
         this.dialog.show();
-    }
-
-    private closeDialog() {
-        this.dialog.close();
     }
 }
