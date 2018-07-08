@@ -84,6 +84,7 @@ export class AppHome {
     @State() private timerBeep3x: HTMLAudioElement;
     @State() private timerPoints = 0;
     @State() private difficultyPoints = 0;
+    @State() private gameWon = false;
 
     public componentWillLoad() {
         if (this.isServer === false) {
@@ -130,7 +131,7 @@ export class AppHome {
         this.toggleSoundButton.destroy();
     }
 
-    public render() {
+    public render() { // tslint:disable-line:no-big-function prettier
         return (
             <section class="app-home">
                 <div class="difficulty-controls">
@@ -252,9 +253,16 @@ export class AppHome {
                         </header>
                         <section class="mdc-dialog__body">
                             {this.resultText}
-                            <p>Base points: {this.difficultyPoints}</p>
-                            <p>Time points: {this.timerPoints}</p>
-                            <p>+1 point for each remaining Happiness!</p>
+                            <span
+                                class={`
+                                    points
+                                    ${this.gameWon ? 'game-won' : 'game-lost'}
+                                `}
+                            >
+                                <p>Base points: {this.difficultyPoints}</p>
+                                <p>Time points: {this.timerPoints}</p>
+                                <p>+1 point for each remaining Happiness!</p>
+                            </span>
                         </section>
                         <footer class="mdc-dialog__footer">
                             <pd-button
@@ -442,6 +450,7 @@ export class AppHome {
                 this.gameTimer / SECONDS_WORTH_ONE_POINT
             );
         }
+        this.gameWon = result.won;
         this.resultHeading = result.heading;
         this.resultText = result.text;
         this.resultButtonLabel = result.buttonLabel;
