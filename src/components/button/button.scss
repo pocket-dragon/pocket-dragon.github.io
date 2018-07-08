@@ -118,6 +118,11 @@ button {
     }
 
     &.mdc-button--outlined {
+        &:before,
+        &:after {
+            display: none;
+        }
+
         > .background {
             color: $mdc-theme-primary;
             bottom: 5px;
