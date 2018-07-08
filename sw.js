@@ -133,7 +133,7 @@ self.__precacheManifest = [
   },
   {
     "url": "build/app.js",
-    "revision": "d7410453de318d1d26026782d25772dc"
+    "revision": "66af83a846a4d500e5d2fb37104fbccf"
   },
   {
     "url": "build/app/2okjhhvd.es5.js",
@@ -185,7 +185,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "badd5878f880c60f0e392ae1bfd30b2c"
+    "revision": "ecad43c748e9c4836601a83504b80573"
   },
   {
     "url": "manifest.json",
