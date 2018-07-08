@@ -6,12 +6,12 @@ import { topAppBar } from 'material-components-web';
     styleUrl: 'app-root.scss',
 })
 export class AppRoot {
-    protected componentDidLoad() {
+    public componentDidLoad() {
         const topAppBarElement = document.querySelector('.mdc-top-app-bar');
         new topAppBar.MDCTopAppBar(topAppBarElement); // tslint:disable-line:no-unused-expression
     }
 
-    protected render() {
+    public render() {
         return (
             <div>
                 <header class="mdc-top-app-bar">

@@ -49,15 +49,9 @@ const CAN_FEED_WHEN_FEEDTIMER_IS_BELOW = 30;
 export class AppHome {
     @Element() public htmlElement: HTMLElement;
 
-    @State() protected feedingClass = '';
-    @State() protected generalCluesDisabled = true;
-    @State() protected resultButtonLabel = '';
-    @State() protected resultHeading = '';
-    @State() protected resultText = '';
-    @State() protected specificCluesDisabled = true;
-    @State() protected difficultyLevel = '';
     @State() private clueTimer = 0;
     @State() private dialog;
+    @State() private difficultyLevel = '';
     @State() private feedTimer = 0;
     @State() private gameTimer = 0;
     @State() private goalNumberOfSuccesses = 0;
@@ -67,9 +61,12 @@ export class AppHome {
     @State() private intervalHandle;
     @State() private isRunning = false;
     @State() private remainingClues = 0;
+    @State() private resultButtonLabel = '';
+    @State() private resultHeading = '';
+    @State() private resultText = '';
     @State() private successesUntilVictory = 0;
 
-    protected componentDidLoad() {
+    public componentDidLoad() {
         this.setDifficulty(EASY);
         this.dialog = new dialog.MDCDialog(
             document.querySelector('#game-over-dialog')
@@ -82,7 +79,7 @@ export class AppHome {
         });
     }
 
-    protected render() {
+    public render() {
         return (
             <section class="app-home">
                 <div class="difficulty-controls">
