@@ -6,7 +6,7 @@ const MINUTES = 60;
 
 const EASY = {
     goalNumberOfSuccesses: 3,
-    initialFeedTimer: 0.6,
+    initialFeedTimer: 2,
     initialGameTimer: 5,
     name: 'easy',
 };
