@@ -9,6 +9,7 @@ const EASY = {
     initialFeedTimer: 2,
     initialGameTimer: 5,
     name: 'easy',
+    points: 1,
 };
 
 const MEDIUM = {
@@ -16,6 +17,7 @@ const MEDIUM = {
     initialFeedTimer: 2,
     initialGameTimer: 6,
     name: 'medium',
+    points: 3,
 };
 
 const HARD = {
@@ -23,9 +25,11 @@ const HARD = {
     initialFeedTimer: 2,
     initialGameTimer: 7,
     name: 'hard',
+    points: 8,
 };
 
 const WON = {
+    won: true,
     buttonLabel: 'Yay!',
     heading: 'You Won!',
     text:
@@ -33,6 +37,7 @@ const WON = {
 };
 
 const LOST = {
+    won: false,
     buttonLabel: 'Try again!',
     heading: 'Oh noes!',
     text: "Unfortunately, you didn't do so well this time…",
@@ -42,6 +47,8 @@ const GENERIC_CLUE_COST = 1;
 const SPECIFIC_CLUE_COST = 2;
 
 const CAN_FEED_WHEN_FEEDTIMER_IS_BELOW = 30;
+
+const SECONDS_WORTH_ONE_POINT = 10;
 
 @Component({
     tag: 'app-home',
@@ -75,6 +82,8 @@ export class AppHome {
     @State() private timerBeep: HTMLAudioElement;
     @State() private timerBeep2x: HTMLAudioElement;
     @State() private timerBeep3x: HTMLAudioElement;
+    @State() private timerPoints = 0;
+    @State() private difficultyPoints = 0;
 
     public componentWillLoad() {
         if (this.isServer === false) {
@@ -243,6 +252,9 @@ export class AppHome {
                         </header>
                         <section class="mdc-dialog__body">
                             {this.resultText}
+                            <p>Base points: {this.difficultyPoints}</p>
+                            <p>Time points: {this.timerPoints}</p>
+                            <p>+1 point for each remaining Happiness!</p>
                         </section>
                         <footer class="mdc-dialog__footer">
                             <pd-button
@@ -344,6 +356,7 @@ export class AppHome {
         this.initialGameTimer = config.initialGameTimer * MINUTES;
         this.goalNumberOfSuccesses = config.goalNumberOfSuccesses;
         this.difficultyLevel = config.name;
+        this.difficultyPoints = config.points;
         this.resetGame();
     }
 
@@ -424,6 +437,11 @@ export class AppHome {
     }
 
     private gameOver(result) {
+        if (result.won) {
+            this.timerPoints = Math.floor(
+                this.gameTimer / SECONDS_WORTH_ONE_POINT
+            );
+        }
         this.resultHeading = result.heading;
         this.resultText = result.text;
         this.resultButtonLabel = result.buttonLabel;
