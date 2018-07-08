@@ -3,17 +3,20 @@
   "fsNamespace": "app",
   "loader": "../app.js",
   "global": "app.global.js",
-  "core": "app.iqjpnrrj.js",
+  "core": "app.apmbfxfl.js",
   "corePolyfilled": "app.eeqcbigw.js",
   "components": {
     "app-home": {
-      "$": "arfdgemq"
+      "$": "tmnwmbum"
     },
     "app-root": {
-      "$": "2okjhhvd"
+      "$": "fs6mbz86"
     },
     "pd-button": {
-      "$": "ivsfw5va"
+      "$": "rfxplvnc"
+    },
+    "pd-settings": {
+      "$": "pk3udwg3"
     }
   }
 }
