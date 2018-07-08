@@ -22,13 +22,18 @@ export class Button {
     @Prop({ reflectToAttr: true })
     public color: string;
 
+    @Prop({ context: 'isServer' })
+    private isServer: boolean;
+
     @Element() private button: HTMLElement;
 
     @State() private mdcRipple;
 
     public componentDidLoad() {
-        const element = this.button.shadowRoot.querySelector('button');
-        this.mdcRipple = new ripple.MDCRipple(element);
+        if (this.isServer === false) {
+            const element = this.button.shadowRoot.querySelector('button');
+            this.mdcRipple = new ripple.MDCRipple(element);
+        }
     }
 
     public componentDidUnload() {
