@@ -228,7 +228,14 @@ export class AppHome {
                     </div>
                 </div>
 
-                <p class="rules-version">Rules version: 0.3</p>
+                <p class="rules-version">
+                    <a
+                        href="https://docs.google.com/document/d/1CvZDxGJvnb04LQGp3L2vGBpYlsBhTPxbKraBfAtiJjA"
+                        target="_blank"
+                    >
+                        Rules version: 0.3
+                    </a>
+                </p>
 
                 <aside class="settings">
                     <button
