@@ -3,11 +3,11 @@
   "fsNamespace": "app",
   "loader": "../app.js",
   "global": "app.global.js",
-  "core": "app.iqjpnrrj.js",
+  "core": "app.apmbfxfl.js",
   "corePolyfilled": "app.eeqcbigw.js",
   "components": {
     "app-home": {
-      "$": "tymeeouv"
+      "$": "i3hflgik"
     },
     "app-root": {
       "$": "fs6mbz86"
