@@ -7,10 +7,13 @@
   "corePolyfilled": "app.eeqcbigw.js",
   "components": {
     "app-home": {
-      "$": "i3hflgik"
+      "$": "uxek5as6"
     },
     "app-root": {
       "$": "fs6mbz86"
+    },
+    "app-rules": {
+      "$": "uxek5as6"
     },
     "pd-button": {
       "$": "rfxplvnc"
