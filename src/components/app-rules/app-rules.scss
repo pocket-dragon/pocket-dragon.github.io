@@ -1,0 +1,34 @@
+@import "../../variables";
+@import "@material/dialog/mdc-dialog";
+
+.dialog-body {
+    font-family: Arial, "sans-serif";
+    max-height: calc(100vh - 12rem);
+    overflow-y: auto;
+    text-align: left !important;
+    text-transform: none;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: $pocket-dragon-font;
+        text-transform: uppercase;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+        margin-top: 2em;
+    }
+
+    h3 {
+        font-size: 1.25em;
+        margin-top: 2em;
+    }
+}

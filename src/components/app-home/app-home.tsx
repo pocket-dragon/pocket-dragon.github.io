@@ -64,6 +64,7 @@ export class AppHome {
     @State() private difficultyLevel = '';
     @State() private feedTimer = 0;
     @State() private gameOverDialog;
+    @State() private rulesDialog;
     @State() private gameTimer = 0;
     @State() private goalNumberOfSuccesses = 0;
     @State() private initialFeedTimer = 0;
@@ -107,6 +108,7 @@ export class AppHome {
         this.timerBeep = this.htmlElement.querySelector('#timer-beep');
         this.timerBeep2x = this.htmlElement.querySelector('#timer-beep-2x');
         this.timerBeep3x = this.htmlElement.querySelector('#timer-beep-3x');
+        this.rulesDialog = this.htmlElement.querySelector('app-rules');
         this.gameOverDialog = new dialog.MDCDialog(
             document.querySelector('#game-over-dialog')
         );
@@ -230,8 +232,11 @@ export class AppHome {
 
                 <p class="rules-version">
                     <a
-                        href="https://docs.google.com/document/d/1CvZDxGJvnb04LQGp3L2vGBpYlsBhTPxbKraBfAtiJjA"
-                        target="_blank"
+                        href=""
+                        onClick={event => {
+                            event.preventDefault();
+                            this.showRules();
+                        }}
                     >
                         Rules version: 0.3
                     </a>
@@ -281,6 +286,8 @@ export class AppHome {
                     </div>
                     <div class="mdc-dialog__backdrop" />
                 </aside>
+
+                <app-rules />
 
                 <audio id="timer-beep" preload="auto">
                     <source
@@ -462,5 +469,9 @@ export class AppHome {
         this.resultText = result.text;
         this.resultButtonLabel = result.buttonLabel;
         this.gameOverDialog.show();
+    }
+
+    private showRules() {
+        this.rulesDialog.showRules();
     }
 }
