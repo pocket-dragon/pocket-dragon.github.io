@@ -447,16 +447,16 @@
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/sane/node_modules/fsevents/node_modules/ansi-regex
-│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/sane/node_modules/fsevents/node_modules/ansi-regex/license
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/ansi-regex
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/ansi-regex/license
 ├─ ansi-regex@3.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/chalk/ansi-regex
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/pretty-format/node_modules/ansi-regex
-│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/pretty-format/node_modules/ansi-regex/license
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/showdown/node_modules/ansi-regex
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/showdown/node_modules/ansi-regex/license
 ├─ ansi-styles@2.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/chalk/ansi-styles
@@ -1218,8 +1218,8 @@
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/camelcase-keys/node_modules/camelcase
-│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/camelcase-keys/node_modules/camelcase/license
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/showdown/node_modules/camelcase
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/showdown/node_modules/camelcase/license
 ├─ capture-exit@1.2.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/stefanpenner/capture-exit
@@ -1401,8 +1401,8 @@
 │  ├─ repository: https://github.com/yargs/cliui
 │  ├─ publisher: Ben Coe
 │  ├─ email: ben@npmjs.com
-│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/semantic-release/node_modules/cliui
-│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/semantic-release/node_modules/cliui/LICENSE.txt
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/showdown/node_modules/cliui
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/showdown/node_modules/cliui/LICENSE.txt
 ├─ clone-response@1.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/lukechilds/clone-response
@@ -1430,8 +1430,8 @@
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/sane/node_modules/fsevents/node_modules/code-point-at
-│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/sane/node_modules/fsevents/node_modules/code-point-at/license
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/code-point-at
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/code-point-at/license
 ├─ collection-visit@1.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jonschlinkert/collection-visit
@@ -3554,16 +3554,16 @@
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/sane/node_modules/fsevents/node_modules/is-fullwidth-code-point
-│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/sane/node_modules/fsevents/node_modules/is-fullwidth-code-point/license
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-fullwidth-code-point
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/is-fullwidth-code-point/license
 ├─ is-fullwidth-code-point@2.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/is-fullwidth-code-point
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/jest-runtime/node_modules/is-fullwidth-code-point
-│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/jest-runtime/node_modules/is-fullwidth-code-point/license
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/showdown/node_modules/is-fullwidth-code-point
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/showdown/node_modules/is-fullwidth-code-point/license
 ├─ is-glob@2.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jonschlinkert/is-glob
@@ -5058,8 +5058,8 @@
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/sane/node_modules/fsevents/node_modules/number-is-nan
-│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/sane/node_modules/fsevents/node_modules/number-is-nan/license
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/number-is-nan
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/number-is-nan/license
 ├─ nwmatcher@1.4.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/dperini/nwmatcher
@@ -6444,8 +6444,8 @@
 │  ├─ repository: https://github.com/yargs/set-blocking
 │  ├─ publisher: Ben Coe
 │  ├─ email: ben@npmjs.com
-│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/sane/node_modules/fsevents/node_modules/set-blocking
-│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/sane/node_modules/fsevents/node_modules/set-blocking/LICENSE.txt
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/set-blocking
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/set-blocking/LICENSE.txt
 ├─ set-immediate-shim@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/set-immediate-shim
@@ -6505,13 +6505,19 @@
 │  ├─ url: http://jimmycuadra.com/
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/shellwords
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/shellwords/LICENSE
+├─ showdown@1.8.6
+│  ├─ licenses: BSD-3-Clause
+│  ├─ repository: https://github.com/showdownjs/showdown
+│  ├─ publisher: Estevão Santos
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/showdown
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/showdown/license.txt
 ├─ signal-exit@3.0.2
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/tapjs/signal-exit
 │  ├─ publisher: Ben Coe
 │  ├─ email: ben@npmjs.com
-│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/sane/node_modules/fsevents/node_modules/signal-exit
-│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/sane/node_modules/fsevents/node_modules/signal-exit/LICENSE.txt
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/signal-exit
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/signal-exit/LICENSE.txt
 ├─ slash@1.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/slash
@@ -6840,16 +6846,16 @@
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/sane/node_modules/fsevents/node_modules/string-width
-│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/sane/node_modules/fsevents/node_modules/string-width/license
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/string-width
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/string-width/license
 ├─ string-width@2.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/string-width
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/jest-runtime/node_modules/string-width
-│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/jest-runtime/node_modules/string-width/license
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/showdown/node_modules/string-width
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/showdown/node_modules/string-width/license
 ├─ string.prototype.matchall@2.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/ljharb/String.prototype.matchAll
@@ -6894,16 +6900,16 @@
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/sane/node_modules/fsevents/node_modules/strip-ansi
-│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/sane/node_modules/fsevents/node_modules/strip-ansi/license
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/strip-ansi
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/strip-ansi/license
 ├─ strip-ansi@4.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/chalk/strip-ansi
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/jest-runtime/node_modules/strip-ansi
-│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/jest-runtime/node_modules/strip-ansi/license
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/showdown/node_modules/strip-ansi
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/showdown/node_modules/strip-ansi/license
 ├─ strip-bom@2.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/strip-bom
@@ -7849,6 +7855,13 @@
 │  ├─ email: ben@npmjs.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/jest-runtime/node_modules/yargs-parser
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/jest-runtime/node_modules/yargs-parser/LICENSE.txt
+├─ yargs-parser@8.1.0
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/yargs/yargs-parser
+│  ├─ publisher: Ben Coe
+│  ├─ email: ben@npmjs.com
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/showdown/node_modules/yargs-parser
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/showdown/node_modules/yargs-parser/LICENSE.txt
 ├─ yargs-parser@9.0.2
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/yargs/yargs-parser
@@ -7856,6 +7869,11 @@
 │  ├─ email: ben@npmjs.com
 │  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/yargs-parser
 │  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/yargs-parser/LICENSE.txt
+├─ yargs@10.1.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/yargs/yargs
+│  ├─ path: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/showdown/node_modules/yargs
+│  └─ licenseFile: /Users/adrian_schmidt/GitHub/pocketdragon/node_modules/showdown/node_modules/yargs/LICENSE
 ├─ yargs@11.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/yargs/yargs
