@@ -1,4 +1,4 @@
-import { Component, Element, Method, State } from '@stencil/core';
+import { Component, Element, Method, Prop, State } from '@stencil/core';
 import { dialog } from 'material-components-web';
 import * as showdown from 'showdown';
 import * as Rules from './game-rules';
@@ -9,6 +9,9 @@ import * as Rules from './game-rules';
 })
 export class AppHome {
     @Element() public htmlElement: HTMLElement;
+
+    @Prop({ context: 'isServer' })
+    private isServer: boolean;
 
     @State() private rulesDialog;
     @State() private pocketDragon = '';
@@ -91,28 +94,29 @@ export class AppHome {
                     <section class="mdc-dialog__body">
                         <div class="dialog-body">
                             <span innerHTML={this.pocketDragon} />
-                            {this.promos.map(promo => {
-                                return (
-                                    <app-collapsible-section class="clearfix">
-                                        <h2 slot="header">
-                                            Promo Rules: {promo.displayName}
-                                        </h2>
-                                        <div>
-                                            <img
-                                                src={`/assets/promo-${
-                                                    promo.name
-                                                }.jpg`}
-                                                class="promo"
-                                            />
-                                            <span
-                                                innerHTML={this.getPromoRules(
-                                                    promo.name
-                                                )}
-                                            />
-                                        </div>
-                                    </app-collapsible-section>
-                                );
-                            })}
+                            {!this.isServer &&
+                                this.promos.map(promo => {
+                                    return (
+                                        <app-collapsible-section class="clearfix">
+                                            <h2 slot="header">
+                                                Promo Rules: {promo.displayName}
+                                            </h2>
+                                            <div>
+                                                <img
+                                                    src={`/assets/promo-${
+                                                        promo.name
+                                                    }.jpg`}
+                                                    class="promo"
+                                                />
+                                                <span
+                                                    innerHTML={this.getPromoRules(
+                                                        promo.name
+                                                    )}
+                                                />
+                                            </div>
+                                        </app-collapsible-section>
+                                    );
+                                })}
                         </div>
                     </section>
                     <footer class="mdc-dialog__footer">
