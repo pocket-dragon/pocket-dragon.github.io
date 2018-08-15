@@ -1,0 +1,32 @@
+:host {
+    display: block;
+}
+
+:host[hidden] {
+    display: none;
+}
+
+header {
+    cursor: pointer;
+
+    &:before {
+        float: left;
+        margin-right: 0.5rem;
+    }
+}
+
+section.collapsed {
+    header:before {
+        content: '▲';
+    }
+
+    .body {
+        display: none;
+    }
+}
+
+section.expanded {
+    header:before {
+        content: '▼';
+    }
+}
