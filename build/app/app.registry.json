@@ -6,17 +6,14 @@
   "core": "app.iqjpnrrj.js",
   "corePolyfilled": "app.eeqcbigw.js",
   "components": {
-    "app-collapsible-section": {
-      "$": "kqbfkg7y"
-    },
     "app-home": {
-      "$": "iakgty0w"
+      "$": "uxek5as6"
     },
     "app-root": {
-      "$": "iakgty0w"
+      "$": "fs6mbz86"
     },
     "app-rules": {
-      "$": "docmyqoo"
+      "$": "uxek5as6"
     },
     "pd-button": {
       "$": "rfxplvnc"
