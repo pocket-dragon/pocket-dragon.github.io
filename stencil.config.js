@@ -10,14 +10,6 @@ exports.config = {
         {
             src: 'CNAME',
         },
-        {
-            src: '../node_modules/showdown/dist/showdown.min.js',
-            dest: 'assets/showdown.min.js',
-        },
-        {
-            src: '../node_modules/showdown/dist/showdown.min.js.map',
-            dest: 'assets/showdown.min.js.map',
-        },
     ],
     globalStyle: 'src/global/app.css',
     plugins: [sass()],

@@ -1,5 +1,6 @@
 import { Component, Element, Method, State } from '@stencil/core';
 import { dialog } from 'material-components-web';
+import * as showdown from 'showdown';
 import * as Rules from './game-rules';
 
 @Component({
@@ -55,7 +56,7 @@ export class AppHome {
         },
     ];
 
-    private converter = new window['showdown'].Converter(); // tslint:disable-line:no-string-literal
+    private converter = new showdown.default.Converter();
 
     @Method()
     public showRules() {
