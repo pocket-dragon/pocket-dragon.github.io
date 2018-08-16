@@ -59,7 +59,10 @@ export class AppHome {
         },
     ];
 
-    private converter = new showdown.default.Converter();
+    private converter = new showdown.default.Converter({
+        simpleLineBreaks: true,
+        underline: true,
+    });
 
     @Method()
     public showRules() {
@@ -89,7 +92,7 @@ export class AppHome {
             <aside id="rules-dialog" class="mdc-dialog">
                 <div class="mdc-dialog__surface">
                     <header class="mdc-dialog__header">
-                        <h2 class="mdc-dialog__header__title">Game Rules</h2>
+                        <h1 class="mdc-dialog__header__title">Rules</h1>
                     </header>
                     <section class="mdc-dialog__body">
                         <div class="dialog-body">
