@@ -238,7 +238,7 @@ export class AppHome {
                             this.showRules();
                         }}
                     >
-                        Rules version: 1.0.0
+                        Rules version: 1.0.1
                     </a>
                 </p>
 
