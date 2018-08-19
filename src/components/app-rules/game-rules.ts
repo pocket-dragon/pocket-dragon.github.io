@@ -73,6 +73,8 @@ You can then determine your score:
 ## Credits:
 
 Game Design: Dávid Turczi and Wai-yee Phuah
+Illustrations: David Cochard
+Graphic Design: Zak Eidsvoog
 With a little help from: Jonathan Gilmour and Adrian Schmidt
 Special thanks for playtesting to: Nick Shaw, Neil HK, Anthony Howgego
 Proofreading: Lindsay Miller
