@@ -3,20 +3,20 @@
   "fsNamespace": "app",
   "loader": "../app.js",
   "global": "app.global.js",
-  "core": "app.apmbfxfl.js",
+  "core": "app.iqjpnrrj.js",
   "corePolyfilled": "app.eeqcbigw.js",
   "components": {
     "app-collapsible-section": {
       "$": "kqbfkg7y"
     },
     "app-home": {
-      "$": "3faob21a"
+      "$": "24gdsp08"
     },
     "app-root": {
-      "$": "3faob21a"
+      "$": "24gdsp08"
     },
     "app-rules": {
-      "$": "zmbkslym"
+      "$": "hayazscf"
     },
     "pd-button": {
       "$": "rfxplvnc"
