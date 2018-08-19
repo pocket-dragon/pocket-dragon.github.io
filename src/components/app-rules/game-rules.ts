@@ -108,9 +108,9 @@ When playing against the Dahlgaard’s Heir solo opponent (requires Dahlgaard’
 export const petrichor = `
 ### The&nbsp;Swarming
 
-*Petrichor designed by David Chircop; Petrichor: Honeybees & The Swarming designed by David Chircop & Dávid Turczi. Art by Daniela “iella” Attard, graphics by Sami Laakso.*
+*Petrichor designed by David Chircop; Petrichor: Honeybee & The Swarming designed by David Chircop & Dávid Turczi. Art by Daniela “iella” Attard, graphics by Sami Laakso.*
 
-*Requires Petrichor: Honeybees expansion to play.*
+*Requires Petrichor: Honeybee expansion to play.*
 __Setup__: Place this card next to the play area, within reach of all players.
 __Gameplay__: Any player may take a Swarming action, by discarding any one card. This can be first or second action, including after a player has passed. Each player (including the one who triggered Swarming) may then choose to gain 1 honey. For each player who chose to take honey, the triggering player may **add one drop directly to the tile** where the Bee is currently present. Afterwards, remove the Swarming card from play, it may not be triggered again in the game.
 
