@@ -1,4 +1,4 @@
-import { Component, Element, Prop, State } from '@stencil/core';
+import { Component, Element, Prop, State, Watch } from '@stencil/core';
 import { dialog, iconButton } from 'material-components-web';
 import Storage from '../../services/storage';
 
@@ -122,6 +122,9 @@ export class AppHome {
         this.toggleSoundButton = new iconButton.MDCIconButtonToggle(
             this.htmlElement.querySelector('#toggle-sound')
         );
+        if (this.soundEnabled) {
+            this.toggleSoundButton.on = this.soundEnabled;
+        }
         this.toggleSoundButton.listen('MDCIconButtonToggle:change', data => {
             this.soundEnabled = data.detail.isOn;
             this.storage.set('soundEnabled', this.soundEnabled);
@@ -340,6 +343,13 @@ export class AppHome {
                 </audio>
             </section>
         );
+    }
+
+    @Watch('soundEnabled')
+    protected soundEnabledWatcher(value) {
+        if (this.toggleSoundButton) {
+            this.toggleSoundButton.on = value;
+        }
     }
 
     private isFeedingAllowed() {
