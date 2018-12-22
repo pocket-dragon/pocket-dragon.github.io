@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run emptyDist && SASS_PATH=node_modules stencil build --prerender",
     "cm": "git-cz",
-    "dev": "SASS_PATH=node_modules sd concurrent \"stencil build --dev --watch\" \"stencil-dev-server\" ",
+    "dev": "SASS_PATH=node_modules stencil build --dev --watch --serve",
     "emptyDist": "find dist -not -name '.git' -delete",
     "license-checker": "./node_modules/license-checker/bin/license-checker > LICENSES.txt",
     "lint": "npm run lint:src && npm run lint:config",
@@ -19,7 +19,6 @@
     "postinstall": "npm run license-checker",
     "publishApp": "npm run build && cd dist && git add --all && git commit -m \"Publishing to gh-pages\" && git push --force && cd ..",
     "semantic-release": "semantic-release",
-    "serve": "stencil-dev-server",
     "start": "npm run dev",
     "test": "jest",
     "test.watch": "jest --watch"
@@ -30,16 +29,14 @@
     }
   },
   "dependencies": {
-    "@stencil/core": "^0.9.11",
-    "@stencil/router": "^0.2.2",
+    "@stencil/core": "^0.16.1",
+    "@stencil/router": "^0.3.1",
     "localforage": "^1.7.2",
     "material-components-web": "^0.36.1",
     "showdown": "^1.8.6"
   },
   "devDependencies": {
-    "@stencil/dev-server": "latest",
-    "@stencil/sass": "0.0.5",
-    "@stencil/utils": "latest",
+    "@stencil/sass": "^0.1.1",
     "@types/jest": "^21.1.1",
     "commitizen": "^2.10.1",
     "cz-conventional-changelog": "^2.1.0",
