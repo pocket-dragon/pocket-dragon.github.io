@@ -44,7 +44,7 @@
     "husky": "^1.2.1",
     "license-checker": "^24.1.0",
     "prettier": "^1.15.3",
-    "semantic-release": "^15.6.0",
+    "semantic-release": "^15.13.1",
     "tslint": "^5.12.0",
     "tslint-config-prettier": "^1.17.0",
     "tslint-eslint-rules": "^5.4.0",
