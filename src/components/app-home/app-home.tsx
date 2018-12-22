@@ -125,6 +125,9 @@ export class AppHome {
         this.toggleSoundButton.listen('MDCIconButtonToggle:change', data => {
             this.soundEnabled = data.detail.isOn;
             this.storage.set('soundEnabled', this.soundEnabled);
+            if (this.soundEnabled) {
+                this.timerBeep.play();
+            }
         });
     }
 
@@ -290,58 +293,46 @@ export class AppHome {
                 <app-rules />
 
                 <audio id="timer-beep" preload="auto">
-                    <source
-                        src="/assets/sound/beep-hightone.mp3"
-                        type="audio/mp3"
-                    />
-                    <source
-                        src="/assets/sound/beep-hightone.ogg"
-                        type="audio/ogg"
-                    />
-                    <source
-                        src="/assets/sound/beep-hightone.wav"
-                        type="audio/wave"
-                    />
-                    <source
-                        src="/assets/sound/beep-hightone.wav"
-                        type="audio/wav"
-                    />
+                    <source src="/assets/sound/cling_2.mp3" type="audio/mp3" />
+                    <source src="/assets/sound/cling_2.ogg" type="audio/ogg" />
+                    <source src="/assets/sound/cling_2.wav" type="audio/wave" />
+                    <source src="/assets/sound/cling_2.wav" type="audio/wav" />
                     <p>Your browser does not support html5 audio.</p>
                 </audio>
                 <audio id="timer-beep-2x" preload="auto">
                     <source
-                        src="/assets/sound/beep-hightone-2x.mp3"
+                        src="/assets/sound/cling_2-2x.mp3"
                         type="audio/mp3"
                     />
                     <source
-                        src="/assets/sound/beep-hightone-2x.ogg"
+                        src="/assets/sound/cling_2-2x.ogg"
                         type="audio/ogg"
                     />
                     <source
-                        src="/assets/sound/beep-hightone-2x.wav"
+                        src="/assets/sound/cling_2-2x.wav"
                         type="audio/wave"
                     />
                     <source
-                        src="/assets/sound/beep-hightone-2x.wav"
+                        src="/assets/sound/cling_2-2x.wav"
                         type="audio/wav"
                     />
                     <p>Your browser does not support html5 audio.</p>
                 </audio>
                 <audio id="timer-beep-3x" preload="auto">
                     <source
-                        src="/assets/sound/beep-hightone-3x.mp3"
+                        src="/assets/sound/cling_2-3x.mp3"
                         type="audio/mp3"
                     />
                     <source
-                        src="/assets/sound/beep-hightone-3x.ogg"
+                        src="/assets/sound/cling_2-3x.ogg"
                         type="audio/ogg"
                     />
                     <source
-                        src="/assets/sound/beep-hightone-3x.wav"
+                        src="/assets/sound/cling_2-3x.wav"
                         type="audio/wave"
                     />
                     <source
-                        src="/assets/sound/beep-hightone-3x.wav"
+                        src="/assets/sound/cling_2-3x.wav"
                         type="audio/wav"
                     />
                     <p>Your browser does not support html5 audio.</p>
