@@ -19,9 +19,7 @@
     "postinstall": "npm run license-checker",
     "publishApp": "npm run build && cd dist && git add --all && git commit -m \"Publishing to gh-pages\" && git push --force && cd ..",
     "semantic-release": "semantic-release",
-    "start": "npm run dev",
-    "test": "jest",
-    "test.watch": "jest --watch"
+    "start": "npm run dev"
   },
   "husky": {
     "hooks": {
@@ -37,14 +35,13 @@
   },
   "devDependencies": {
     "@stencil/sass": "^0.1.1",
-    "@types/jest": "^21.1.1",
+    "acorn": "^6.0.4",
     "commitizen": "^3.0.5",
     "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.10.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-prettier": "^3.0.0",
     "husky": "^1.0.0-rc.9",
-    "jest": "^21.2.1",
     "license-checker": "^20.1.0",
     "prettier": "^1.15.3",
     "semantic-release": "^15.6.0",
