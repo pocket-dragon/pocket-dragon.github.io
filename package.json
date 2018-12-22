@@ -42,7 +42,7 @@
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-prettier": "^3.0.0",
     "husky": "^1.2.1",
-    "license-checker": "^20.1.0",
+    "license-checker": "^24.1.0",
     "prettier": "^1.15.3",
     "semantic-release": "^15.6.0",
     "tslint": "^5.12.0",
