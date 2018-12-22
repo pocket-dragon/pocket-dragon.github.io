@@ -196,7 +196,8 @@ export class AppHome {
                 </div>
                 <div class="successes">
                     <div>
-                        Number of<br />
+                        Number of
+                        <br />
                         successes left:
                     </div>
                     <div class="counter">{this.successesUntilVictory}</div>
