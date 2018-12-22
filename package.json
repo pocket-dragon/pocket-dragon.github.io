@@ -29,7 +29,7 @@
   "dependencies": {
     "@stencil/core": "^0.16.1",
     "@stencil/router": "^0.3.1",
-    "localforage": "^1.7.2",
+    "localforage": "^1.7.3",
     "material-components-web": "^0.36.1",
     "showdown": "^1.8.6"
   },
