@@ -84,10 +84,12 @@ Thanks to Richard Ham (Rahdo) and Tom Heath (Slickerdrips) for the review videos
 export const anachrony = `
 ### The&nbsp;Sentry&nbsp;Post
 
+Version 1.1
+
 *Designed by Dávid Turczi with Viktor Peter and Richard Amann. Graphics by Villő Farkas.*
 
 __Setup__: Place this card next to the main board, within reach of all players.
-__Gameplay__: This is a new Hex space available to use in Phase 5 (Action Rounds). Its action: The player may **remove all Free Action markers** from their player board (including from buildings and superprojects on their player board), making the Free Actions (and the markers) available again. Additionally, power up an exosuit at no cost (if able), and score 1 victory point.
+__Gameplay__: This is a new Hex space available to use in Phase 5 (Action Rounds). Its action: The player may **remove all of their Free Action markers** (including from buildings and superprojects), making the Free Actions (and the markers) available again. Additionally, power up an exosuit at no cost (if able), and score 1 victory point.
 Any worker may be placed here without restriction. Only a single exosuit may be present here at any given time.
 
 When playing against the Chronobot solo opponent, the Chronobot takes this location (but still gaining 2 water and scoring 1 victory point) the first time per round it is unable to take any other action.
