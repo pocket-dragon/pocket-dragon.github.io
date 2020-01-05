@@ -1,0 +1,1 @@
+import{r as t,h as s}from"./p-9356d36f.js";const e=class{constructor(s){t(this,s)}render(){return s("section",null,"This is the settings page.")}static get style(){return":host{display:block}"}};export{e as pd_settings};
