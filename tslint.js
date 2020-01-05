@@ -82,7 +82,6 @@ module.exports = {
 
         // Variables
         'no-shadowed-variable': true,
-        'no-unused-variable': true,
 
         // Style
         'arrow-return-shorthand': false,
