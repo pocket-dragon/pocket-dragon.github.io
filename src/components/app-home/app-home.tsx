@@ -1,4 +1,4 @@
-import { Component, Element, Prop, State, Watch } from '@stencil/core';
+import { Build, Component, Element, h, State, Watch } from '@stencil/core';
 import { dialog, iconButton } from 'material-components-web';
 import Storage from '../../services/storage';
 
@@ -57,9 +57,6 @@ const SECONDS_WORTH_ONE_POINT = 10;
 export class AppHome {
     @Element() public htmlElement: HTMLElement;
 
-    @Prop({ context: 'isServer' })
-    private isServer: boolean;
-
     @State() private clueTimer = 0;
     @State() private difficultyLevel = '';
     @State() private feedTimer = 0;
@@ -88,7 +85,7 @@ export class AppHome {
     @State() private gameWon = false;
 
     public componentWillLoad() {
-        if (this.isServer === false) {
+        if (Build.isBrowser) {
             this.storage = new Storage();
             this.storage.get('soundEnabled').then(soundEnabled => {
                 if (soundEnabled === null) {

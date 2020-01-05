@@ -1,4 +1,4 @@
-import { Component, Element, Prop, State } from '@stencil/core';
+import { Build, Component, Element, h, Prop, State } from '@stencil/core';
 import { ripple } from 'material-components-web';
 
 @Component({
@@ -22,15 +22,12 @@ export class Button {
     @Prop({ reflectToAttr: true })
     public color: string;
 
-    @Prop({ context: 'isServer' })
-    private isServer: boolean;
-
     @Element() private button: HTMLElement;
 
     @State() private mdcRipple;
 
     public componentDidLoad() {
-        if (this.isServer === false) {
+        if (Build.isBrowser) {
             const element = this.button.shadowRoot.querySelector('button');
             this.mdcRipple = new ripple.MDCRipple(element);
         }

@@ -1,4 +1,4 @@
-import { Component, Element, Method, Prop, State } from '@stencil/core';
+import { Build, Component, Element, h, Method, State } from '@stencil/core';
 import { dialog } from 'material-components-web';
 import * as showdown from 'showdown';
 import * as Rules from './game-rules';
@@ -9,9 +9,6 @@ import * as Rules from './game-rules';
 })
 export class AppHome {
     @Element() public htmlElement: HTMLElement;
-
-    @Prop({ context: 'isServer' })
-    private isServer: boolean;
 
     @State() private rulesDialog;
     @State() private pocketDragon = '';
@@ -65,7 +62,7 @@ export class AppHome {
     });
 
     @Method()
-    public showRules() {
+    public async showRules() {
         this.rulesDialog.show();
     }
 
@@ -97,7 +94,7 @@ export class AppHome {
                     <section class="mdc-dialog__body">
                         <div class="dialog-body">
                             <span innerHTML={this.pocketDragon} />
-                            {!this.isServer &&
+                            {Build.isBrowser &&
                                 this.promos.map(promo => {
                                     return (
                                         <app-collapsible-section class="clearfix">
