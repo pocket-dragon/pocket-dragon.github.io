@@ -9,7 +9,8 @@
   "es2017": "dist/esm/index.mjs",
   "jsnext:main": "dist/esm/index.mjs",
   "scripts": {
-    "build": "npm run emptyDist && SASS_PATH=node_modules stencil build",
+    "build": "npm run emptyDist && npm run build:ci",
+    "build:ci": "SASS_PATH=node_modules stencil build",
     "cm": "git-cz",
     "dev": "SASS_PATH=node_modules stencil build --dev --watch --serve",
     "emptyDist": "find dist -not -name '.git' -delete",
