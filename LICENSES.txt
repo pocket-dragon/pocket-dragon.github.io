@@ -1006,8 +1006,8 @@
 │  ├─ publisher: Thomas Watson Steen
 │  ├─ email: w@tson.dk
 │  ├─ url: https://twitter.com/wa7son
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/ci-info
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/ci-info/LICENSE
+│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/ci-info
+│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/ci-info/LICENSE
 ├─ cidr-regex@2.0.9
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/silverwind/cidr-regex
@@ -1400,22 +1400,22 @@
 │  ├─ repository: https://github.com/visionmedia/debug
 │  ├─ publisher: TJ Holowaychuk
 │  ├─ email: tj@vision-media.ca
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/http-proxy-agent/node_modules/debug
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/http-proxy-agent/node_modules/debug/LICENSE
+│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/debug
+│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/debug/LICENSE
 ├─ debug@3.2.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/visionmedia/debug
 │  ├─ publisher: TJ Holowaychuk
 │  ├─ email: tj@vision-media.ca
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/https-proxy-agent/node_modules/debug
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/https-proxy-agent/node_modules/debug/LICENSE
+│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/license-checker/node_modules/debug
+│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/license-checker/node_modules/debug/LICENSE
 ├─ debug@4.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/visionmedia/debug
 │  ├─ publisher: TJ Holowaychuk
 │  ├─ email: tj@vision-media.ca
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/@semantic-release/github/node_modules/debug
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/@semantic-release/github/node_modules/debug/LICENSE
+│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/@semantic-release/commit-analyzer/node_modules/debug
+│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/@semantic-release/commit-analyzer/node_modules/debug/LICENSE
 ├─ debuglog@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sam-github/node-debuglog
@@ -2024,8 +2024,8 @@
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/pkg-dir/node_modules/find-up
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/pkg-dir/node_modules/find-up/license
+│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/yargs/node_modules/find-up
+│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/yargs/node_modules/find-up/license
 ├─ find-versions@3.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/find-versions
@@ -2478,8 +2478,8 @@
 │  ├─ publisher: Nathan Rajlich
 │  ├─ email: nathan@tootallnate.net
 │  ├─ url: http://n8.io/
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/http-proxy-agent
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/http-proxy-agent/README.md
+│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/http-proxy-agent
+│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/http-proxy-agent/README.md
 ├─ http-signature@1.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/joyent/node-http-signature
@@ -2492,8 +2492,8 @@
 │  ├─ publisher: Nathan Rajlich
 │  ├─ email: nathan@tootallnate.net
 │  ├─ url: http://n8.io/
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/https-proxy-agent
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/https-proxy-agent/README.md
+│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/https-proxy-agent
+│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/https-proxy-agent/README.md
 ├─ humanize-ms@1.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/node-modules/humanize-ms
@@ -2502,13 +2502,6 @@
 │  ├─ url: http://deadhorse.me
 │  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/humanize-ms
 │  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/humanize-ms/LICENSE
-├─ husky@1.2.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/typicode/husky
-│  ├─ publisher: Typicode
-│  ├─ email: typicode@gmail.com
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/husky
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/husky/LICENSE
 ├─ iconv-lite@0.4.23
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/ashtuchkin/iconv-lite
@@ -2740,14 +2733,6 @@
 │  ├─ url: https://twitter.com/wa7son
 │  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/is-ci
 │  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/is-ci/LICENSE
-├─ is-ci@1.2.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/watson/is-ci
-│  ├─ publisher: Thomas Watson Steen
-│  ├─ email: w@tson.dk
-│  ├─ url: https://twitter.com/wa7son
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/is-ci
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/is-ci/LICENSE
 ├─ is-cidr@2.0.6
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/silverwind/is-cidr
@@ -3317,8 +3302,8 @@
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/pkg-dir/node_modules/locate-path
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/pkg-dir/node_modules/locate-path/license
+│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/yargs/node_modules/locate-path
+│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/yargs/node_modules/locate-path/license
 ├─ lock-verify@2.0.2
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/iarna/lock-verify
@@ -3896,8 +3881,8 @@
 ├─ ms@2.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/zeit/ms
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/@semantic-release/github/node_modules/ms
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/@semantic-release/github/node_modules/ms/license.md
+│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/@semantic-release/commit-analyzer/node_modules/ms
+│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/@semantic-release/commit-analyzer/node_modules/ms/license.md
 ├─ mute-stream@0.0.7
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/isaacs/mute-stream
@@ -4332,8 +4317,8 @@
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/pkg-dir/node_modules/p-limit
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/pkg-dir/node_modules/p-limit/license
+│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/yargs/node_modules/p-limit
+│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/yargs/node_modules/p-limit/license
 ├─ p-locate@2.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/p-locate
@@ -4348,8 +4333,8 @@
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/pkg-dir/node_modules/p-locate
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/pkg-dir/node_modules/p-locate/license
+│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/yargs/node_modules/p-locate
+│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/yargs/node_modules/p-locate/license
 ├─ p-map@1.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/p-map
@@ -4524,20 +4509,6 @@
 │  ├─ url: sindresorhus.com
 │  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/pkg-conf
 │  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/pkg-conf/license
-├─ pkg-dir@3.0.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/sindresorhus/pkg-dir
-│  ├─ publisher: Sindre Sorhus
-│  ├─ email: sindresorhus@gmail.com
-│  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/pkg-dir
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/pkg-dir/license
-├─ please-upgrade-node@3.1.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/typicode/please-upgrade-node
-│  ├─ publisher: typicode
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/please-upgrade-node
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/please-upgrade-node/LICENSE
 ├─ pluralize@7.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/blakeembrey/pluralize
@@ -5088,14 +5059,6 @@
 │  ├─ email: admin@simonboudrias.com
 │  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/run-async
 │  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/run-async/LICENSE
-├─ run-node@1.0.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/sindresorhus/run-node
-│  ├─ publisher: Sindre Sorhus
-│  ├─ email: sindresorhus@gmail.com
-│  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/run-node
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/run-node/license
 ├─ run-queue@1.0.3
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/iarna/run-queue
@@ -5151,14 +5114,6 @@
 │  ├─ url: http://boennemann.me
 │  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/semantic-release
 │  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/semantic-release/LICENSE
-├─ semver-compare@1.0.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/substack/semver-compare
-│  ├─ publisher: James Halliday
-│  ├─ email: mail@substack.net
-│  ├─ url: http://substack.net
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/semver-compare
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/semver-compare/LICENSE
 ├─ semver-diff@2.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/semver-diff
@@ -5276,14 +5231,6 @@
 │  ├─ url: http://sindresorhus.com
 │  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/slash
 │  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/slash/readme.md
-├─ slash@2.0.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/sindresorhus/slash
-│  ├─ publisher: Sindre Sorhus
-│  ├─ email: sindresorhus@gmail.com
-│  ├─ url: sindresorhus.com
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/husky/node_modules/slash
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/husky/node_modules/slash/license
 ├─ slice-ansi@2.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/chalk/slice-ansi

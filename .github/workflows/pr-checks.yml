@@ -1,0 +1,47 @@
+name: Pull Request Checks
+on: [pull_request]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - run: npm install
+    - run: npm run lint
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: npm install and build
+      run: |
+        npm ci
+        npm run build:ci --if-present
+      env:
+        CI: true
+
+  commitlint:
+    name: Commitlint
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v1
+      - uses: wagoid/commitlint-github-action@v1
+
+  autosquash:
+    name: Block Autosquash Commits
+    runs-on: ubuntu-latest
+    steps:
+      - name: Block Autosquash Commits
+        uses: xt0rted/block-autosquash-commits-action@v2.0.0
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
