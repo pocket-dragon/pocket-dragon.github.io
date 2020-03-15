@@ -27,11 +27,6 @@
     "semantic-release": "semantic-release",
     "start": "npm run dev"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
-  },
   "dependencies": {
     "@stencil/core": "^1.8.3",
     "@stencil/router": "^1.0.1",
@@ -47,7 +42,6 @@
     "eslint": "^5.10.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-prettier": "^3.0.0",
-    "husky": "^1.2.1",
     "license-checker": "^24.1.0",
     "prettier": "^1.15.3",
     "semantic-release": "^15.13.1",
