@@ -36,7 +36,7 @@
     "@stencil/core": "^1.8.3",
     "@stencil/router": "^1.0.1",
     "localforage": "^1.7.3",
-    "material-components-web": "^0.36.1",
+    "material-components-web": "^0.44.1",
     "showdown": "^1.9.0"
   },
   "devDependencies": {
