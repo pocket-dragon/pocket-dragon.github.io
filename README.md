@@ -1,6 +1,6 @@
 # Pocket Dragon Companion App
 
-[Try the app](https://pocketdragon.co.uk/)
+[Try the app](https://pocket-dragon.github.io/)
 
 This is the companion app to the boardgame Pocket Dragon.
 

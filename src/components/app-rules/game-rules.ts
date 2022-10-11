@@ -11,7 +11,7 @@ export const pocketDragon = `
 
 ## Setup
 
-1. Using an internet enabled smartphone (or other preferred touchscreen device) visit [https://pocketdragon.co.uk/](http://pocketdragon.co.uk/). Place the device on the table between the players, and set it on the side.
+1. Using an internet enabled smartphone (or other preferred touchscreen device) visit [https://pocket-dragon.github.io/](https://pocket-dragon.github.io/). Place the device on the table between the players, and set it on the side.
 2. Select the difficulty of the game (Easy, Medium, or Hard).
 3. Place the Happiness tracker card to the other side of the play area, and place the Happiness token on it.
     1. If playing Easy: set it to 4.

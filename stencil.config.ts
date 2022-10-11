@@ -7,9 +7,6 @@ const targetDist: OutputTargetDist = {
         {
             src: 'browserconfig.xml',
         },
-        {
-            src: 'CNAME',
-        },
     ],
     dir: 'dist',
     empty: false,
