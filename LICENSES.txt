@@ -1400,22 +1400,22 @@
 │  ├─ repository: https://github.com/visionmedia/debug
 │  ├─ publisher: TJ Holowaychuk
 │  ├─ email: tj@vision-media.ca
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/http-proxy-agent/node_modules/debug
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/http-proxy-agent/node_modules/debug/LICENSE
+│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/debug
+│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/debug/LICENSE
 ├─ debug@3.2.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/visionmedia/debug
 │  ├─ publisher: TJ Holowaychuk
 │  ├─ email: tj@vision-media.ca
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/https-proxy-agent/node_modules/debug
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/https-proxy-agent/node_modules/debug/LICENSE
+│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/license-checker/node_modules/debug
+│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/license-checker/node_modules/debug/LICENSE
 ├─ debug@4.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/visionmedia/debug
 │  ├─ publisher: TJ Holowaychuk
 │  ├─ email: tj@vision-media.ca
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/@semantic-release/github/node_modules/debug
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/@semantic-release/github/node_modules/debug/LICENSE
+│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/@semantic-release/commit-analyzer/node_modules/debug
+│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/@semantic-release/commit-analyzer/node_modules/debug/LICENSE
 ├─ debuglog@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sam-github/node-debuglog
@@ -2478,8 +2478,8 @@
 │  ├─ publisher: Nathan Rajlich
 │  ├─ email: nathan@tootallnate.net
 │  ├─ url: http://n8.io/
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/http-proxy-agent
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/http-proxy-agent/README.md
+│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/http-proxy-agent
+│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/http-proxy-agent/README.md
 ├─ http-signature@1.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/joyent/node-http-signature
@@ -2492,8 +2492,8 @@
 │  ├─ publisher: Nathan Rajlich
 │  ├─ email: nathan@tootallnate.net
 │  ├─ url: http://n8.io/
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/https-proxy-agent
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/https-proxy-agent/README.md
+│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/https-proxy-agent
+│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/https-proxy-agent/README.md
 ├─ humanize-ms@1.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/node-modules/humanize-ms
@@ -3896,8 +3896,8 @@
 ├─ ms@2.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/zeit/ms
-│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/@semantic-release/github/node_modules/ms
-│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/@semantic-release/github/node_modules/ms/license.md
+│  ├─ path: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/ms
+│  └─ licenseFile: /Users/adrian_schmidt/src/pocketdragon/node_modules/npm/node_modules/ms/license.md
 ├─ mute-stream@0.0.7
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/isaacs/mute-stream
