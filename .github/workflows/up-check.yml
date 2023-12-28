@@ -17,7 +17,10 @@ jobs:
         node-version: '20'
 
     - name: Install Puppeteer
-      run: npm install -g puppeteer
+      run: |
+        rm -f package-lock.json
+        echo "{}" > package.json
+        npm install puppeteer
 
     - name: Check Website Content
       run: node .github/workflows/check-website.js
