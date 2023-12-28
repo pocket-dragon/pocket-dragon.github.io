@@ -22,27 +22,17 @@ jobs:
       run: node check_website.js
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     - name: Create Issue on Failure
       if: failure()
       run: |
-        const issueData = {
-          title: 'Website Content Issue',
-          body: 'Automated check failed. The expected content was not found on the page.'
-        };
+        ISSUE_TITLE="Website Content Issue"
+        ISSUE_BODY="Automated check failed. The expected content was not found on the page."
+        API_URL="https://api.github.com/repos/pocket-dragon/pocket-dragon.github.io/issues"
+        DATA=$(jq -n --arg title "$ISSUE_TITLE" --arg body "$ISSUE_BODY" '{title: $title, body: $body}')
 
-        const response = await fetch('https://api.github.com/repos/pocket-dragon/pocket-dragon.github.io/issues', {
-          method: 'POST',
-          headers: {
-            Authorization: `token ${{ secrets.GITHUB_TOKEN }}`,
-            'Content-Type': 'application/json',
-            Accept: 'application/vnd.github.v3+json'
-          },
-          body: JSON.stringify(issueData)
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to create an issue');
-        }
+        curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github.v3+json" \
+             -d "$DATA" "$API_URL"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
