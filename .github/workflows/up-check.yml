@@ -1,0 +1,69 @@
+name: Website Up Check
+
+on:
+  schedule:
+    # Runs once a day at 00:00 UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-website-content:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set Up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install Puppeteer
+      run: npm install puppeteer
+
+    - name: Check Website Content
+      id: check_content
+      run: |
+        const puppeteer = require('puppeteer');
+        (async () => {
+          const browser = await puppeteer.launch();
+          const page = await browser.newPage();
+          await page.goto('https://pocket-dragon.github.io/');
+
+          const isContentPresent = await page.evaluate(() => {
+            const header = document.querySelector('header');
+            return header && header.textContent.includes('Pocket Dragon');
+          });
+
+          await browser.close();
+
+          if (!isContentPresent) {
+            core.setFailed('Expected content not found on the page.');
+          }
+        })().catch(error => {
+          console.error(error);
+          core.setFailed(error.message);
+        });
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create Issue on Failure
+      if: failure()
+      run: |
+        const issueData = {
+          title: 'Website Content Issue',
+          body: 'Automated check failed. The expected content was not found on the page.'
+        };
+
+        const response = await fetch('https://api.github.com/repos/pocket-dragon/pocket-dragon.github.io/issues', {
+          method: 'POST',
+          headers: {
+            Authorization: `token ${{ secrets.GITHUB_TOKEN }}`,
+            'Content-Type': 'application/json',
+            Accept: 'application/vnd.github.v3+json'
+          },
+          body: JSON.stringify(issueData)
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to create an issue');
+        }
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
