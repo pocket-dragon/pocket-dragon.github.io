@@ -26,6 +26,27 @@ jobs:
       run: node .github/workflows/check-website.js
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Close Open Issues on Success
+      if: success()
+      run: |
+        ISSUE_TITLE="🚨 APP DOWN 🚨: Website Content Check Failed"
+        ENCODED_ISSUE_TITLE=$(echo -n "$ISSUE_TITLE" | jq -sRr @uri)
+        SEARCH_URL="https://api.github.com/search/issues?q=repo:pocket-dragon/pocket-dragon.github.io+type:issue+state:open+in:title+${ENCODED_ISSUE_TITLE}"
+        ISSUES=$(curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github.v3+json" "$SEARCH_URL" | jq -r '.items[].number')
+
+        for ISSUE_NUMBER in $ISSUES
+        do
+          CLOSE_URL="https://api.github.com/repos/pocket-dragon/pocket-dragon.github.io/issues/$ISSUE_NUMBER"
+          DATA='{"state": "closed"}'
+
+          curl -X PATCH -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github.v3+json" \
+                -d "$DATA" "$CLOSE_URL"
+          echo "Closed issue #$ISSUE_NUMBER"
+        done
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Create Issue on Failure
       if: failure()
       run: |
