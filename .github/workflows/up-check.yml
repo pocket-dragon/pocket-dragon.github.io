@@ -19,7 +19,7 @@ jobs:
       run: npm install puppeteer
 
     - name: Check Website Content
-      run: node check_website.js
+      run: node .github/workflows/check-website.js
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Create Issue on Failure
