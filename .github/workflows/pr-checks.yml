@@ -43,6 +43,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Block Autosquash Commits
-        uses: xt0rted/block-autosquash-commits-action@v2.0.0
+        uses: xt0rted/block-autosquash-commits-action@79880c36b4811fe549cfffe20233df88876024e7
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
