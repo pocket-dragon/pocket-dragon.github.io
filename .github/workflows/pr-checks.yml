@@ -35,8 +35,8 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v1
-      - uses: wagoid/commitlint-github-action@v1
+      - uses: actions/checkout@v4
+      - uses: wagoid/commitlint-github-action@0d749a1a91d4770e983a7b8f83d4a3f0e7e0874e
 
   autosquash:
     name: Block Autosquash Commits
