@@ -19,28 +19,7 @@ jobs:
       run: npm install puppeteer
 
     - name: Check Website Content
-      id: check_content
-      run: |
-        const puppeteer = require('puppeteer');
-        (async () => {
-          const browser = await puppeteer.launch();
-          const page = await browser.newPage();
-          await page.goto('https://pocket-dragon.github.io/');
-
-          const isContentPresent = await page.evaluate(() => {
-            const header = document.querySelector('header');
-            return header && header.textContent.includes('Pocket Dragon');
-          });
-
-          await browser.close();
-
-          if (!isContentPresent) {
-            core.setFailed('Expected content not found on the page.');
-          }
-        })().catch(error => {
-          console.error(error);
-          core.setFailed(error.message);
-        });
+      run: node check_website.js
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
