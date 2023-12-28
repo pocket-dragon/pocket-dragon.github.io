@@ -13,6 +13,8 @@ const puppeteer = require('puppeteer');
 
     await browser.close();
 
+    console.log('Page loaded and expected content was found 👍');
+
     if (!isContentPresent) {
         console.error('Expected content not found on the page.');
         process.exit(1);
