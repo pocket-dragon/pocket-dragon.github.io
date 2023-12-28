@@ -22,7 +22,6 @@
     "lint:config": "npx eslint -c eslint.js '*.js' && npx prettier -l '{!(package*).json,.prettierrc}'",
     "lint:config:fix": "npx eslint --fix -c eslint.js '*.js' && npx prettier --write '{!(package*).json,.prettierrc}'",
     "setupPublishBranch": "mkdir dist && git worktree add dist master",
-    "postinstall": "npm run license-checker",
     "publishApp": "npm run build && cd dist && git add --all && git commit -m \"Publishing to gh-pages\" && git push --force && cd ..",
     "semantic-release": "semantic-release",
     "start": "npm run dev"
