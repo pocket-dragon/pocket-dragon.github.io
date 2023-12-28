@@ -27,6 +27,11 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Ping healthchecks.io on Success
+      if: success()
+      run: |
+        curl --retry 5 https://hc-ping.com/ebd07d7c-e104-490f-b339-2d5ed71c3aa9
+
     - name: Close Open Issues on Success
       if: success()
       run: |
