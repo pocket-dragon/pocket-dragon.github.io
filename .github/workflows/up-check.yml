@@ -17,7 +17,7 @@ jobs:
         node-version: '14'
 
     - name: Install Puppeteer
-      run: npm install puppeteer
+      run: npm install -g puppeteer
 
     - name: Check Website Content
       run: node .github/workflows/check-website.js
