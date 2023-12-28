@@ -25,7 +25,7 @@ jobs:
     - name: Create Issue on Failure
       if: failure()
       run: |
-        ISSUE_TITLE="Website Content Issue"
+        ISSUE_TITLE="🚨 APP DOWN 🚨: Website Content Check Failed"
         ISSUE_BODY="Automated check failed. The expected content was not found on the page."
         API_URL="https://api.github.com/repos/pocket-dragon/pocket-dragon.github.io/issues"
         DATA=$(jq -n --arg title "$ISSUE_TITLE" --arg body "$ISSUE_BODY" '{title: $title, body: $body}')
