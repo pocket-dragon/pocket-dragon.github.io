@@ -4,12 +4,14 @@ const puppeteer = require('puppeteer');
 (async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto('https://pocket-dragon.github.io/');
+    await page.goto('https://pocket-dragon.github.io/', { waitUntil: 'networkidle0', timeout: 60000 });
 
-    const isContentPresent = await page.evaluate(() => {
-        const header = document.querySelector('header');
-        return header && header.textContent.includes('Pocket Dragon');
-    });
+    const isContentPresent = await page.waitForSelector('header', { timeout: 5000 })
+        .then(() => page.evaluate(() => {
+            const header = document.querySelector('header');
+            return header.textContent.includes('Pocket Dragon');
+        }))
+        .catch(() => false);
 
     await browser.close();
 
