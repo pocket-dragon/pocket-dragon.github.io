@@ -38,6 +38,7 @@ jobs:
         ISSUE_TITLE="🚨 APP DOWN 🚨: Website Content Check Failed"
         ENCODED_ISSUE_TITLE=$(echo -n "$ISSUE_TITLE" | jq -sRr @uri)
         SEARCH_URL="https://api.github.com/search/issues?q=repo:pocket-dragon/pocket-dragon.github.io+type:issue+state:open+in:title+${ENCODED_ISSUE_TITLE}"
+        echo "Calling $SEARCH_URL"
         ISSUES=$(curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github.v3+json" "$SEARCH_URL" | jq -r '.items[].number')
 
         for ISSUE_NUMBER in $ISSUES
