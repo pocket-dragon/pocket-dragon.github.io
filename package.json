@@ -22,15 +22,10 @@
     "lint:config": "npx eslint -c eslint.js '*.js' && npx prettier -l '{!(package*).json,.prettierrc}'",
     "lint:config:fix": "npx eslint --fix -c eslint.js '*.js' && npx prettier --write '{!(package*).json,.prettierrc}'",
     "setupPublishBranch": "mkdir dist && git worktree add dist master",
-    "postinstall": "npm run license-checker",
     "publishApp": "npm run build && cd dist && git add --all && git commit -m \"Publishing to gh-pages\" && git push --force && cd ..",
     "semantic-release": "semantic-release",
-    "start": "npm run dev"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
+    "start": "npm run dev",
+    "test": "SASS_PATH=node_modules stencil test --spec"
   },
   "dependencies": {
     "@stencil/core": "^1.8.3",
@@ -41,13 +36,15 @@
   },
   "devDependencies": {
     "@stencil/sass": "^1.1.1",
+    "@types/jest": "~24.0.20",
     "acorn": "^6.0.4",
     "commitizen": "^3.0.5",
     "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.10.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-prettier": "^3.0.0",
-    "husky": "^1.2.1",
+    "jest": "~24.9.0",
+    "jest-cli": "~24.9.0",
     "license-checker": "^24.1.0",
     "prettier": "^1.15.3",
     "semantic-release": "^15.13.1",

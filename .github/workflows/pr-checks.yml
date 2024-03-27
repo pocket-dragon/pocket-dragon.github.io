@@ -1,0 +1,56 @@
+name: Pull Request Checks
+on:
+  pull_request:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Read .nvmrc
+      run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+      id: nvm
+    - uses: actions/setup-node@v3
+      with:
+        node-version: "${{ steps.nvm.outputs.NVMRC }}"
+    - run: node -v && npm -v
+    - run: npm install
+    - run: npm run lint
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Read .nvmrc
+      run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+      id: nvm
+    - uses: actions/setup-node@v3
+      with:
+        node-version: "${{ steps.nvm.outputs.NVMRC }}"
+    - run: node -v && npm -v
+    - name: npm install and build
+      run: |
+        npm ci
+        npm run build:ci --if-present
+      env:
+        CI: true
+
+  commitlint:
+    name: Commitlint
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: wagoid/commitlint-github-action@0d749a1a91d4770e983a7b8f83d4a3f0e7e0874e
+
+  autosquash:
+    name: Block Autosquash Commits
+    runs-on: ubuntu-latest
+    steps:
+      - name: Block Autosquash Commits
+        uses: xt0rted/block-autosquash-commits-action@79880c36b4811fe549cfffe20233df88876024e7
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
