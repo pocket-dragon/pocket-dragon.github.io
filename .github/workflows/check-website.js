@@ -1,27 +1,26 @@
-// check_website.js
-const puppeteer = require('puppeteer');
+import { chromium } from 'playwright';
 
-(async () => {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.goto('https://pocket-dragon.github.io/', { waitUntil: 'networkidle0', timeout: 60000 });
+const browser = await chromium.launch();
+const page = await browser.newPage();
 
-    const isContentPresent = await page.waitForSelector('header', { timeout: 5000 })
-        .then(() => page.evaluate(() => {
-            const header = document.querySelector('header');
-            return header.textContent.includes('Pocket Dragon');
-        }))
-        .catch(() => false);
+try {
+    await page.goto('https://pocket-dragon.github.io/', {
+        waitUntil: 'networkidle',
+        timeout: 60000,
+    });
 
-    await browser.close();
+    const title = page.locator('.mdc-top-app-bar__title');
+    await title.waitFor({ timeout: 5000 });
 
-    if (!isContentPresent) {
-        console.error('Expected content not found on the page.');
-        process.exit(1);
+    const text = await title.textContent();
+    if (!text?.includes('Pocket Dragon')) {
+        throw new Error('Expected content not found on the page.');
     }
 
     console.log('Page loaded and expected content was found 👍');
-})().catch(error => {
-    console.error(error);
+} catch (error) {
+    console.error(error.message ?? error);
     process.exit(1);
-});
+} finally {
+    await browser.close();
+}

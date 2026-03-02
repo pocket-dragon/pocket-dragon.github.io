@@ -12,20 +12,28 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set Up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
+      uses: ./.github/actions/set-up-node
 
-    - name: Install Puppeteer
-      run: |
-        rm -f package-lock.json
-        echo "{}" > package.json
-        npm install puppeteer
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Cache Playwright browsers
+      id: playwright-cache
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+    - name: Install Playwright browser
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
+      run: npx playwright install --with-deps chromium
+
+    - name: Install Playwright system deps (on cache hit)
+      if: steps.playwright-cache.outputs.cache-hit == 'true'
+      run: npx playwright install-deps chromium
 
     - name: Check Website Content
       run: node .github/workflows/check-website.js
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Ping healthchecks.io on Success
       if: success()
@@ -36,5 +44,3 @@ jobs:
       if: failure()
       run: |
         curl --retry 3 https://hc-ping.com/ebd07d7c-e104-490f-b339-2d5ed71c3aa9/fail
-
-
