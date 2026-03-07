@@ -1,8 +1,10 @@
 import { test, expect } from '@playwright/test';
 import { selectors, gameConfig } from '../fixtures/selectors';
+import { advanceGameSeconds } from '../fixtures/clock';
 
 test.describe('Timer Behavior', () => {
   test.beforeEach(async ({ page }) => {
+    await page.clock.install();
     await page.goto('/');
   });
 
@@ -10,96 +12,72 @@ test.describe('Timer Behavior', () => {
     const gameTimer = page.locator(selectors.gameTimer);
     const feedTimer = page.locator(selectors.feedTimer);
 
-    // Get initial values
     const initialGameTime = gameConfig.easy.initialGameTimer;
     const initialFeedTime = gameConfig.easy.initialFeedTimer;
 
     await expect(gameTimer).toHaveText(String(initialGameTime));
     await expect(feedTimer).toHaveText(String(initialFeedTime));
 
-    // Start the game
+    // Start the game and advance 2 seconds
     await page.locator(selectors.startPauseButton).click();
+    await advanceGameSeconds(page, 2);
 
-    // Wait for game timer to decrement from initial value
-    await expect(gameTimer).not.toHaveText(String(initialGameTime), { timeout: 3000 });
-    await expect(feedTimer).not.toHaveText(String(initialFeedTime), { timeout: 3000 });
-
-    // Timers should have decremented
-    const newGameTime = await gameTimer.textContent();
-    const newFeedTime = await feedTimer.textContent();
-
-    expect(parseInt(newGameTime!)).toBeLessThan(initialGameTime);
-    expect(parseInt(newFeedTime!)).toBeLessThan(initialFeedTime);
+    await expect(gameTimer).toHaveText(String(initialGameTime - 2));
+    await expect(feedTimer).toHaveText(String(initialFeedTime - 2));
   });
 
   test('pausing stops timer decrement', async ({ page }) => {
     const gameTimer = page.locator(selectors.gameTimer);
     const initialGameTime = gameConfig.easy.initialGameTimer;
 
-    // Start the game
+    // Start the game and advance 3 seconds
     await page.locator(selectors.startPauseButton).click();
-
-    // Wait for at least one tick
-    await expect(gameTimer).not.toHaveText(String(initialGameTime), { timeout: 3000 });
+    await advanceGameSeconds(page, 3);
 
     // Pause the game
     await page.locator(selectors.startPauseButton).click();
 
-    // Record the timer value
-    const timerValueWhenPaused = await gameTimer.textContent();
+    const timerValueWhenPaused = String(initialGameTime - 3);
+    await expect(gameTimer).toHaveText(timerValueWhenPaused);
 
-    // Verify timer stays the same (check twice with a gap to prove it's not changing)
-    await expect(gameTimer).toHaveText(timerValueWhenPaused!, { timeout: 2000 });
-    await new Promise(r => setTimeout(r, 1100));
-    await expect(gameTimer).toHaveText(timerValueWhenPaused!);
+    // Advance time while paused — timer should not change
+    await advanceGameSeconds(page, 5);
+    await expect(gameTimer).toHaveText(timerValueWhenPaused);
   });
 
   test('resuming game continues timer from paused value', async ({ page }) => {
     const gameTimer = page.locator(selectors.gameTimer);
     const initialGameTime = gameConfig.easy.initialGameTimer;
 
-    // Start the game
+    // Start, advance, pause
+    await page.locator(selectors.startPauseButton).click();
+    await advanceGameSeconds(page, 3);
     await page.locator(selectors.startPauseButton).click();
 
-    // Wait for at least one tick
-    await expect(gameTimer).not.toHaveText(String(initialGameTime), { timeout: 3000 });
+    const pausedValue = initialGameTime - 3;
+    await expect(gameTimer).toHaveText(String(pausedValue));
 
-    // Pause the game
+    // Resume and advance
     await page.locator(selectors.startPauseButton).click();
-    const timerValueWhenPaused = await gameTimer.textContent();
+    await advanceGameSeconds(page, 2);
 
-    // Resume the game
-    await page.locator(selectors.startPauseButton).click();
-
-    // Wait for timer to decrement from paused value
-    await expect(gameTimer).not.toHaveText(timerValueWhenPaused!, { timeout: 3000 });
-
-    // Timer should have decremented from paused value
-    const timerAfterResume = await gameTimer.textContent();
-    expect(parseInt(timerAfterResume!)).toBeLessThan(parseInt(timerValueWhenPaused!));
+    await expect(gameTimer).toHaveText(String(pausedValue - 2));
   });
 
   test('Start button shows "Pause" when game is running', async ({ page }) => {
     const startPauseButton = page.locator(selectors.startPauseButton);
 
-    // Initially shows "Start"
     await expect(startPauseButton).toHaveAttribute('label', 'Start');
-
-    // Start the game
     await startPauseButton.click();
-
-    // Should now show "Pause"
     await expect(startPauseButton).toHaveAttribute('label', 'Pause');
   });
 
   test('Pause button shows "Start" when game is paused', async ({ page }) => {
     const startPauseButton = page.locator(selectors.startPauseButton);
 
-    // Start the game
     await startPauseButton.click();
     await expect(startPauseButton).toHaveAttribute('label', 'Pause');
 
-    // Pause the game
     await startPauseButton.click();
     await expect(startPauseButton).toHaveAttribute('label', 'Start');
   });
@@ -107,13 +85,9 @@ test.describe('Timer Behavior', () => {
   test('Reset button is disabled while game is running', async ({ page }) => {
     const resetButton = page.locator(selectors.resetButton);
 
-    // Initially enabled
     await expect(resetButton).not.toHaveAttribute('disabled');
 
-    // Start the game
     await page.locator(selectors.startPauseButton).click();
-
-    // Should be disabled
     await expect(resetButton).toHaveAttribute('disabled', '');
   });
 
@@ -123,11 +97,9 @@ test.describe('Timer Behavior', () => {
     const successCounter = page.locator(selectors.successCounter);
     const initialGameTime = gameConfig.easy.initialGameTimer;
 
-    // Start the game
+    // Start the game and advance a few seconds
     await page.locator(selectors.startPauseButton).click();
-
-    // Wait for timer to decrement a couple of seconds
-    await expect(gameTimer).toHaveText(String(initialGameTime - 2), { timeout: 5000 });
+    await advanceGameSeconds(page, 5);
 
     // Pause and reset
     await page.locator(selectors.startPauseButton).click();
@@ -135,7 +107,11 @@ test.describe('Timer Behavior', () => {
 
     // All values should be reset
     await expect(gameTimer).toHaveText(String(initialGameTime));
-    await expect(feedTimer).toHaveText(String(gameConfig.easy.initialFeedTimer));
-    await expect(successCounter).toHaveText(String(gameConfig.easy.goalNumberOfSuccesses));
+    await expect(feedTimer).toHaveText(
+      String(gameConfig.easy.initialFeedTimer),
+    );
+    await expect(successCounter).toHaveText(
+      String(gameConfig.easy.goalNumberOfSuccesses),
+    );
   });
 });

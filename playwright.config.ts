@@ -7,9 +7,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
-  /* Default timeout for each test (45 seconds)
-     With test.slow(), this becomes 135 seconds - enough for timer tests */
-  timeout: 45000,
+  timeout: 15000,
   use: {
     ...devices['Desktop Chrome'],
     baseURL: 'http://localhost:5173',

@@ -1,21 +1,18 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 import { selectors, gameConfig } from '../fixtures/selectors';
+import { advanceGameSeconds } from '../fixtures/clock';
 
 test.describe('Game Over Conditions', () => {
-  // Most tests wait for timers to expire (2+ minutes)
-  test.slow();
-
   test.beforeEach(async ({ page }) => {
+    await page.clock.install();
     await page.goto('/');
   });
 
-  async function waitForFeedTimerToExpire(page) {
-    const feedTimer = page.locator(selectors.feedTimer);
-
-    await expect(async () => {
-      const timer = await feedTimer.textContent();
-      expect(parseInt(timer!)).toBeLessThanOrEqual(0);
-    }).toPass({ timeout: 125000 });
+  async function advanceUntilFeedTimerExpires(
+    page: Page,
+    initialFeedTimer = gameConfig.easy.initialFeedTimer,
+  ) {
+    await advanceGameSeconds(page, initialFeedTimer);
   }
 
   test.describe('Losing - Feed Timer', () => {
@@ -25,7 +22,7 @@ test.describe('Game Over Conditions', () => {
       const gameOverText = page.locator(selectors.gameOverText);
 
       await page.locator(selectors.startPauseButton).click();
-      await waitForFeedTimerToExpire(page);
+      await advanceUntilFeedTimerExpires(page);
 
       await expect(gameOverDialog).toBeVisible();
       await expect(gameOverHeading).toHaveText('Oh noes!');
@@ -38,7 +35,7 @@ test.describe('Game Over Conditions', () => {
     const timePoints = page.locator(selectors.timePoints);
 
     await page.locator(selectors.startPauseButton).click();
-    await waitForFeedTimerToExpire(page);
+    await advanceUntilFeedTimerExpires(page);
 
     await expect(gameOverDialog).toBeVisible();
     await expect(timePoints).toContainText('0');
@@ -52,7 +49,7 @@ test.describe('Game Over Conditions', () => {
     await page.locator(selectors.hardButton).click();
 
     await page.locator(selectors.startPauseButton).click();
-    await waitForFeedTimerToExpire(page);
+    await advanceUntilFeedTimerExpires(page, gameConfig.hard.initialFeedTimer);
 
     await expect(gameOverDialog).toBeVisible();
     await expect(basePoints).toContainText('8');
@@ -66,7 +63,7 @@ test.describe('Game Over Conditions', () => {
     const successCounter = page.locator(selectors.successCounter);
 
     await page.locator(selectors.startPauseButton).click();
-    await waitForFeedTimerToExpire(page);
+    await advanceUntilFeedTimerExpires(page);
 
     await expect(gameOverDialog).toBeVisible();
     await gameOverButton.click();
@@ -74,7 +71,9 @@ test.describe('Game Over Conditions', () => {
     await expect(gameOverDialog).not.toBeVisible();
     await expect(gameTimer).toHaveText(String(gameConfig.easy.initialGameTimer));
     await expect(feedTimer).toHaveText(String(gameConfig.easy.initialFeedTimer));
-    await expect(successCounter).toHaveText(String(gameConfig.easy.goalNumberOfSuccesses));
+    await expect(successCounter).toHaveText(
+      String(gameConfig.easy.goalNumberOfSuccesses),
+    );
   });
 
   test('game over button shows "Try again!" for loss', async ({ page }) => {
@@ -82,7 +81,7 @@ test.describe('Game Over Conditions', () => {
     const gameOverButton = page.locator(selectors.gameOverButton);
 
     await page.locator(selectors.startPauseButton).click();
-    await waitForFeedTimerToExpire(page);
+    await advanceUntilFeedTimerExpires(page);
 
     await expect(gameOverDialog).toBeVisible();
     await expect(gameOverButton).toHaveAttribute('label', 'Try again!');

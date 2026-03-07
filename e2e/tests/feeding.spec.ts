@@ -1,11 +1,10 @@
 import { test, expect } from '@playwright/test';
 import { selectors, gameConfig, gameConstants } from '../fixtures/selectors';
+import { advanceGameSeconds } from '../fixtures/clock';
 
 test.describe('Feeding Mechanic', () => {
-  // Most tests in this suite require waiting for timers to count down
-  test.slow();
-
   test.beforeEach(async ({ page }) => {
+    await page.clock.install();
     await page.goto('/');
   });
 
@@ -31,62 +30,51 @@ test.describe('Feeding Mechanic', () => {
     // Start the game
     await page.locator(selectors.startPauseButton).click();
 
-    // Wait for the feed timer to reach 30 seconds (need to wait ~90 seconds)
-    // For testing purposes, we'll use a polling approach
-    await expect(async () => {
-      const timerValue = await feedTimer.textContent();
-      expect(parseInt(timerValue!)).toBeLessThanOrEqual(gameConstants.feedThreshold);
-    }).toPass({ timeout: 95000 });
+    // Advance 90 seconds so feed timer goes from 120 to 30
+    const secondsToWait =
+      gameConfig.easy.initialFeedTimer - gameConstants.feedThreshold;
+    await advanceGameSeconds(page, secondsToWait);
 
     // Feed button should now be enabled
     await expect(feedButton).not.toHaveAttribute('disabled');
   });
 
-  test.describe('Feed timer reset behavior', () => {
-    // Note: This test is slow as we need to wait for the timer to reach the feed threshold
-    test.slow();
-
-    test('feeding resets timer using formula: initialTimer - currentTimer', async ({ page }) => {
-      const feedButton = page.locator(selectors.feedButton);
-      const feedTimer = page.locator(selectors.feedTimer);
-
-      // Start the game
-      await page.locator(selectors.startPauseButton).click();
-
-      // Wait for the feed timer to be within feedable range
-      await expect(async () => {
-        const timerValue = await feedTimer.textContent();
-        expect(parseInt(timerValue!)).toBeLessThanOrEqual(gameConstants.feedThreshold);
-      }).toPass({ timeout: 95000 });
-
-      // Get the current timer value before feeding
-      const timerBeforeFeed = parseInt((await feedTimer.textContent())!);
-
-      // Feed the dragon
-      await feedButton.click();
-
-      // The new timer value should be: initialFeedTimer - timerBeforeFeed
-      const expectedNewTimer = gameConfig.easy.initialFeedTimer - timerBeforeFeed;
-
-      // Allow for 1 second variance due to timing
-      const newTimer = parseInt((await feedTimer.textContent())!);
-      expect(newTimer).toBeGreaterThanOrEqual(expectedNewTimer - 1);
-      expect(newTimer).toBeLessThanOrEqual(expectedNewTimer + 1);
-    });
-  });
-
-  test('feed button is disabled again after feeding (timer > 30)', async ({ page }) => {
+  test('feeding resets timer using formula: initialTimer - currentTimer', async ({ page }) => {
     const feedButton = page.locator(selectors.feedButton);
     const feedTimer = page.locator(selectors.feedTimer);
 
     // Start the game
     await page.locator(selectors.startPauseButton).click();
 
-    // Wait for the feed timer to be within feedable range
-    await expect(async () => {
-      const timerValue = await feedTimer.textContent();
-      expect(parseInt(timerValue!)).toBeLessThanOrEqual(gameConstants.feedThreshold);
-    }).toPass({ timeout: 95000 });
+    // Advance to exactly the feed threshold
+    const secondsToWait =
+      gameConfig.easy.initialFeedTimer - gameConstants.feedThreshold;
+    await advanceGameSeconds(page, secondsToWait);
+
+    // Get the current timer value before feeding
+    const timerBeforeFeed = parseInt((await feedTimer.textContent())!);
+
+    // Feed the dragon
+    await feedButton.click();
+
+    // The new timer value should be: initialFeedTimer - timerBeforeFeed
+    const expectedNewTimer =
+      gameConfig.easy.initialFeedTimer - timerBeforeFeed;
+
+    const newTimer = parseInt((await feedTimer.textContent())!);
+    expect(newTimer).toBe(expectedNewTimer);
+  });
+
+  test('feed button is disabled again after feeding (timer > 30)', async ({ page }) => {
+    const feedButton = page.locator(selectors.feedButton);
+
+    // Start the game
+    await page.locator(selectors.startPauseButton).click();
+
+    // Advance to feed threshold
+    const secondsToWait =
+      gameConfig.easy.initialFeedTimer - gameConstants.feedThreshold;
+    await advanceGameSeconds(page, secondsToWait);
 
     // Feed the dragon
     await feedButton.click();
@@ -101,11 +89,10 @@ test.describe('Feeding Mechanic', () => {
     // Start the game
     await page.locator(selectors.startPauseButton).click();
 
-    // Wait for the feed timer to be within feedable range
-    await expect(async () => {
-      const timerValue = await feedTimer.textContent();
-      expect(parseInt(timerValue!)).toBeLessThanOrEqual(gameConstants.feedThreshold);
-    }).toPass({ timeout: 95000 });
+    // Advance to feed threshold
+    const secondsToWait =
+      gameConfig.easy.initialFeedTimer - gameConstants.feedThreshold;
+    await advanceGameSeconds(page, secondsToWait);
 
     // The parent container should have 'warning' class
     const feedTimerContainer = feedTimer.locator('..');
