@@ -26,7 +26,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.57.0",
+    "@playwright/test": "^1.59.1",
     "@semantic-release/github": "^11.0.0",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
