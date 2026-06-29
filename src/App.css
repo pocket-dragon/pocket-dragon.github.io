@@ -3,6 +3,20 @@
   min-height: 100vh;
 }
 
+/* Build-number indicator — injected at deploy time via VITE_APP_VERSION.
+   Deliberately very low contrast; tuned by eye on the staging deploy. */
+.app-version {
+  position: fixed;
+  right: 6px;
+  bottom: 4px;
+  z-index: 50;
+  font-size: 0.6rem;
+  color: var(--color-black);
+  opacity: 0.18;
+  pointer-events: none;
+  user-select: none;
+}
+
 /* Header */
 .mdc-top-app-bar {
   background-color: var(--color-primary);

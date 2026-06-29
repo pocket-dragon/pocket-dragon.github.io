@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { RulesModal } from './components/RulesModal';
 import { PdButton } from './components/PdButton';
+import { getBuildVersion } from './logic/buildVersion';
 import {
   GameState,
   createInitialState,
@@ -220,6 +221,7 @@ function App() {
   const feedingAllowed = isFeedingAllowed(state);
   const generalClueAllowed = isGeneralClueAllowed(state);
   const specificClueAllowed = isSpecificClueAllowed(state);
+  const buildVersion = getBuildVersion();
 
   return (
     <div className="app">
@@ -434,6 +436,7 @@ function App() {
           <source src="/assets/sound/cling_2-3x.wav" type="audio/wav" />
         </audio>
       </main>
+      {buildVersion && <span className="app-version">{buildVersion}</span>}
     </div>
   );
 }
