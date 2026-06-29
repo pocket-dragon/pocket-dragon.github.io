@@ -14,8 +14,6 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:report": "playwright show-report",
-    "setupPublishBranch": "mkdir -p dist && git worktree add dist master",
-    "publishApp": "npm run build && cd dist && git add --all && (git diff --cached --quiet || git commit -m \"Publishing to gh-pages\") && git push --force-with-lease origin master && cd ..",
     "semantic-release": "semantic-release"
   },
   "keywords": [
