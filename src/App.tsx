@@ -436,7 +436,11 @@ function App() {
           <source src="/assets/sound/cling_2-3x.wav" type="audio/wav" />
         </audio>
       </main>
-      {buildVersion && <span className="app-version">{buildVersion}</span>}
+      {buildVersion && (
+        <span className="app-version" aria-hidden="true">
+          {buildVersion}
+        </span>
+      )}
     </div>
   );
 }

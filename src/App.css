@@ -4,10 +4,11 @@
 }
 
 /* Build-number indicator — injected at deploy time via VITE_APP_VERSION.
-   Deliberately very low contrast; tuned by eye on the staging deploy. */
+   Deliberately very low contrast. Anchored bottom-left so it never overlaps
+   the bottom-right sound-toggle button on narrow/mobile viewports. */
 .app-version {
   position: fixed;
-  right: 6px;
+  left: 6px;
   bottom: 4px;
   z-index: 50;
   font-size: 0.6rem;
