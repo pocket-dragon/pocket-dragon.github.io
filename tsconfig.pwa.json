@@ -1,0 +1,24 @@
+{
+  // Type-checks the pure, load-bearing build-assertion module in isolation.
+  // tsc's main project (tsconfig.json) only includes src/, so without this the
+  // logic in tests/pwaBuild.ts would only be exercised at runtime by Vitest
+  // (which transpiles via esbuild, no type-checking). "types": [] keeps ambient
+  // @types/* out — the module has zero node/DOM dependencies, and pulling in
+  // @types/node here would also reintroduce the NodeJS timer globals this
+  // project deliberately avoids. The dist-reading integration test
+  // (tests/pwa-build.test.ts) genuinely needs node:fs/node:path and stays out.
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["ES2017"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "types": [],
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "include": ["tests/pwaBuild.ts"]
+}

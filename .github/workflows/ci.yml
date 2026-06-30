@@ -22,6 +22,10 @@ jobs:
         CI: true
     - name: Unit tests
       run: npm run test:unit
+    - name: Type-check PWA build assertion
+      run: npm run typecheck:pwa
+    - name: PWA build check
+      run: npm run test:pwa
     - name: Install Playwright browsers
       run: npx playwright install --with-deps
     - name: E2E tests
