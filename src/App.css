@@ -15,6 +15,9 @@
      technical build tag. */
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 0.6rem;
+  /* Override the global `body { text-transform: uppercase }` so the lowercase
+     `b` build prefix renders as written. */
+  text-transform: none;
   color: var(--color-black);
   opacity: 0.18;
   pointer-events: none;
