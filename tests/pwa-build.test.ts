@@ -31,10 +31,11 @@ describe('inspectPwaBuild', () => {
     expect(report.errors.join(' ')).toContain('missing');
   });
 
-  test('rejects an empty service worker', () => {
+  test('rejects an empty service worker with a single focused error', () => {
     const report = inspectPwaBuild({ swSource: '   ', assetFilenames: validAssets });
     expect(report.ok).toBe(false);
-    expect(report.errors.join(' ')).toContain('empty');
+    // Only the "empty" error — no spurious follow-on checks against an empty file.
+    expect(report.errors).toEqual(['dist/sw.js is empty']);
   });
 
   test('rejects an un-injected precache manifest', () => {

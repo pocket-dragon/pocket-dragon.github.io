@@ -52,6 +52,9 @@ export function inspectPwaBuild(input: PwaBuildInput): PwaBuildReport {
 
   if (swSource.trim().length === 0) {
     errors.push('dist/sw.js is empty');
+    // Return early: every later check would fail against an empty file and
+    // only add noise to an already-clear diagnosis.
+    return { ok: false, errors };
   }
 
   if (swSource.includes('self.__WB_MANIFEST')) {
