@@ -41,10 +41,11 @@ Two linked changes for the Pocket Dragon companion app:
 ### 2. App source (3 small edits)
 
 - `src/vite-env.d.ts` — declare `ImportMetaEnv.VITE_APP_VERSION?: string` (typed access).
-- `src/App.tsx` — render `<span className="app-version">{import.meta.env.VITE_APP_VERSION}</span>` **only when the var is present** (absent in `npm run dev` and any non-deploy build).
-- `src/App.css` — `.app-version`: `position: fixed`, bottom/right, small font, `pointer-events: none`, `user-select: none`, **very low contrast** (lower than puzzle; start ~30–35% opacity, fine-tune by eye on the staging deploy).
+- `src/logic/buildVersion.ts` — a `getBuildVersion()` helper that reads `import.meta.env.VITE_APP_VERSION`, returns the **trimmed** value when it is a non-empty string, and `undefined` otherwise (unset/whitespace-only). This keeps the unset/dev guard in one tested place.
+- `src/App.tsx` — call `getBuildVersion()` and render `<span className="app-version" aria-hidden="true">{buildVersion}</span>` **only when it returns a value** (absent in `npm run dev` and any non-deploy build). `aria-hidden` keeps the decorative badge out of the accessibility tree.
+- `src/App.css` — `.app-version`: `position: fixed`, bottom-left, small font, `pointer-events: none`, `user-select: none`, **very low contrast** (bottom-left so it clears the bottom-right sound-toggle button on mobile).
 
-The indicator is purely presentational — no state or logic. Existing unit + e2e suites stay green; an optional small render assertion may be added.
+The indicator's render is presentational, but the unset/trim guard lives in `getBuildVersion()` and is covered by `src/logic/buildVersion.test.ts`; existing unit + e2e suites stay green.
 
 ### 3. `package.json`
 
