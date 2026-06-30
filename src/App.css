@@ -11,6 +11,9 @@
   left: 6px;
   bottom: 4px;
   z-index: 50;
+  /* Standard monospace, not the app's thematic font — reads as a plain
+     technical build tag. */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 0.6rem;
   color: var(--color-black);
   opacity: 0.18;
