@@ -4,8 +4,11 @@
 // indicator only appears on deployed builds.
 export function getBuildVersion(): string | undefined {
   const value = import.meta.env.VITE_APP_VERSION;
-  if (typeof value === 'string' && value.trim() !== '') {
-    return value;
+  if (typeof value === 'string') {
+    const trimmed = value.trim();
+    if (trimmed !== '') {
+      return trimmed;
+    }
   }
   return undefined;
 }
