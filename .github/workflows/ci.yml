@@ -26,8 +26,31 @@ jobs:
       run: npm run typecheck:pwa
     - name: PWA build check
       run: npm run test:pwa
+    # Cache the downloaded browser binaries so reruns don't re-fetch ~150 MB.
+    # Keyed on package-lock.json so a @playwright/test bump invalidates it.
+    - name: Restore Playwright browsers from cache
+      id: playwright-cache
+      uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+        restore-keys: playwright-${{ runner.os }}-
+    # Only chromium is exercised (playwright.config.ts uses Desktop Chrome), so
+    # skip firefox/webkit. --with-deps installs the OS libraries chromium needs.
     - name: Install Playwright browsers
-      run: npx playwright install --with-deps
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
+      run: npx playwright install chromium --with-deps
+    # Save immediately after install — before the e2e step — so the browsers are
+    # cached even when the tests fail (a rerun then reuses them). A combined
+    # actions/cache would skip this: its post step is post-if: success(), so a
+    # failed e2e run would never persist the download. The split save avoids
+    # that, and running before the tests means test outcome can't gate it.
+    - name: Save Playwright browsers to cache
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
+      uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
     # Runs against the production bundle in dist/ built by the "npm install and
     # build" step above (playwright.config.ts skips its own build in CI to reuse
     # it). This step must therefore stay after that build step.
