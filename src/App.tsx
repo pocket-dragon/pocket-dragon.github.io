@@ -1,222 +1,120 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useReducer, useState, useCallback, useEffect, useRef } from 'react';
 import { RulesModal } from './components/RulesModal';
 import { PdButton } from './components/PdButton';
 import { getBuildVersion } from './logic/buildVersion';
 import {
-  GameState,
   createInitialState,
   isFeedingAllowed,
   isGeneralClueAllowed,
   isSpecificClueAllowed,
-  calculateFeedReset,
-  generateClueTimer,
   calculateTimePoints,
-  WON,
-  LOST,
-  GENERAL_CLUE_COST,
-  SPECIFIC_CLUE_COST,
 } from './logic/gameState';
+import {
+  gameReducer,
+  GameAction,
+  SoundEffect,
+  ReducerResult,
+} from './logic/gameReducer';
+import { loadSoundEnabled, saveSoundEnabled } from './logic/soundSettings';
 import { DifficultyConfig, EASY, MEDIUM, HARD } from './logic/difficulty';
 import './App.css';
 
+// Wrap the pure reducer for React. Stores { state, effects }; effects are
+// flushed to the audio layer by a useEffect below (default rng in the app).
+function appReducer(prev: ReducerResult, action: GameAction): ReducerResult {
+  return gameReducer(prev.state, action);
+}
+
 function App() {
-  const [state, setState] = useState<GameState>(() => createInitialState(EASY));
-  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [{ state, effects }, dispatch] = useReducer(
+    appReducer,
+    EASY,
+    (difficulty: DifficultyConfig): ReducerResult => ({
+      state: createInitialState(difficulty),
+      effects: [],
+    }),
+  );
+
+  // Hydrate the persisted sound setting before first paint to avoid a flash
+  // of the wrong toggle state when it was previously disabled.
+  const [soundEnabled, setSoundEnabled] = useState(() => loadSoundEnabled() ?? true);
   const [rulesOpen, setRulesOpen] = useState(false);
-  const intervalRef = useRef<number | null>(null);
 
   // Audio refs
   const timerBeepRef = useRef<HTMLAudioElement>(null);
   const timerBeep2xRef = useRef<HTMLAudioElement>(null);
   const timerBeep3xRef = useRef<HTMLAudioElement>(null);
 
-  // Load sound setting from storage
+  // Map a sound intent to its audio element and play it.
+  const playSound = useCallback((effect: SoundEffect) => {
+    const ref =
+      effect === 'beep1x'
+        ? timerBeepRef
+        : effect === 'beep2x'
+          ? timerBeep2xRef
+          : timerBeep3xRef;
+    ref.current?.play().catch(() => {});
+  }, []);
+
+  // Flush the reducer's sound effects, gated on the soundEnabled setting.
+  // Read the setting through a ref so toggling sound doesn't replay old effects.
+  const soundEnabledRef = useRef(soundEnabled);
+  soundEnabledRef.current = soundEnabled;
   useEffect(() => {
-    const stored = localStorage.getItem('soundEnabled');
-    if (stored !== null) {
-      setSoundEnabled(stored === 'true');
-    }
-  }, []);
+    if (!soundEnabledRef.current) return;
+    effects.forEach(playSound);
+  }, [effects, playSound]);
 
-  // Save sound setting to storage
+  // Persist + confirm-beep on toggle. The state write uses a functional
+  // updater so it stays idempotent even under synchronous double-invocation;
+  // side effects live outside the updater so they run once (not twice under
+  // StrictMode's double-invoke) and read the current value via the ref.
   const toggleSound = useCallback(() => {
-    setSoundEnabled(prev => {
-      const newValue = !prev;
-      localStorage.setItem('soundEnabled', String(newValue));
-      if (newValue && timerBeepRef.current) {
-        timerBeepRef.current.play().catch(() => {});
-      }
-      return newValue;
-    });
-  }, []);
-
-  // Set difficulty
-  const setDifficulty = useCallback((difficulty: DifficultyConfig) => {
-    if (state.isRunning) return;
-    setState(createInitialState(difficulty));
-  }, [state.isRunning]);
-
-  // Start game
-  const startGame = useCallback(() => {
-    setState(prev => ({
-      ...prev,
-      isRunning: true,
-      clueTimer: prev.clueTimer < 1 ? generateClueTimer() : prev.clueTimer,
-    }));
-  }, []);
-
-  // Pause game
-  const pauseGame = useCallback(() => {
-    setState(prev => ({ ...prev, isRunning: false }));
-  }, []);
-
-  // Play or pause
-  const playOrPause = useCallback(() => {
-    if (state.isRunning) {
-      pauseGame();
-    } else {
-      startGame();
+    const newValue = !soundEnabledRef.current;
+    setSoundEnabled((prev) => !prev);
+    saveSoundEnabled(newValue);
+    if (newValue) {
+      timerBeepRef.current?.play().catch(() => {});
     }
-  }, [state.isRunning, startGame, pauseGame]);
+  }, []);
 
-  // Reset game
-  const resetGame = useCallback(() => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-    setState(createInitialState(state.difficulty));
-  }, [state.difficulty]);
+  // Action dispatchers (names preserved so the JSX below is unchanged).
+  const setDifficulty = useCallback(
+    (difficulty: DifficultyConfig) => dispatch({ type: 'SET_DIFFICULTY', difficulty }),
+    [],
+  );
+  const playOrPause = useCallback(
+    () => dispatch({ type: state.isRunning ? 'PAUSE' : 'START' }),
+    [state.isRunning],
+  );
+  const resetGame = useCallback(() => dispatch({ type: 'RESET' }), []);
+  const feed = useCallback(() => dispatch({ type: 'FEED' }), []);
+  const logSuccess = useCallback(() => dispatch({ type: 'LOG_SUCCESS' }), []);
+  const useGeneralClue = useCallback(() => dispatch({ type: 'USE_GENERAL_CLUE' }), []);
+  const useSpecificClue = useCallback(() => dispatch({ type: 'USE_SPECIFIC_CLUE' }), []);
+  const closeGameOver = resetGame;
 
-  // Feed dragon
-  const feed = useCallback(() => {
-    if (!isFeedingAllowed(state)) return;
-    setState(prev => ({
-      ...prev,
-      feedTimer: calculateFeedReset(prev.difficulty.initialFeedTimer, prev.feedTimer),
-    }));
-  }, [state]);
-
-  // Log success
-  const logSuccess = useCallback(() => {
-    if (!state.isRunning) return;
-    setState(prev => {
-      const newSuccesses = prev.successesUntilVictory - 1;
-      if (newSuccesses < 1) {
-        return {
-          ...prev,
-          successesUntilVictory: newSuccesses,
-          isRunning: false,
-          gameResult: WON,
-        };
-      }
-      return { ...prev, successesUntilVictory: newSuccesses };
-    });
-  }, [state.isRunning]);
-
-  // Use general clue
-  const useGeneralClue = useCallback(() => {
-    if (!isGeneralClueAllowed(state)) return;
-    setState(prev => ({
-      ...prev,
-      remainingClues: prev.remainingClues - GENERAL_CLUE_COST,
-    }));
-  }, [state]);
-
-  // Use specific clue
-  const useSpecificClue = useCallback(() => {
-    if (!isSpecificClueAllowed(state)) return;
-    setState(prev => ({
-      ...prev,
-      remainingClues: prev.remainingClues - SPECIFIC_CLUE_COST,
-    }));
-  }, [state]);
-
-  // Close game over dialog
-  const closeGameOver = useCallback(() => {
-    resetGame();
-  }, [resetGame]);
-
-  // Close game-over dialog on Escape key
+  // Close the game-over dialog on Escape.
   useEffect(() => {
     if (!state.gameResult) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        closeGameOver();
+        dispatch({ type: 'RESET' });
       }
     };
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [state.gameResult, closeGameOver]);
+  }, [state.gameResult]);
 
-  // Game tick effect
+  // Game tick: dispatch TICK once per second while running.
   useEffect(() => {
-    if (!state.isRunning) {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-      return;
-    }
+    if (!state.isRunning) return;
 
-    intervalRef.current = window.setInterval(() => {
-      setState(prev => {
-        const newGameTimer = prev.gameTimer - 1;
-        const newFeedTimer = prev.feedTimer - 1;
-        let newClueTimer = prev.clueTimer - 1;
-        let newRemainingClues = prev.remainingClues;
-
-        // Sound alerts at thresholds
-        if (soundEnabled) {
-          if (newFeedTimer === 30 && timerBeepRef.current) {
-            timerBeepRef.current.play().catch(() => {});
-          }
-          if (newFeedTimer === 20 && timerBeep2xRef.current) {
-            timerBeep2xRef.current.play().catch(() => {});
-          }
-          if (newFeedTimer === 10 && timerBeep3xRef.current) {
-            timerBeep3xRef.current.play().catch(() => {});
-          }
-        }
-
-        // Clue regeneration
-        if (newClueTimer < 1) {
-          newRemainingClues += 1;
-          newClueTimer = generateClueTimer();
-        }
-
-        // Check lose conditions
-        if (newFeedTimer < 1 || newGameTimer < 1) {
-          return {
-            ...prev,
-            gameTimer: Math.max(0, newGameTimer),
-            feedTimer: Math.max(0, newFeedTimer),
-            clueTimer: newClueTimer,
-            remainingClues: newRemainingClues,
-            isRunning: false,
-            gameResult: LOST,
-          };
-        }
-
-        return {
-          ...prev,
-          gameTimer: newGameTimer,
-          feedTimer: newFeedTimer,
-          clueTimer: newClueTimer,
-          remainingClues: newRemainingClues,
-        };
-      });
-    }, 1000);
-
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-    };
-  }, [state.isRunning, soundEnabled]);
+    const id = window.setInterval(() => dispatch({ type: 'TICK' }), 1000);
+    return () => clearInterval(id);
+  }, [state.isRunning]);
 
   const feedingAllowed = isFeedingAllowed(state);
   const generalClueAllowed = isGeneralClueAllowed(state);
