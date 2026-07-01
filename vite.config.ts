@@ -103,7 +103,26 @@ export default defineConfig({
     port: 5173,
   },
   test: {
-    include: ['src/**/*.test.ts'],
+    projects: [
+      {
+        // inherit the root plugins (react, VitePWA) and coverage
+        extends: true,
+        test: {
+          name: 'unit',
+          include: ['src/**/*.test.ts'],
+          environment: 'node',
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: 'component',
+          include: ['src/**/*.test.tsx'],
+          environment: 'jsdom',
+          setupFiles: ['./src/test/setup.ts'],
+        },
+      },
+    ],
     coverage: {
       provider: 'v8',
       include: ['src/logic/**/*.ts'],
