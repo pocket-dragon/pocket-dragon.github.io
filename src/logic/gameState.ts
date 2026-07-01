@@ -74,8 +74,8 @@ export function calculateFeedReset(initialTimer: number, currentTimer: number): 
   return initialTimer - currentTimer;
 }
 
-export function generateClueTimer(): number {
-  return Math.round(Math.random() * (CLUE_REGEN_MAX - CLUE_REGEN_MIN) + CLUE_REGEN_MIN);
+export function generateClueTimer(rng: () => number = Math.random): number {
+  return Math.round(rng() * (CLUE_REGEN_MAX - CLUE_REGEN_MIN) + CLUE_REGEN_MIN);
 }
 
 export function calculateTimePoints(gameTimer: number): number {
