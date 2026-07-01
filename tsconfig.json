@@ -19,6 +19,6 @@
     "allowSyntheticDefaultImports": true
   },
   "include": ["src"],
-  "exclude": ["e2e", "playwright.config.ts"],
+  "exclude": ["e2e", "playwright.config.ts", "playwright.visual.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

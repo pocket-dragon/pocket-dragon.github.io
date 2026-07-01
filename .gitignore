@@ -21,4 +21,5 @@ UserInterfaceState.xcuserstate
 .env
 coverage/
 playwright-report/
+playwright-report-visual/
 test-results/

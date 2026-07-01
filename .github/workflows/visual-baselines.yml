@@ -1,0 +1,133 @@
+name: Visual regression baselines
+
+# Regenerate the committed visual-regression baselines inside the pinned
+# Playwright image and commit them back to the branch you ran this on.
+#
+# This is the Docker-less equivalent of `npm run test:visual:update`: since the
+# team has no local container runtime, run this from the Actions "Run workflow"
+# button (pick your branch) whenever a change legitimately alters rendering —
+# a font swap, the rules-markdown stack, an intentional layout change — and the
+# visual job's diff is expected. It rebuilds the baselines in the exact image
+# the CI compare job uses, so the follow-up compare run goes green.
+#
+# workflow_dispatch is only registered once this file lives on the default
+# branch (dev). After that, `gh workflow run visual-baselines.yml --ref <branch>`
+# (or the UI branch picker) targets any branch.
+#
+# SECURITY: the two jobs are split on purpose. `generate` runs project code
+# (`npm ci` + build + the test suite — arbitrary dependency lifecycle scripts)
+# but holds only a read-only token. `commit` holds the `contents: write` token
+# needed to push, but runs no project code — just checkout, artifact download,
+# a sandboxed unpack (tar/find/cp on a throwaway dir, no project code), and git.
+# So a compromised dependency can never reach the push-capable token.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    name: Regenerate baselines
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.59.1-jammy
+    permissions:
+      contents: read
+    env:
+      PLAYWRIGHT_VISUAL: '1'
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        # This job runs untrusted dependency code (npm ci) but only ever needs
+        # to read; keep even the read-only token out of .git/config. The push
+        # happens in the separate `commit` job, which keeps its credentials.
+        with:
+          persist-credentials: false
+      - name: npm install and build
+        run: |
+          npm ci
+          npm run build
+      - name: Regenerate baselines
+        run: npm run test:visual -- --update-snapshots
+      # tar the snapshot dirs so the artifact preserves the full
+      # e2e/visual/<spec>-snapshots/ path. Otherwise upload-artifact strips the
+      # least-common-ancestor — harmless for the single spec today, but a second
+      # visual spec would raise the LCA and download its PNGs to a doubled
+      # ...-snapshots/...-snapshots/ path. tar keeps the round-trip correct for
+      # any number of specs. The find guard preserves the old empty-regen fail.
+      - name: Package regenerated baselines
+        run: |
+          if [ -z "$(find e2e/visual -type d -name '*-snapshots' -print -quit)" ]; then
+            echo 'No snapshot directories were produced by the regen run.' >&2
+            exit 1
+          fi
+          # -print0/--null keeps the round-trip correct even if a snapshot dir
+          # name ever contains spaces or newlines (an unquoted expansion split).
+          find e2e/visual -type d -name '*-snapshots' -print0 \
+            | tar --null -c -z -f regenerated-baselines.tar.gz -T -
+      - name: Upload regenerated baselines
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: regenerated-visual-baselines
+          path: regenerated-baselines.tar.gz
+          if-no-files-found: error
+          retention-days: 1
+
+  commit:
+    name: Commit updated baselines
+    needs: generate
+    runs-on: ubuntu-latest
+    # This job holds the write token but executes no untrusted code.
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Download regenerated baselines
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: regenerated-visual-baselines
+      - name: Unpack regenerated baselines
+        # Never `tar -xzf` the untrusted artifact at the repo root: the
+        # `generate` job runs dependency code and controls the tarball, so it
+        # could embed an arbitrary relative member (e.g. .git/hooks/pre-commit —
+        # GNU tar blocks only ../absolute/symlink escapes, not plain relative
+        # paths) that the next `git commit` would execute while the write token
+        # sits in .git/config. Instead extract into a throwaway dir and copy
+        # only the *-snapshots dirs back, so attacker-controlled members outside
+        # e2e/visual can never reach the checkout. This keeps the multi-spec
+        # round-trip the tarball was chosen for.
+        run: |
+          tmp="$(mktemp -d)"
+          tar -xzf regenerated-baselines.tar.gz -C "$tmp"
+          if [ -z "$(find "$tmp/e2e/visual" -type d -name '*-snapshots' -print -quit)" ]; then
+            echo 'Artifact contained no snapshot directories.' >&2
+            exit 1
+          fi
+          # Drop stale baselines first so a deleted/renamed snapshot does not
+          # linger, then restore the regenerated dirs in place. This assumes
+          # specs live flat directly under e2e/visual/ (as they all do today) —
+          # a nested spec's -snapshots dir would be flattened to the top level.
+          find e2e/visual -type d -name '*-snapshots' -exec rm -rf {} +
+          # -print0/--null mirrors the Package step so a dir name with spaces or
+          # newlines round-trips intact. `|| exit 1` in the loop body (the last
+          # stage of the pipe) makes a mid-loop cp failure fail the step: it
+          # sets the while-subshell's status non-zero, which is the pipeline's
+          # status, so set -e/pipefail abort instead of the failure being masked.
+          find "$tmp/e2e/visual" -type d -name '*-snapshots' -print0 \
+            | while IFS= read -r -d '' dir; do
+                cp -a "$dir" e2e/visual/ || exit 1
+              done
+          rm -rf "$tmp"
+      - name: Commit and push updated baselines
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if git diff --quiet -- e2e/visual; then
+            echo 'Baselines already up to date — nothing to commit.'
+            exit 0
+          fi
+          git add e2e/visual
+          git commit -m 'test(visual): regenerate visual regression baselines'
+          git push origin "HEAD:$GITHUB_REF_NAME"

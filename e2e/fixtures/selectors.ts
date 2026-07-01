@@ -31,12 +31,18 @@ export const selectors = {
   rulesDialog: '[data-testid="rules-dialog"]',
   rulesContent: '[data-testid="rules-content"]',
   rulesCloseButton: '[data-testid="rules-close"]',
+  // Raw framework/app classes used by the visual suite to capture a dialog's
+  // surface (excluding the translucent backdrop) rather than the full page.
+  rulesSurface: '.rules-surface',
+  promoAnachrony: '[data-testid="promo-anachrony"]',
 
   // Sound
   soundToggle: '[data-testid="sound-toggle"]',
 
   // Game over dialog
   gameOverDialog: '[data-testid="game-over-dialog"]',
+  // MDC dialog surface (excludes the backdrop); used by the visual suite.
+  dialogSurface: '.mdc-dialog__surface',
   gameOverHeading: '[data-testid="game-over-heading"]',
   gameOverText: '[data-testid="game-over-text"]',
   gameOverButton: '[data-testid="game-over-button"]',

@@ -13,6 +13,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      # This job never pushes, so keep the token out of .git/config while npm ci
+      # and build run dependency lifecycle scripts (guards against "artipacked").
+      with:
+        persist-credentials: false
     - uses: ./.github/actions/set-up-node
     - name: npm install and build
       run: |
@@ -66,6 +70,58 @@ jobs:
         # warn (not ignore): if e2e fails before a report is written, leave a
         # breadcrumb in the log rather than silently uploading nothing.
         if-no-files-found: warn
+
+  visual:
+    name: Visual regression
+    runs-on: ubuntu-latest
+    # Run inside the pinned Playwright image so pixels match the committed
+    # baselines exactly (fonts, antialiasing). The image already ships the
+    # browsers, so there's no `playwright install` step here.
+    container:
+      image: mcr.microsoft.com/playwright:v1.59.1-jammy
+    env:
+      # The gate the visual specs check: run (don't skip) inside this container.
+      PLAYWRIGHT_VISUAL: '1'
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        # This job only compares — it never pushes — so keep the token out of
+        # .git/config while npm ci / build run dependency lifecycle scripts.
+        with:
+          persist-credentials: false
+      # Fresh Linux install — host node_modules can't be reused across OSes, and
+      # the container's toolchain differs from the other jobs' set-up-node.
+      - name: npm install and build
+        run: |
+          npm ci
+          npm run build
+      # Compares against e2e/visual/**-snapshots/. On the very first run (no
+      # baselines committed yet) Playwright writes them and fails; the upload
+      # below then carries those fresh baselines out so they can be committed.
+      - name: Visual regression tests
+        run: npm run test:visual
+      # Split into two uploads on purpose: the committed baselines always exist
+      # in the workspace, so bundling them with the report would keep
+      # if-no-files-found silent even when the report is missing. A dedicated
+      # report upload lets `warn` actually fire on the report-missing case.
+      - name: Upload visual report
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: visual-regression-report
+          # The HTML report — diffs for a real regression.
+          path: playwright-report-visual/
+          retention-days: 7
+          if-no-files-found: warn
+      - name: Upload visual baselines
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: visual-regression-baselines
+          # Any freshly written baselines (first-run seeding when none committed).
+          path: e2e/visual/**/*-snapshots/**
+          retention-days: 7
+          if-no-files-found: warn
 
   commitlint:
     name: Commitlint
