@@ -123,6 +123,92 @@ jobs:
           retention-days: 7
           if-no-files-found: warn
 
+  # The `visual` job (and visual-baselines.yml) run inside the pinned
+  # mcr.microsoft.com/playwright:<tag> image, which bundles the browser
+  # binaries — Playwright refuses to launch when the library version and the
+  # bundled browser build differ. Dependabot bumps @playwright/test in
+  # package-lock.json but CANNOT touch the container tag in workflow YAML
+  # (dependabot-core #5819: its docker ecosystem doesn't scan `container:`
+  # references), so the two silently drift and every visual spec fails at
+  # launch with a cryptic "Please update docker image as well" — no diff, no
+  # screenshots. This guard turns that into one actionable line naming the file
+  # and the exact tag to set. It covers visual-baselines.yml (which has no other
+  # PR-time signal) AND the package.json `test:visual:update` script, whose
+  # `docker run mcr…/playwright:<tag>` baseline-regen command pins the same
+  # image and drifts the same way. It only reads files (jq + grep, no npm ci),
+  # so it's fast and independent of the container it protects.
+  playwright-image:
+    name: Playwright image in sync
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Assert container image tags match @playwright/test
+        run: |
+          set -euo pipefail
+          # package-lock.json is the source of truth for the installed version
+          # (lockfileVersion 3: .packages["node_modules/@playwright/test"]).
+          # Read it via `if !` so a malformed lockfile (a jq parse error, not
+          # just a missing key) surfaces this tailored line instead of jq's raw
+          # stderr aborting the step under set -e.
+          if ! want="$(jq -r '.packages["node_modules/@playwright/test"].version' package-lock.json 2>/dev/null)"; then
+            echo "::error::Could not read @playwright/test version from package-lock.json (invalid JSON or jq error)."
+            exit 1
+          fi
+          if [ -z "$want" ] || [ "$want" = null ]; then
+            echo "::error::Could not read @playwright/test version from package-lock.json (parsed OK, but the version key is absent)."
+            exit 1
+          fi
+          rc=0
+          found=0
+          # Every pinned Playwright container image must be v<want>-jammy. Two
+          # greps feed one loop because the pin appears in two syntactic shapes:
+          #   (1) workflow YAML: an `image:`/`container:` key. Anchored to the
+          #       start of the line (after indentation) at that key, so it covers
+          #       both the expanded `container:`/`image:` form and the string
+          #       shorthand, tolerates an optional leading quote, and can't be
+          #       tripped by the `#` doc comment above that quotes a pinned tag.
+          #   (2) package.json: the `test:visual:update` baseline-regen script,
+          #       where the tag rides inside a one-line `docker run …` command
+          #       string, NOT a YAML key — so it needs its own matcher, anchored
+          #       on `docker run` (the only such invocation in the repo; JSON has
+          #       no comments to false-match, and the guard's own `mcr\.…` source
+          #       lines are backslash-escaped, so neither pattern matches them).
+          # grep -rn yields file:line:content; `rest` keeps the image URL's own
+          # colons intact. The sed captures the FULL tag token after `playwright:`
+          # (up to the next space/quote/comment), decoupled from the -jammy
+          # suffix, so a non-jammy or otherwise malformed pin is echoed verbatim
+          # in the error (and a deliberate distro migration fails with a
+          # self-diagnosing message) rather than collapsing to 'unparsed'.
+          while IFS=: read -r file line rest; do
+            found=$((found + 1))
+            tag="$(printf '%s' "$rest" | sed -nE 's#.*playwright:([^[:space:]"'\''#]+).*#\1#p')"
+            if [ "$tag" != "v${want}-jammy" ]; then
+              echo "::error file=${file},line=${line}::Playwright container image is '${tag:-unparsed}' but @playwright/test is ${want} — bump this tag to v${want}-jammy."
+              rc=1
+            fi
+          done < <(
+            # Each grep ends in `|| :` so a no-match (grep exit 1) can't abort
+            # this process-substitution subshell under `set -e`. Without it, if
+            # the YAML grep found nothing the package.json grep below would never
+            # run — silently dropping package.json from coverage. `{ …; }`
+            # grouping does NOT help here (set -e still aborts on the first
+            # non-zero), so the per-grep `|| :` is required; don't "tidy" it away.
+            # Fail-safe regardless: if both greps match nothing, `found` stays 0
+            # and the tripwire below exits 1 (loud red, never a false green).
+            grep -rnE '^[[:space:]]*(image|container):[[:space:]]*["'\'']?mcr\.microsoft\.com/playwright:' .github/workflows/ || :
+            grep -HnE 'docker run .*mcr\.microsoft\.com/playwright:' package.json || :
+          )
+          if [ "$found" -eq 0 ]; then
+            echo "::error::No pinned Playwright container images found under .github/workflows/ or in package.json — this guard expected at least one. If the container approach was removed, drop this job too."
+            exit 1
+          fi
+          if [ "$rc" -eq 0 ]; then
+            echo "✅ All ${found} Playwright container image tag(s) match @playwright/test ${want} (v${want}-jammy)."
+          fi
+          exit $rc
+
   commitlint:
     name: Commitlint
     permissions:
