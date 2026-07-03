@@ -146,3 +146,38 @@ jobs:
         uses: xt0rted/block-autosquash-commits-action@79880c36b4811fe549cfffe20233df88876024e7 # v2.2.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+  fallow:
+    name: Fallow audit
+    permissions:
+      contents: read
+      # Needed for the sticky PR summary comment the action posts.
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      # `fallow audit` gates changed code: auto-changed-since derives the PR base,
+      # which needs PR context a merge_group event lacks, so audit can't run in a
+      # merge queue. Skipped there like commitlint/autosquash (which skip as PR
+      # commit/comment checks, not because of a base comparison).
+      # (No merge_group trigger today; this keeps the job consistent if one is added.)
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        if: github.event_name != 'merge_group'
+        with:
+          persist-credentials: false   # keep the token out of .git/config (artipacked)
+          # `fallow audit` is a changed-code command: it always compares HEAD
+          # against the PR's base branch, so it needs that history. A shallow
+          # checkout makes it fail with "could not detect base branch".
+          fetch-depth: 0
+      # Self-contained Rust static-analysis binary — no npm ci / build needed.
+      # This gates on changed code: auto-changed-since (default true) feeds audit
+      # the PR base as its comparison ref, and the default gate (new-only) fails
+      # only on issues the PR *introduces*, not pre-existing debt in touched files
+      # — the right semantics for gating PRs (incl. Dependabot). fail-on-issues
+      # (default true) turns the check red on an issues verdict. Not a required
+      # check yet (see the design doc). A whole-repo scan is a different command
+      # (`command: ''`), not a gate flag — see the design doc's baseline appendix.
+      - uses: fallow-rs/fallow@e36026dfc0f00bfdf8dab889efc58ab86e5ec466 # v2.104.0
+        if: github.event_name != 'merge_group'
+        with:
+          command: audit
+          comment: true
