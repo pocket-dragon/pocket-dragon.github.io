@@ -32,7 +32,7 @@ jobs:
     name: Regenerate baselines
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.59.1-jammy
+      image: mcr.microsoft.com/playwright:v1.61.1-jammy
     permissions:
       contents: read
     env:

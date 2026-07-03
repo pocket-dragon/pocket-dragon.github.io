@@ -78,7 +78,7 @@ jobs:
     # baselines exactly (fonts, antialiasing). The image already ships the
     # browsers, so there's no `playwright install` step here.
     container:
-      image: mcr.microsoft.com/playwright:v1.59.1-jammy
+      image: mcr.microsoft.com/playwright:v1.61.1-jammy
     env:
       # The gate the visual specs check: run (don't skip) inside this container.
       PLAYWRIGHT_VISUAL: '1'
