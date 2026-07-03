@@ -57,14 +57,23 @@ jobs:
     # actor) also covers a `reopened` triggered by a human.
     if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
     # Dependabot-triggered `pull_request` runs get a read-only GITHUB_TOKEN by
-    # default; grant only the write scope the Actions bot needs. Both steps go
-    # through the pull-requests API: `gh pr review --approve` and `gh pr merge
-    # --auto` (GitHub performs the rebase/merge server-side once checks pass —
-    # this job never pushes), so `pull-requests: write` alone suffices and no
-    # `contents: write` is needed. (No org/repo secrets are exposed to
-    # Dependabot runs, but the built-in GITHUB_TOKEN with this scope is — which
-    # is all we use.)
+    # default; grant only the write scopes the Actions bot needs.
+    #   - pull-requests: write — for `gh pr review --approve`.
+    #   - contents: write     — for `gh pr merge --auto`. This job never pushes
+    #     (GitHub performs the rebase/merge server-side once checks pass), but
+    #     the `enablePullRequestAutoMerge` GraphQL mutation that `--auto` calls
+    #     is gated behind `contents: write` regardless: arming auto-merge is
+    #     checked against the contents scope, not just the eventual merge. With
+    #     only `pull-requests: write`, approve succeeds but enabling auto-merge
+    #     fails with `Resource not accessible by integration
+    #     (enablePullRequestAutoMerge)`. GitHub's documented Dependabot
+    #     auto-merge example uses these same scopes — it often splits
+    #     approve and enable-auto-merge across two jobs; here one job does
+    #     both, so this single job needs both scopes.
+    # The built-in GITHUB_TOKEN carries these scopes; no PAT or org/repo secret
+    # is exposed to Dependabot runs.
     permissions:
+      contents: write
       pull-requests: write
     steps:
       # Feeds only the run summary below — the merge decision is unconditional
