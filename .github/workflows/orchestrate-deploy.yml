@@ -1,0 +1,152 @@
+name: Orchestrate deploy
+
+# Hands-off release pipeline: on every merge to main, sync the code to the fork,
+# deploy + smoke-test staging, then deploy + smoke-test production, opening a
+# deploy-failure issue if any step fails. workflow_dispatch is kept as a manual
+# re-run; the per-repo deploy.yml remains as a break-glass manual deploy.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Serialize: never let two pipeline runs race to deploy.
+concurrency:
+  group: deploy-pipeline
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  actions: write   # dispatch this repo's deploy.yml and read its run status
+  issues: write
+
+env:
+  FORK_REPO: adrianschmidt-bot/adrianschmidt-bot.github.io
+  STAGING_URL: https://adrianschmidt-bot.github.io/
+  PROD_URL: https://pocket-dragon.github.io/
+
+jobs:
+  pipeline:
+    # This workflow file is mirrored to the fork by the sync push below. The guard
+    # keeps it a no-op anywhere but the upstream production repo, so the fork never
+    # tries to run the orchestrator (it has no FORK_DEPLOY_TOKEN and would fail).
+    if: github.repository == 'pocket-dragon/pocket-dragon.github.io'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # 1. Sync the just-merged code to the fork's main so its Pages build matches.
+      - name: Push to fork
+        env:
+          FORK_DEPLOY_TOKEN: ${{ secrets.FORK_DEPLOY_TOKEN }}
+        run: |
+          git push "https://x-access-token:${FORK_DEPLOY_TOKEN}@github.com/${FORK_REPO}.git" \
+            "${GITHUB_SHA}:refs/heads/main"
+
+      # 2+3. Dispatch the fork's deploy and wait for that exact run to finish.
+      - name: Deploy + wait for staging
+        env:
+          GH_TOKEN: ${{ secrets.FORK_DEPLOY_TOKEN }}
+        run: |
+          CID="orch-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-staging"
+          gh workflow run deploy.yml --repo "$FORK_REPO" --ref main -f correlation_id="$CID"
+          echo "Dispatched staging deploy with correlation id $CID"
+          RID=""
+          for i in $(seq 1 30); do
+            RID=$(gh run list --repo "$FORK_REPO" --workflow deploy.yml \
+              --json databaseId,displayTitle \
+              -q "[.[] | select(.displayTitle | contains(\"$CID\"))][0].databaseId")
+            [ -n "$RID" ] && break
+            sleep 5
+          done
+          if [ -z "$RID" ]; then echo "Could not find dispatched staging run"; exit 1; fi
+          echo "Staging run id: $RID"
+          gh run watch "$RID" --repo "$FORK_REPO" --interval 10 --exit-status
+
+      # 4. Smoke-test the deployed staging site with a real browser. The Node +
+      # Playwright setup mirrors up-check.yml.
+      - uses: ./.github/actions/set-up-node
+      - run: npm ci
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Install Playwright browser
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+      - name: Install Playwright system deps (on cache hit)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+      - name: Smoke-test staging
+        env:
+          SMOKE_URL: ${{ env.STAGING_URL }}
+        run: node .github/workflows/check-website.js
+
+      # 5+6. Promote to production: dispatch this repo's own deploy and wait. It
+      # deploys main's content, so production always ships the reviewed default
+      # branch regardless of what triggered the orchestrator.
+      - name: Deploy + wait for production
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          CID="orch-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-prod"
+          gh workflow run deploy.yml --repo "$GITHUB_REPOSITORY" --ref main -f correlation_id="$CID"
+          echo "Dispatched production deploy with correlation id $CID"
+          RID=""
+          for i in $(seq 1 30); do
+            RID=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow deploy.yml \
+              --json databaseId,displayTitle \
+              -q "[.[] | select(.displayTitle | contains(\"$CID\"))][0].databaseId")
+            [ -n "$RID" ] && break
+            sleep 5
+          done
+          if [ -z "$RID" ]; then echo "Could not find dispatched production run"; exit 1; fi
+          echo "Production run id: $RID"
+          gh run watch "$RID" --repo "$GITHUB_REPOSITORY" --interval 10 --exit-status
+
+      # 7. Smoke-test production with a real browser (reuses the Node/Playwright
+      # setup already done above in this job).
+      - name: Smoke-test production
+        env:
+          SMOKE_URL: ${{ env.PROD_URL }}
+        run: node .github/workflows/check-website.js
+
+      # Full pipeline is green: clear any open deploy-failure issue.
+      - name: Close deploy-failure issue on success
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          for N in $(gh issue list --repo "$GITHUB_REPOSITORY" \
+            --label deploy-failure --state open --json number -q '.[].number'); do
+            gh issue close "$N" --repo "$GITHUB_REPOSITORY" \
+              --comment "Deploy pipeline green again: ${RUN_URL}"
+            echo "Closed deploy-failure issue #$N"
+          done
+
+      # On any failure above, open a new deploy-failure issue or comment on the
+      # existing open one, so a broken pipeline is tracked and visible.
+      - name: Report failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh label create deploy-failure --repo "$GITHUB_REPOSITORY" \
+            --color B60205 --description "Automated deploy pipeline failed" 2>/dev/null || true
+          EXISTING=$(gh issue list --repo "$GITHUB_REPOSITORY" \
+            --label deploy-failure --state open --limit 1 --json number -q '.[0].number')
+          BODY="Automated deploy pipeline failed: ${RUN_URL}"
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --repo "$GITHUB_REPOSITORY" --body "$BODY"
+            echo "Commented on existing deploy-failure issue #$EXISTING"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" \
+              --title "🔴 Automated deploy pipeline failed" \
+              --label deploy-failure --body "$BODY"
+            echo "Opened a new deploy-failure issue"
+          fi
