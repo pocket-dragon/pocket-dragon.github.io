@@ -1,7 +1,17 @@
 name: Deploy
 
+# `correlation_id` lets a dispatcher (the deploy orchestrator) tag this run so it
+# can find it afterwards — workflow_dispatch does not return a run id. It is
+# surfaced through run-name and defaults to empty for manual break-glass dispatch.
+run-name: Deploy ${{ inputs.correlation_id }}
+
 on:
   workflow_dispatch:
+    inputs:
+      correlation_id:
+        description: 'Opaque id echoed into the run name so a dispatcher can find this run'
+        required: false
+        default: ''
 
 permissions:
   contents: read
