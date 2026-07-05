@@ -11,7 +11,7 @@ name: Visual regression baselines
 # the CI compare job uses, so the follow-up compare run goes green.
 #
 # workflow_dispatch is only registered once this file lives on the default
-# branch (dev). After that, `gh workflow run visual-baselines.yml --ref <branch>`
+# branch (main). After that, `gh workflow run visual-baselines.yml --ref <branch>`
 # (or the UI branch picker) targets any branch.
 #
 # SECURITY: the two jobs are split on purpose. `generate` runs project code

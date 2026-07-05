@@ -2,16 +2,16 @@ name: Dependabot auto-merge
 
 # Flip-the-switch automation — test-suite stage 5. Every green Dependabot PR,
 # major bumps included, approves and merges itself with no human in the loop.
-# What makes that safe: the hardened suite from stages 1–4 plus the `dev`
+# What makes that safe: the hardened suite from stages 1–4 plus the default-branch
 # ruleset's required checks + up-to-date gate. GitHub does the waiting and the
 # rebase; a red or stale PR simply never merges.
 # Design: docs/superpowers/specs/2026-06-30-trustworthy-tests-auto-merge-design.md
 #
 # SINGLE POINT OF FAILURE — required status checks. This workflow does no
 # gating of its own; it unconditionally approves and enables auto-merge, and
-# trusts the `dev` ruleset to hold the merge until CI is green. That safety
+# trusts the default-branch ruleset to hold the merge until CI is green. That safety
 # depends entirely on these ci.yml jobs being configured as REQUIRED status
-# checks on the `dev` ruleset (they are NOT declared here — GitHub does not
+# checks on the default-branch ruleset (they are NOT declared here — GitHub does not
 # infer them from workflow files):
 #   - `build`                    (ci.yml job `build`)
 #   - `Visual regression`        (ci.yml job `visual`)
@@ -27,9 +27,7 @@ name: Dependabot auto-merge
 on:
   pull_request:
     # Dependabot targets the default branch (see .github/dependabot.yml).
-    # Both names are listed across the dev->main default-branch rename so this
-    # automation keeps working during the transition.
-    branches: [dev, main]
+    branches: [main]
     # `synchronize` is the important one: it fires on Dependabot's rebase
     # force-push, which is what lets us re-approve after the ruleset dismisses
     # the stale approval (see the approve step below).
@@ -95,7 +93,7 @@ jobs:
           UPDATE_TYPE: ${{ steps.metadata.outputs.update-type }}
         run: echo "Auto-merging **$NAMES** — $UPDATE_TYPE" >> "$GITHUB_STEP_SUMMARY"
 
-      # Re-approve on every trigger. The `dev` ruleset has
+      # Re-approve on every trigger. The default-branch ruleset has
       # `dismiss_stale_reviews_on_push: true`, so Dependabot's rebase dismisses
       # the prior approval; the `synchronize` re-run restores it. A
       # github-actions[bot] approval satisfies the single required review
