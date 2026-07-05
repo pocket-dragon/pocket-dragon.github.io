@@ -1,7 +1,7 @@
 # Fully automate the staging → production deploy pipeline
 
 **Date:** 2026-07-05
-**Status:** Approved (design)
+**Status:** Implemented (2026-07-05, PR #102)
 **Scope:** `upstream` repo (new orchestrator workflow + small `deploy.yml` edit) and
 `fork` repo (same small `deploy.yml` edit, arrives via the normal sync).
 
