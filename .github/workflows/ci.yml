@@ -1,8 +1,9 @@
 name: Node CI
 
 on:
+  # No branch filter: checks should run for every PR regardless of the branch
+  # it targets, so nothing depends on the default branch's name.
   pull_request:
-    branches: [dev]
 
 permissions:
   contents: read

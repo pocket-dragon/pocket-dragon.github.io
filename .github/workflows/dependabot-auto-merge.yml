@@ -26,8 +26,10 @@ name: Dependabot auto-merge
 
 on:
   pull_request:
-    # Dependabot targets `dev` (see .github/dependabot.yml).
-    branches: [dev]
+    # Dependabot targets the default branch (see .github/dependabot.yml).
+    # Both names are listed across the dev->main default-branch rename so this
+    # automation keeps working during the transition.
+    branches: [dev, main]
     # `synchronize` is the important one: it fires on Dependabot's rebase
     # force-push, which is what lets us re-approve after the ruleset dismisses
     # the stale approval (see the approve step below).
