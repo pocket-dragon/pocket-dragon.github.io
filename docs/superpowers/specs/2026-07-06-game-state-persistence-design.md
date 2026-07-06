@@ -89,6 +89,35 @@ Two touches, no other component changes:
 
 `soundEnabled` remains in its own separate key, untouched.
 
+### Performance on low-end devices
+
+The app must run well on older, cheaper phones/tablets — the per-tick save must
+not hurt responsiveness or the tick cadence. It doesn't, by construction:
+
+- **The save is off the render critical path.** `useEffect(saveGame, [state])`
+  runs *after* React commits and the browser paints, so the visual timer update
+  is never blocked waiting on the write. (Contrast `useLayoutEffect`, which would
+  run before paint — deliberately not used.)
+- **The write is tiny and O(1).** `GameState` is a fixed handful of numbers plus
+  two small objects; `JSON.stringify` + `localStorage.setItem` on a ~200-byte
+  string is sub-millisecond even on low-end hardware — well under 1% of the
+  one-second tick budget, and it happens once per second, not per frame.
+- **The clock is tick-count based, so the save cannot slow the game.** Each
+  `TICK` decrements timers by exactly 1 regardless of real-world elapsed time, so
+  no amount of per-tick work changes how many game-seconds elapse. The only
+  theoretical effect is real-time jitter in *when* a tick fires; a sub-ms
+  post-paint write does not cause meaningful jitter.
+
+**Guard (in the plan):** verify under emulated slow CPU (Playwright/DevTools CPU
+throttling, e.g. 6×) that the game timer stays accurate and ticks keep ~1 Hz
+cadence with persistence enabled — i.e. persistence adds no measurable slowdown.
+
+**Deliberately not done (YAGNI):** throttling/debouncing saves to every N seconds.
+It would only save at most a few sub-millisecond writes per second while risking
+the loss of the last few seconds of progress on reload. The write is already
+cheap and off the critical path; throttling is the documented escape hatch *only*
+if the CPU-throttled measurement ever shows a regression.
+
 ### Data flow
 
 Every state transition → `saveGame`. Reload → the initializer restores the last
@@ -131,3 +160,9 @@ is **paused** — the success counter and remaining-clue values match their
 pre-reload values, and the Play/Pause control shows the paused (startable) state
 (e.g. `log-success` is disabled again because the restored game is not running).
 A second case: with no prior play, a fresh load shows the Easy defaults.
+
+**E2e — low-end guard** (same spec file): under emulated CPU throttling (via CDP
+`Emulation.setCPUThrottlingRate`, e.g. 6×), start a game and confirm over a short
+wall-clock window that the game timer decrements at ~1 Hz (within a small
+tolerance) with persistence enabled — demonstrating the per-tick save adds no
+measurable slowdown to the tick cadence on constrained hardware.
