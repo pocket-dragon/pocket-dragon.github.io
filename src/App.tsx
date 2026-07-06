@@ -16,6 +16,7 @@ import {
   ReducerResult,
 } from './logic/gameReducer';
 import { loadSoundEnabled, saveSoundEnabled } from './logic/soundSettings';
+import { loadGame, saveGame } from './logic/gamePersistence';
 import { DifficultyConfig, EASY, MEDIUM, HARD } from './logic/difficulty';
 import './App.css';
 
@@ -30,10 +31,16 @@ function App() {
     appReducer,
     EASY,
     (difficulty: DifficultyConfig): ReducerResult => ({
-      state: createInitialState(difficulty),
+      state: loadGame() ?? createInitialState(difficulty),
       effects: [],
     }),
   );
+
+  // Persist the game on every change so a reload restores it (paused). The
+  // payload is tiny and this runs post-paint, so it never blocks a tick render.
+  useEffect(() => {
+    saveGame(state);
+  }, [state]);
 
   // Hydrate the persisted sound setting before first paint to avoid a flash
   // of the wrong toggle state when it was previously disabled.

@@ -1,7 +1,9 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import App from './App';
-import { EASY } from './logic/difficulty';
+import { EASY, MEDIUM } from './logic/difficulty';
+import { saveGame } from './logic/gamePersistence';
+import { createInitialState } from './logic/gameState';
 
 describe('App', () => {
   it('renders the Pocket Dragon title', () => {
@@ -79,5 +81,42 @@ describe('App', () => {
     } finally {
       vi.useRealTimers();
     }
+  });
+
+  it('restores a persisted in-progress game, paused', () => {
+    saveGame({
+      ...createInitialState(MEDIUM),
+      isRunning: true,
+      successesUntilVictory: 2,
+      remainingClues: 5,
+    });
+
+    render(<App />);
+
+    // Restored progress is shown...
+    expect(screen.getByTestId('success-counter').textContent).toBe('2');
+    expect(screen.getByTestId('remaining-clues').textContent).toBe('5');
+    // ...and the game is paused (log-success is disabled when not running).
+    expect(screen.getByTestId('log-success').getAttribute('disabled')).toBe('');
+  });
+
+  it('starts fresh (Easy defaults) when nothing is persisted', () => {
+    render(<App />);
+    expect(screen.getByTestId('success-counter').textContent).toBe(String(EASY.goalNumberOfSuccesses));
+  });
+
+  it('starts fresh when persisted data is invalid', () => {
+    localStorage.setItem('gameState', '{corrupt');
+    render(<App />);
+    expect(screen.getByTestId('success-counter').textContent).toBe(String(EASY.goalNumberOfSuccesses));
+  });
+
+  it('persists state changes to localStorage', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('start-pause')); // START
+    fireEvent.click(screen.getByTestId('log-success')); // 3 -> 2
+    const raw = localStorage.getItem('gameState');
+    expect(raw).not.toBeNull();
+    expect(JSON.parse(raw!).state.successesUntilVictory).toBe(2);
   });
 });
