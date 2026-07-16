@@ -263,17 +263,8 @@ jobs:
       # (default true) turns the check red on an issues verdict. Not a required
       # check yet (see the design doc). A whole-repo scan is a different command
       # (`command: ''`), not a gate flag — see the design doc's baseline appendix.
-      - uses: fallow-rs/fallow@e36026dfc0f00bfdf8dab889efc58ab86e5ec466 # v2.104.0
+      - uses: fallow-rs/fallow@32b3f89fe28c286c85a6b0aed4ec5be120f54da6 # v3.6.0
         if: github.event_name != 'merge_group'
         with:
           command: audit
           comment: true
-          # Pin the CLI version. Unpinned, the action installs the latest
-          # published fallow (3.6.0). Starting in 3.5.0, the `@fallow-cli/*`
-          # platform packages stopped shipping the `fallow-lsp` (and
-          # `fallow-mcp`) binaries, but install-time verification still requires
-          # `fallow-lsp`, so 3.5.0/3.5.1/3.6.0 all fail with
-          # `fallow-lsp (binary-missing)` before the audit runs. 3.4.2 is the
-          # last release whose platform package still contains those binaries.
-          # Drop this pin once upstream republishes fixed platform packages.
-          version: 3.4.2
