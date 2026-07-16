@@ -1,9 +1,10 @@
 name: Orchestrate deploy
 
 # Hands-off release pipeline: on every merge to main, sync the code to the fork,
-# deploy + smoke-test staging, then deploy + smoke-test production, opening a
-# deploy-failure issue if any step fails. workflow_dispatch is kept as a manual
-# re-run; the per-repo deploy.yml remains as a break-glass manual deploy.
+# deploy + smoke-test staging, then deploy + smoke-test production, then cut a
+# semantic-release tag + GitHub Release, opening a deploy-failure issue if any
+# step fails. workflow_dispatch is kept as a manual re-run; the per-repo
+# deploy.yml remains as a break-glass manual deploy.
 on:
   push:
     branches: [main]
@@ -147,6 +148,62 @@ jobs:
           else
             gh issue create --repo "$GITHUB_REPOSITORY" \
               --title "🔴 Automated deploy pipeline failed" \
+              --label deploy-failure --body "$BODY"
+            echo "Opened a new deploy-failure issue"
+          fi
+
+  # 8. Cut a release for what just shipped. Runs only after the prod smoke test
+  # succeeds, so a release tag always means "this commit is live in prod".
+  # Merges containing only chore/ci/docs commits correctly produce no release.
+  release:
+    # Same fork-mirror guard as the pipeline job. A job-level `if` without a
+    # status function still implies success() on `needs`, so this only runs
+    # after a green pipeline.
+    if: github.repository == 'pocket-dragon/pocket-dragon.github.io'
+    needs: pipeline
+    runs-on: ubuntu-latest
+    # Replaces the workflow-level permissions for this job only.
+    permissions:
+      contents: write  # push the version tag, create the GitHub Release
+      issues: write    # deploy-failure reporting below
+      pull-requests: write  # @semantic-release/github posts successComment on released PRs
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0          # semantic-release needs full history + tags
+          persist-credentials: false
+
+      - uses: ./.github/actions/set-up-node
+      - run: npm ci
+
+      - name: Semantic release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: npx semantic-release
+
+      # Prod is already deployed and healthy if we got here, so a release
+      # failure must not go unnoticed silently — reuse the deploy-failure
+      # issue mechanism from the pipeline job. Re-running the workflow
+      # retries the release; semantic-release is idempotent (if a failure
+      # lands between tag push and Release creation, recreate it manually
+      # with gh release create from the tag).
+      - name: Report failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh label create deploy-failure --repo "$GITHUB_REPOSITORY" \
+            --color B60205 --description "Automated deploy pipeline failed" 2>/dev/null || true
+          EXISTING=$(gh issue list --repo "$GITHUB_REPOSITORY" \
+            --label deploy-failure --state open --limit 1 --json number -q '.[].number')
+          BODY="Release step failed after successful prod deploy: ${RUN_URL}"
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --repo "$GITHUB_REPOSITORY" --body "$BODY"
+            echo "Commented on existing deploy-failure issue #$EXISTING"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" \
+              --title "🔴 Release step failed" \
               --label deploy-failure --body "$BODY"
             echo "Opened a new deploy-failure issue"
           fi
