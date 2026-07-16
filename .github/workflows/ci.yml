@@ -268,3 +268,12 @@ jobs:
         with:
           command: audit
           comment: true
+          # Pin the CLI version. Unpinned, the action installs the latest
+          # published fallow (3.6.0). Starting in 3.5.0, the `@fallow-cli/*`
+          # platform packages stopped shipping the `fallow-lsp` (and
+          # `fallow-mcp`) binaries, but install-time verification still requires
+          # `fallow-lsp`, so 3.5.0/3.5.1/3.6.0 all fail with
+          # `fallow-lsp (binary-missing)` before the audit runs. 3.4.2 is the
+          # last release whose platform package still contains those binaries.
+          # Drop this pin once upstream republishes fixed platform packages.
+          version: 3.4.2
