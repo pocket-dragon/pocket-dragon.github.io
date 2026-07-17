@@ -58,7 +58,7 @@ jobs:
           for i in $(seq 1 30); do
             RID=$(gh run list --repo "$FORK_REPO" --workflow deploy.yml \
               --json databaseId,displayTitle \
-              -q "[.[] | select(.displayTitle | contains(\"$CID\"))][0].databaseId")
+              -q "[.[] | select(.displayTitle | contains(\"$CID\"))][0].databaseId // empty")
             [ -n "$RID" ] && break
             sleep 5
           done
@@ -101,7 +101,7 @@ jobs:
           for i in $(seq 1 30); do
             RID=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow deploy.yml \
               --json databaseId,displayTitle \
-              -q "[.[] | select(.displayTitle | contains(\"$CID\"))][0].databaseId")
+              -q "[.[] | select(.displayTitle | contains(\"$CID\"))][0].databaseId // empty")
             [ -n "$RID" ] && break
             sleep 5
           done
