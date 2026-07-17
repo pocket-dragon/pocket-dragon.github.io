@@ -140,7 +140,7 @@ jobs:
           gh label create deploy-failure --repo "$GITHUB_REPOSITORY" \
             --color B60205 --description "Automated deploy pipeline failed" 2>/dev/null || true
           EXISTING=$(gh issue list --repo "$GITHUB_REPOSITORY" \
-            --label deploy-failure --state open --limit 1 --json number -q '.[0].number')
+            --label deploy-failure --state open --limit 1 --json number -q '.[].number')
           BODY="Automated deploy pipeline failed: ${RUN_URL}"
           if [ -n "$EXISTING" ]; then
             gh issue comment "$EXISTING" --repo "$GITHUB_REPOSITORY" --body "$BODY"
