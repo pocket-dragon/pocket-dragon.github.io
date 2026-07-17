@@ -2,6 +2,17 @@
  * IMPORTANT! All text content in this file are game rules! They should be considered akin to a legal document. No changes should EVER be made automatically, not even simple typo fixes. Any issues found in the text content should be brought up with @adrianschmidt for evaluation.
  */
 
+import promoAnachrony from '../assets/promo-anachrony.jpg';
+import promoTrickerion from '../assets/promo-trickerion.jpg';
+import promoPetrichor from '../assets/promo-petrichor.jpg';
+import promoDaysOfIre from '../assets/promo-daysOfIre.jpg';
+import promoNightsOfFire from '../assets/promo-nightsOfFire.jpg';
+import promoRedacted from '../assets/promo-redacted.jpg';
+import promoMicrofilms from '../assets/promo-microfilms.jpg';
+import promoDiceSettlers from '../assets/promo-diceSettlers.jpg';
+import promoKitchenRush from '../assets/promo-kitchenRush.jpg';
+import promoTashKalar from '../assets/promo-tashKalar.jpg';
+
 export const pocketDragon = `
 *The pair of you have chosen to raise a pocket Dragon together, and like every other Dragon, this one has needs! He wants to eat, learn to cook, take some healthy exercise, play board games, make friends, maybe fall in love… Can you be the perfect dragon parent to him? Remember, always keep him fed!!*
 
@@ -223,14 +234,14 @@ export interface PromoGame {
 }
 
 export const promoGames: PromoGame[] = [
-  { title: 'Anachrony', imageUrl: '/assets/promo-anachrony.jpg', content: anachrony },
-  { title: 'Trickerion', imageUrl: '/assets/promo-trickerion.jpg', content: trickerion },
-  { title: 'Petrichor', imageUrl: '/assets/promo-petrichor.jpg', content: petrichor },
-  { title: 'Days of Ire', imageUrl: '/assets/promo-daysOfIre.jpg', content: daysOfIre },
-  { title: 'Nights of Fire', imageUrl: '/assets/promo-nightsOfFire.jpg', content: nightsOfFire },
-  { title: '[redacted]', imageUrl: '/assets/promo-redacted.jpg', content: redacted },
-  { title: 'Microfilms', imageUrl: '/assets/promo-microfilms.jpg', content: microfilms },
-  { title: 'Dice Settlers', imageUrl: '/assets/promo-diceSettlers.jpg', content: diceSettlers },
-  { title: 'Kitchen Rush', imageUrl: '/assets/promo-kitchenRush.jpg', content: kitchenRush },
-  { title: 'Tash-Kalar', imageUrl: '/assets/promo-tashKalar.jpg', content: tashKalar },
+  { title: 'Anachrony', imageUrl: promoAnachrony, content: anachrony },
+  { title: 'Trickerion', imageUrl: promoTrickerion, content: trickerion },
+  { title: 'Petrichor', imageUrl: promoPetrichor, content: petrichor },
+  { title: 'Days of Ire', imageUrl: promoDaysOfIre, content: daysOfIre },
+  { title: 'Nights of Fire', imageUrl: promoNightsOfFire, content: nightsOfFire },
+  { title: '[redacted]', imageUrl: promoRedacted, content: redacted },
+  { title: 'Microfilms', imageUrl: promoMicrofilms, content: microfilms },
+  { title: 'Dice Settlers', imageUrl: promoDiceSettlers, content: diceSettlers },
+  { title: 'Kitchen Rush', imageUrl: promoKitchenRush, content: kitchenRush },
+  { title: 'Tash-Kalar', imageUrl: promoTashKalar, content: tashKalar },
 ];

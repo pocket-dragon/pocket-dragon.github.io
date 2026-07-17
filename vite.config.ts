@@ -76,11 +76,13 @@ export default defineConfig({
         // Including them in both creates conflicting entries that cause Workbox
         // to throw "add-to-cache-list-conflicting-entries" and abort precaching.
         globPatterns: [
-          'assets/font/**/*.{woff,woff2}',
+          'assets/*.{woff,woff2}',
           // Note: .mp3 excluded from precache — GitHub Pages returns HTTP 206
           // (Partial Content) for audio files, which Firefox rejects in Cache.put().
           // MP3s will be fetched from the network on each use.
-          'assets/sound/**/*.{ogg,wav}',
+          // This catch-all also precaches any future .ogg/.wav import, so a large
+          // audio asset added later will silently grow the precache — watch for it.
+          'assets/*.{ogg,wav}',
           'assets/icon/apple-*',
           'assets/icon/ms-*',
           'assets/icon/favicon*',

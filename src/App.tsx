@@ -19,6 +19,17 @@ import { loadSoundEnabled, saveSoundEnabled } from './logic/soundSettings';
 import { loadGame, saveGame } from './logic/gamePersistence';
 import { DifficultyConfig, EASY, MEDIUM, HARD } from './logic/difficulty';
 import './App.css';
+// beep1x/2x/3x keep the existing SoundEffect / timerBeep*Ref vocabulary; the
+// underlying files are the cling_2* sound assets (cling_2 = 1x, -2x, -3x).
+import beep1xMp3 from './assets/sound/cling_2.mp3';
+import beep1xOgg from './assets/sound/cling_2.ogg';
+import beep1xWav from './assets/sound/cling_2.wav';
+import beep2xMp3 from './assets/sound/cling_2-2x.mp3';
+import beep2xOgg from './assets/sound/cling_2-2x.ogg';
+import beep2xWav from './assets/sound/cling_2-2x.wav';
+import beep3xMp3 from './assets/sound/cling_2-3x.mp3';
+import beep3xOgg from './assets/sound/cling_2-3x.ogg';
+import beep3xWav from './assets/sound/cling_2-3x.wav';
 
 // Wrap the pure reducer for React. Stores { state, effects }; effects are
 // flushed to the audio layer by a useEffect below (default rng in the app).
@@ -326,19 +337,19 @@ function App() {
 
         {/* Audio elements */}
         <audio ref={timerBeepRef} preload="auto">
-          <source src="/assets/sound/cling_2.mp3" type="audio/mpeg" />
-          <source src="/assets/sound/cling_2.ogg" type="audio/ogg" />
-          <source src="/assets/sound/cling_2.wav" type="audio/wav" />
+          <source src={beep1xMp3} type="audio/mpeg" />
+          <source src={beep1xOgg} type="audio/ogg" />
+          <source src={beep1xWav} type="audio/wav" />
         </audio>
         <audio ref={timerBeep2xRef} preload="auto">
-          <source src="/assets/sound/cling_2-2x.mp3" type="audio/mpeg" />
-          <source src="/assets/sound/cling_2-2x.ogg" type="audio/ogg" />
-          <source src="/assets/sound/cling_2-2x.wav" type="audio/wav" />
+          <source src={beep2xMp3} type="audio/mpeg" />
+          <source src={beep2xOgg} type="audio/ogg" />
+          <source src={beep2xWav} type="audio/wav" />
         </audio>
         <audio ref={timerBeep3xRef} preload="auto">
-          <source src="/assets/sound/cling_2-3x.mp3" type="audio/mpeg" />
-          <source src="/assets/sound/cling_2-3x.ogg" type="audio/ogg" />
-          <source src="/assets/sound/cling_2-3x.wav" type="audio/wav" />
+          <source src={beep3xMp3} type="audio/mpeg" />
+          <source src={beep3xOgg} type="audio/ogg" />
+          <source src={beep3xWav} type="audio/wav" />
         </audio>
       </main>
       {buildVersion && (
