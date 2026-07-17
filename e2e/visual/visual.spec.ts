@@ -177,6 +177,10 @@ test.describe('Visual regression (key app states)', () => {
   }
   const rulesSurface = `${selectors.rulesDialog} ${selectors.rulesSurface}`;
 
+  // NOTE: this exact title is referenced by `grepInvert` in
+  // playwright.offline.visual.config.ts (this frame legitimately differs
+  // between the online and offline builds because of the online-only download
+  // link). Keep the title and that regex in sync if renaming.
   test('rules modal scrolled to the promo sections', async ({ page }) => {
     await openRules(page);
     // The top-only capture never exercises the scrolled body. Anchor the first

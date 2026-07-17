@@ -61,6 +61,10 @@ jobs:
     # it). This step must therefore stay after that build step.
     - name: E2E tests
       run: npm run test:e2e
+    - name: Offline artifact build
+      run: npm run build:offline
+    - name: Offline e2e (file://)
+      run: npm run test:e2e:offline
     - name: Upload Playwright report
       if: failure()
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -70,6 +74,17 @@ jobs:
         retention-days: 7
         # warn (not ignore): if e2e fails before a report is written, leave a
         # breadcrumb in the log rather than silently uploading nothing.
+        if-no-files-found: warn
+    - name: Upload offline Playwright report
+      if: failure()
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+      with:
+        name: playwright-report-offline
+        path: playwright-report-offline/
+        retention-days: 7
+        # warn (not ignore): if the offline e2e run fails before a report is
+        # written, leave a breadcrumb in the log rather than silently
+        # uploading nothing.
         if-no-files-found: warn
 
   visual:
@@ -101,6 +116,11 @@ jobs:
       # below then carries those fresh baselines out so they can be committed.
       - name: Visual regression tests
         run: npm run test:visual
+      # Same baselines as the http run above — inlining must not change a pixel.
+      - name: Offline visual regression (file://)
+        run: |
+          npm run build:offline
+          npm run test:visual:offline
       # Split into two uploads on purpose: the committed baselines always exist
       # in the workspace, so bundling them with the report would keep
       # if-no-files-found silent even when the report is missing. A dedicated
@@ -112,6 +132,15 @@ jobs:
           name: visual-regression-report
           # The HTML report — diffs for a real regression.
           path: playwright-report-visual/
+          retention-days: 7
+          if-no-files-found: warn
+      - name: Upload offline visual report
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: playwright-report-visual-offline
+          # The HTML report for the offline (file://) visual run.
+          path: playwright-report-visual-offline/
           retention-days: 7
           if-no-files-found: warn
       - name: Upload visual baselines

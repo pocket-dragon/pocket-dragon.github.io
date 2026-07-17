@@ -19,6 +19,7 @@
     "test:e2e:report": "playwright show-report",
     "test:e2e:offline": "playwright test --config playwright.offline.config.ts",
     "test:visual": "playwright test --config playwright.visual.config.ts",
+    "test:visual:offline": "playwright test --config playwright.offline.visual.config.ts",
     "test:visual:update": "docker run --rm -e PLAYWRIGHT_VISUAL=1 -e CI=1 -v \"$PWD\":/work -v /work/node_modules -w /work mcr.microsoft.com/playwright:v1.61.1-jammy sh -c \"npm ci && npm run build && npm run test:visual -- --update-snapshots\"",
     "semantic-release": "semantic-release"
   },

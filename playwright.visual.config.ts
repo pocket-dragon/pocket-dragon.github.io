@@ -1,5 +1,6 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig } from '@playwright/test';
 import { inPinnedImage } from './e2e/fixtures/visual-gate';
+import { visualDevice, visualScreenshotConfig } from './e2e/fixtures/visual-baseline';
 
 // Visual-regression config, kept separate from playwright.config.ts (the
 // behavior-level e2e suite) on purpose: these tests compare pixels, so they run
@@ -26,19 +27,13 @@ export default defineConfig({
     : [['html', { outputFolder: 'playwright-report-visual', open: 'never' }]],
   timeout: 15000,
   use: {
-    ...devices['Desktop Chrome'], // fixed 1280x720 viewport → deterministic layout
+    // Device + screenshot tolerances live in e2e/fixtures/visual-baseline so
+    // the offline visual config shares them verbatim — see that file.
+    ...visualDevice,
     baseURL: 'http://localhost:4173',
   },
   expect: {
-    toHaveScreenshot: {
-      // The issue's "animations disabled / caret hidden": freeze CSS
-      // animations/transitions to their end state and hide the text caret so
-      // captures are stable. A tiny ratio tolerance absorbs sub-pixel
-      // antialiasing that can differ even within the pinned image.
-      animations: 'disabled',
-      caret: 'hide',
-      maxDiffPixelRatio: 0.01,
-    },
+    toHaveScreenshot: visualScreenshotConfig,
   },
   // Only serve the app when the suite will actually run. Outside the pinned
   // image every spec skips, so booting a build+preview would be wasted work.

@@ -23,4 +23,6 @@ UserInterfaceState.xcuserstate
 coverage/
 playwright-report/
 playwright-report-visual/
+playwright-report-offline/
+playwright-report-visual-offline/
 test-results/
