@@ -176,6 +176,39 @@ jobs:
       - uses: ./.github/actions/set-up-node
       - run: npm ci
 
+      # The offline artifact attached to the release by release.config.js.
+      - name: Build offline artifact
+        run: npm run build:offline
+
+      # Guard against silently shipping a degraded asset. The full offline
+      # e2e/visual suites run in ci.yml against the PR build, but this release
+      # job does a fresh rebuild that nothing else exercises, and
+      # @semantic-release/github treats a missing/empty asset as only a
+      # warning. So assert here that the rebuild is a genuine single self-
+      # contained file before it becomes the pocket-dragon.html download:
+      # dist-offline must hold only index.html, and no external asset
+      # reference (src=/href=/url(...) pointing at assets/) may survive
+      # inlining. Fails the release loudly instead of publishing a broken file.
+      - name: Verify offline artifact is self-contained
+        run: |
+          set -euo pipefail
+          count=$(find dist-offline -type f | wc -l | tr -d ' ')
+          if [ "$count" != "1" ] || [ ! -s dist-offline/index.html ]; then
+            echo "::error::dist-offline must contain only a non-empty index.html; found:"
+            find dist-offline -type f
+            exit 1
+          fi
+          # This assumes Vite's default output shape: double-quoted, relative,
+          # assets/-prefixed refs (base: './'). A future emitter change to
+          # single-quoted or absolute /assets/ refs would silently false-pass
+          # here — the full offline e2e/visual suites in ci.yml are the real
+          # backstop; this grep is a cheap fail-fast on the common case.
+          if grep -noE '(src=|href=)"(\./)?assets/[^"]*"|url\(\s*["'\'']?(\./)?assets/' dist-offline/index.html; then
+            echo "::error::offline artifact still references external assets/ files (inlining incomplete)"
+            exit 1
+          fi
+          echo "Offline artifact is a single self-contained file with no external asset refs."
+
       - name: Semantic release
         env:
           GITHUB_TOKEN: ${{ github.token }}
