@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../fixtures/test';
 import { selectors, gameConfig } from '../fixtures/selectors';
 
 test.describe('Success Logging', () => {

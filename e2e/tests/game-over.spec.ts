@@ -1,4 +1,5 @@
-import { test, expect, Page } from '@playwright/test';
+import { test, expect } from '../fixtures/test';
+import type { Page } from '@playwright/test';
 import { selectors, gameConfig } from '../fixtures/selectors';
 import { advanceGameSeconds } from '../fixtures/clock';
 

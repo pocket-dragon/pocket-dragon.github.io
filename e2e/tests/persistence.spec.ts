@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../fixtures/test';
 import { selectors } from '../fixtures/selectors';
 
 test.describe('Game state persistence', () => {
