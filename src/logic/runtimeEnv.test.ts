@@ -13,6 +13,11 @@ describe('isOfflineCopy', () => {
     expect(isOfflineCopy()).toBe(true);
   });
 
+  it('returns true when opened via content:// (Android media store)', () => {
+    vi.stubGlobal('window', { location: { protocol: 'content:' } });
+    expect(isOfflineCopy()).toBe(true);
+  });
+
   it('returns false when served over http (the deployed site)', () => {
     vi.stubGlobal('window', { location: { protocol: 'http:' } });
     expect(isOfflineCopy()).toBe(false);
