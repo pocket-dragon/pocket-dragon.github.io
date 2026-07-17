@@ -3,6 +3,7 @@ import Markdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 import remarkGfm from 'remark-gfm';
 import { pocketDragon, promoGames, PromoGame } from '../rules/game-rules';
+import { isOfflineCopy } from '../logic/runtimeEnv';
 import { PdButton } from './PdButton';
 
 interface CollapsibleSectionProps {
@@ -103,6 +104,21 @@ export function RulesModal({ isOpen, onClose }: RulesModalProps) {
                 <RulesMarkdown text={game.content} />
               </CollapsibleSection>
             ))}
+
+            {!isOfflineCopy() && (
+              <p className="offline-download">
+                Want to keep the app forever?{' '}
+                <a
+                  data-testid="offline-download-link"
+                  href="https://github.com/pocket-dragon/pocket-dragon.github.io/releases/latest/download/pocket-dragon.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Download the offline version
+                </a>{' '}
+                — a single file you can open in any browser, no internet needed.
+              </p>
+            )}
           </div>
         </section>
         <footer className="mdc-dialog__footer">
