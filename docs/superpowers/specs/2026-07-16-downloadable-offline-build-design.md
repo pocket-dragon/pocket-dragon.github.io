@@ -76,9 +76,12 @@ Each PR is independently shippable and (from PR 1 on) triggers its own release.
   Re-running the workflow retries the release (semantic-release is idempotent).
 - Delete the `release` branch. Keep the `semantic-release` npm script as a
   break-glass manual path (without `ci: false` it dry-runs outside CI;
-  publish manually with `npm run semantic-release -- --no-ci`, from a checkout
-  whose `HEAD` is on `main` — otherwise semantic-release errors that the
-  branch is not in its config).
+  publish manually with `npm run build:offline && npm run semantic-release --
+  --no-ci`, from a checkout whose `HEAD` is on `main` — otherwise
+  semantic-release errors that the branch is not in its config). Without the
+  build step, a missing asset is only a warning and the release would publish
+  without `pocket-dragon.html`, breaking the modal link until the next
+  release.
 
 ### PR 2 — Asset migration (prod-neutral refactor)
 
@@ -95,17 +98,18 @@ Each PR is independently shippable and (from PR 1 on) triggers its own release.
 ### PR 3 — The offline artifact
 
 - `vite.offline.config.ts`: React plugin + `vite-plugin-singlefile`,
-  `base: './'`, `build.assetsInlineLimit: Infinity`, **no** VitePWA plugin
-  (no service worker, no manifest, no `registerSW.js`), output to
-  `dist-offline/`. Because PR 2 made all media Vite-imported, the inline
-  limit turns every sound/image/font into a data URI with no custom code.
-  New npm script: `build:offline`.
+  `base: './'`, **no** VitePWA plugin (no service worker, no manifest, no
+  `registerSW.js`), output to `dist-offline/`. vite-plugin-singlefile's
+  recommended build config raises `assetsInlineLimit` so all imported media
+  inlines; because PR 2 made all media Vite-imported, that turns every
+  sound/image/font into a data URI with no custom code. New npm script:
+  `build:offline`.
 - Head cleanup for the offline HTML (small `transformIndexHtml` step in the
   offline config): strip the apple-touch/favicon `<link>`s that would dangle,
   and inject one favicon inlined as a data URI so the tab keeps its icon.
 - Release job (from PR 1) additionally runs `build:offline` and attaches the
   artifact: `@semantic-release/github` gets
-  `assets: [{ path: 'dist-offline/pocket-dragon.html', label: 'Pocket Dragon — offline version (download and open in a browser)' }]`.
+  `assets: [{ path: 'dist-offline/index.html', name: 'pocket-dragon.html', label: 'Pocket Dragon — offline version (download and open in a browser)' }]`.
 - Modal download link (see Decisions). GitHub serves release assets as
   downloads, so the link downloads the file rather than rendering it.
 - Timing note: the link 404s until the first release with the asset exists.
@@ -132,6 +136,9 @@ Each PR is independently shippable and (from PR 1 on) triggers its own release.
 - **Release automation:** after PR 1 merges, observe one pipeline run
   end-to-end and confirm the release via `gh release view`. After PR 3,
   manually download via the modal link, double-click, play a round.
+- On `file://`, localStorage works in Chromium/Firefox/Safari, but Firefox
+  scopes it per-directory — moving the downloaded file to another folder
+  resets saved game state.
 
 ## Out of scope
 
