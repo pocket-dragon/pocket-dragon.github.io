@@ -27,4 +27,27 @@ describe('offline download link', () => {
     render(<RulesModal isOpen onClose={() => {}} />);
     expect(screen.queryByTestId('offline-download-link')).toBeNull();
   });
+
+  test('sits just before the Components heading', () => {
+    mocks.isOfflineCopy.mockReturnValue(false);
+    render(<RulesModal isOpen onClose={() => {}} />);
+    const link = screen.getByTestId('offline-download-link');
+    const componentsHeading = screen.getByRole('heading', { name: 'Components' });
+    expect(
+      // Bitmask: set when the heading follows the link in document order.
+      link.compareDocumentPosition(componentsHeading) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    // "Just before": nothing but the heading's own section separates them —
+    // the link's paragraph and the heading share the rules-content parent,
+    // with the heading's markdown block rendered immediately after.
+    const rulesContent = screen.getByTestId('rules-content');
+    const children = Array.from(rulesContent.children);
+    const linkParagraphIndex = children.indexOf(link.closest('p') as Element);
+    expect(linkParagraphIndex).toBeGreaterThan(-1);
+    const nextBlock = children[linkParagraphIndex + 1];
+    // The block right after the link's paragraph must be the Components
+    // heading itself (rulesBody starts with `## Components`).
+    expect(nextBlock?.matches('h1, h2, h3')).toBe(true);
+    expect(nextBlock?.textContent).toContain('Components');
+  });
 });

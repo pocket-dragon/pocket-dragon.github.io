@@ -159,6 +159,10 @@ test.describe('Visual regression (key app states)', () => {
     });
   }
 
+  // NOTE: this exact title is referenced by `grepInvert` in
+  // playwright.offline.visual.config.ts (this frame legitimately differs
+  // between the online and offline builds because of the online-only download
+  // link near the top of the rules). Keep the title and that regex in sync.
   test('rules modal', async ({ page }) => {
     await openRules(page);
     await fontsReady(page);
@@ -177,10 +181,14 @@ test.describe('Visual regression (key app states)', () => {
   }
   const rulesSurface = `${selectors.rulesDialog} ${selectors.rulesSurface}`;
 
-  // NOTE: this exact title is referenced by `grepInvert` in
-  // playwright.offline.visual.config.ts (this frame legitimately differs
-  // between the online and offline builds because of the online-only download
-  // link). Keep the title and that regex in sync if renaming.
+  // INVARIANT: the two captures below must never include the online-only
+  // download link (it sits just above the `## Components` heading, near the top
+  // of the rules body). Both anchor a promo section far below that link with
+  // `scrollIntoView({ block: 'start' })`, so the link stays out of frame and
+  // these baselines are shared by the online and offline visual runs. If a
+  // future layout change scrolls the link into either frame, the offline run
+  // (playwright.offline.visual.config.ts) would diverge and fail — keep the
+  // link above these scroll anchors.
   test('rules modal scrolled to the promo sections', async ({ page }) => {
     await openRules(page);
     // The top-only capture never exercises the scrolled body. Anchor the first

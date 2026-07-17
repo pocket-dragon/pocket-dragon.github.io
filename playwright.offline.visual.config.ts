@@ -14,15 +14,18 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: 0,
   workers: 1,
-  // The scrolled-promos frame includes the online-only offline-download link
-  // (hidden on file:// by design), so that one capture legitimately differs
-  // from the shared online baseline — it is asserted by the online visual run
-  // only. Every other screenshot must stay pixel-identical between builds.
+  // The top rules-modal frame includes the online-only offline-download link
+  // (hidden in offline copies by design, and placed just above the Components
+  // heading near the top of the rules), so that one capture legitimately
+  // differs from the shared online baseline — it is asserted by the online
+  // visual run only. Every other screenshot must stay pixel-identical between
+  // builds. The trailing $ keeps the two other rules-modal captures (scrolled,
+  // promo-expanded) in the offline run — their frames never show the link.
   // NOTE: this regex is coupled to the exact test title in
   // e2e/visual/visual.spec.ts; renaming that test drops the exclusion. It then
   // fails loudly against the shared baseline rather than silently, but keep the
   // title and this pattern in sync.
-  grepInvert: /rules modal scrolled to the promo sections/,
+  grepInvert: /rules modal$/,
   reporter: process.env.CI
     ? [['github'], ['html', { outputFolder: 'playwright-report-visual-offline', open: 'never' }]]
     : [['html', { outputFolder: 'playwright-report-visual-offline', open: 'never' }]],

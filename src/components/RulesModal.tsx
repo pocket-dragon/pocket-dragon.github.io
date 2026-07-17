@@ -58,6 +58,19 @@ const promoTestIds: Record<string, string> = {
   'Tash-Kalar': 'promo-tashKalar',
 };
 
+// The offline-download callout sits just above the "Components" heading, so
+// the rules markdown is rendered in two halves around it. If the heading is
+// ever renamed the split degrades gracefully: the callout renders first,
+// followed by the full rules text.
+// Match the heading only as a whole line so an inline mention or a deeper
+// heading (e.g. `### Components`) in the externally-owned rules text can't
+// mis-split the document.
+const COMPONENTS_HEADING = /^## Components$/m;
+const headingMatch = pocketDragon.match(COMPONENTS_HEADING);
+const headingAt = headingMatch?.index ?? -1;
+const rulesIntro = headingAt === -1 ? '' : pocketDragon.slice(0, headingAt);
+const rulesBody = headingAt === -1 ? pocketDragon : pocketDragon.slice(headingAt);
+
 interface RulesModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -92,18 +105,7 @@ export function RulesModal({ isOpen, onClose }: RulesModalProps) {
         </header>
         <section className="mdc-dialog__body dialog-body">
           <div data-testid="rules-content">
-            <RulesMarkdown text={pocketDragon} />
-
-            {promoGames.map((game: PromoGame) => (
-              <CollapsibleSection
-                key={game.title}
-                title={game.title}
-                imageUrl={game.imageUrl}
-                testId={promoTestIds[game.title] || `promo-${game.title.toLowerCase()}`}
-              >
-                <RulesMarkdown text={game.content} />
-              </CollapsibleSection>
-            ))}
+            <RulesMarkdown text={rulesIntro} />
 
             {!isOfflineCopy() && (
               <p className="offline-download">
@@ -119,6 +121,19 @@ export function RulesModal({ isOpen, onClose }: RulesModalProps) {
                 — a single file you can open in any browser, no internet needed.
               </p>
             )}
+
+            <RulesMarkdown text={rulesBody} />
+
+            {promoGames.map((game: PromoGame) => (
+              <CollapsibleSection
+                key={game.title}
+                title={game.title}
+                imageUrl={game.imageUrl}
+                testId={promoTestIds[game.title] || `promo-${game.title.toLowerCase()}`}
+              >
+                <RulesMarkdown text={game.content} />
+              </CollapsibleSection>
+            ))}
           </div>
         </section>
         <footer className="mdc-dialog__footer">
