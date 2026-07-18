@@ -345,3 +345,22 @@
     margin-right: 0;
   }
 }
+
+/* "New version available" affordance (auto-update). Fixed bottom-center pill,
+   above normal content. It is gated off whenever a game is running or a modal
+   is open (see shouldShowReloadButton), so it never overlaps a dialog. */
+.reload-button {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 200;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
