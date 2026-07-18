@@ -6,8 +6,8 @@ updates:
     directory: "/"
     target-branch: "main"
     schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 5
+      interval: "daily"
+    open-pull-requests-limit: 10
     groups:
       react:
         patterns:
@@ -36,3 +36,14 @@ updates:
         patterns:
           - "react-markdown"
           - "remark-*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "main"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 10
+    groups:
+      actions:
+        patterns:
+          - "actions/*"
