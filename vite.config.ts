@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
       // All static assets are covered by workbox.globPatterns below.
       // Don't use includeAssets — it creates duplicate precache entries
       // with conflicting revision strategies.
@@ -71,6 +71,7 @@ export default defineConfig({
         ],
       },
       workbox: {
+        clientsClaim: true,
         // Exclude android-icon-*.png and manifest.webmanifest from glob —
         // VitePWA injects these from the manifest config with revision hashes.
         // Including them in both creates conflicting entries that cause Workbox
