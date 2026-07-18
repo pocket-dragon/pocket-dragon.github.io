@@ -3,9 +3,19 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { ReloadButton } from './ReloadButton';
 
 describe('ReloadButton', () => {
-  it('renders nothing when not visible', () => {
+  it('renders no button when not visible', () => {
     render(<ReloadButton visible={false} onReload={() => {}} />);
     expect(screen.queryByTestId('reload-button')).toBeNull();
+  });
+
+  it('always renders a polite live region', () => {
+    const { rerender, container } = render(
+      <ReloadButton visible={false} onReload={() => {}} />
+    );
+    expect(container.querySelector('[aria-live="polite"]')).toBeTruthy();
+
+    rerender(<ReloadButton visible onReload={() => {}} />);
+    expect(container.querySelector('[aria-live="polite"]')).toBeTruthy();
   });
 
   it('renders the reload pill when visible', () => {
