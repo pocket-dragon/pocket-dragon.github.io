@@ -42,9 +42,11 @@ test.describe('Offline PWA', () => {
     );
 
     // 2. ...and it takes control of THIS page. Control on the first load, with
-    // no second reload, relies on `registerType: 'autoUpdate'` in vite.config.ts
-    // emitting clientsClaim/skipWaiting. A switch to `registerType: 'prompt'`
-    // would leave `controller` null here until an extra reload.
+    // no second reload, relies on `workbox.clientsClaim: true` in vite.config.ts:
+    // the very first service worker (nothing ahead of it to wait behind) activates
+    // and claims this client immediately. `registerType: 'prompt'` only makes
+    // *update* activation manual (via the reload button) — it does not delay the
+    // first worker's control here.
     await page.waitForFunction(() => navigator.serviceWorker.controller !== null, undefined, {
       timeout: swTimeout,
     });
@@ -59,6 +61,10 @@ test.describe('Offline PWA', () => {
     // The app shell renders offline.
     await expect(page.locator(selectors.startPauseButton)).toBeVisible();
     await expect(page.locator(selectors.easyButton)).toBeVisible();
+
+    // No update is pending on a fresh load, so the "click to reload" button must
+    // not be present. Guards against it accidentally rendering unconditionally.
+    await expect(page.locator(selectors.reloadButton)).toHaveCount(0);
 
     // A core interaction still runs fully client-side while offline: starting
     // the game enables the log-success control (disabled at rest), and logging

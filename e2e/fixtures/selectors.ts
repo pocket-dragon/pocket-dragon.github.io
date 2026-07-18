@@ -39,6 +39,9 @@ export const selectors = {
   // Sound
   soundToggle: '[data-testid="sound-toggle"]',
 
+  // Auto-update
+  reloadButton: '[data-testid="reload-button"]',
+
   // Game over dialog
   gameOverDialog: '[data-testid="game-over-dialog"]',
   // MDC dialog surface (excludes the backdrop); used by the visual suite.
