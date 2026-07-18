@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import Markdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 import remarkGfm from 'remark-gfm';
@@ -27,7 +27,11 @@ function CollapsibleSection({ title, imageUrl, testId, children }: CollapsibleSe
   );
 }
 
-function RulesMarkdown({ text }: { text: string }) {
+// Memoized: react-markdown re-runs its full remark/rehype parse pipeline on
+// every render. The `text` props here are stable module-level constants, so
+// memoizing lets each document parse once and skip re-parsing when an ancestor
+// re-renders (e.g. App's once-per-second game tick).
+const RulesMarkdown = memo(function RulesMarkdown({ text }: { text: string }) {
   return (
     <Markdown
       remarkPlugins={[remarkBreaks, remarkGfm]}
@@ -42,7 +46,7 @@ function RulesMarkdown({ text }: { text: string }) {
       {text}
     </Markdown>
   );
-}
+});
 
 // Map game titles to testid names
 const promoTestIds: Record<string, string> = {
@@ -76,7 +80,12 @@ interface RulesModalProps {
   onClose: () => void;
 }
 
-export function RulesModal({ isOpen, onClose }: RulesModalProps) {
+// Memoized so App's once-per-second game tick doesn't re-run this render
+// function while the modal is closed (mapping promoGames, rebuilding the dialog
+// tree). The markdown re-parse itself is prevented by memo(RulesMarkdown) above;
+// this memo just skips the surrounding work. Relies on a stable `onClose` from
+// App — see the useCallback there.
+export const RulesModal = memo(function RulesModal({ isOpen, onClose }: RulesModalProps) {
   useEffect(() => {
     if (!isOpen) return;
 
@@ -149,4 +158,4 @@ export function RulesModal({ isOpen, onClose }: RulesModalProps) {
       <div className="mdc-dialog__backdrop" onClick={onClose} />
     </aside>
   );
-}
+});

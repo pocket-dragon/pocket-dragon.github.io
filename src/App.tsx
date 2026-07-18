@@ -111,6 +111,8 @@ function App() {
   const useGeneralClue = useCallback(() => dispatch({ type: 'USE_GENERAL_CLUE' }), []);
   const useSpecificClue = useCallback(() => dispatch({ type: 'USE_SPECIFIC_CLUE' }), []);
   const closeGameOver = resetGame;
+  // Stable so the memoized RulesModal isn't re-rendered by App's game tick.
+  const closeRules = useCallback(() => setRulesOpen(false), []);
 
   // Close the game-over dialog on Escape.
   useEffect(() => {
@@ -332,8 +334,11 @@ function App() {
           </aside>
         )}
 
-        {/* Rules Modal */}
-        <RulesModal isOpen={rulesOpen} onClose={() => setRulesOpen(false)} />
+        {/* Rules Modal — keep every prop reference-stable (no inline closures
+            or objects); an unstable prop breaks its memo and makes RulesModal
+            re-render (remapping promoGames, rebuilding the dialog tree) on
+            every game tick. */}
+        <RulesModal isOpen={rulesOpen} onClose={closeRules} />
 
         {/* Audio elements */}
         <audio ref={timerBeepRef} preload="auto">
