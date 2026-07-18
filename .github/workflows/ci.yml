@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       # This job never pushes, so keep the token out of .git/config while npm ci
       # and build run dependency lifecycle scripts (guards against "artipacked").
       with:
@@ -67,7 +67,7 @@ jobs:
       run: npm run test:e2e:offline
     - name: Upload Playwright report
       if: failure()
-      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
         name: playwright-report
         path: playwright-report/
@@ -77,7 +77,7 @@ jobs:
         if-no-files-found: warn
     - name: Upload offline Playwright report
       if: failure()
-      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
         name: playwright-report-offline
         path: playwright-report-offline/
@@ -100,7 +100,7 @@ jobs:
       PLAYWRIGHT_VISUAL: '1'
       CI: 'true'
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         # This job only compares — it never pushes — so keep the token out of
         # .git/config while npm ci / build run dependency lifecycle scripts.
         with:
@@ -127,7 +127,7 @@ jobs:
       # report upload lets `warn` actually fire on the report-missing case.
       - name: Upload visual report
         if: failure()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: visual-regression-report
           # The HTML report — diffs for a real regression.
@@ -136,7 +136,7 @@ jobs:
           if-no-files-found: warn
       - name: Upload offline visual report
         if: failure()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: playwright-report-visual-offline
           # The HTML report for the offline (file://) visual run.
@@ -145,7 +145,7 @@ jobs:
           if-no-files-found: warn
       - name: Upload visual baselines
         if: failure()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: visual-regression-baselines
           # Any freshly written baselines (first-run seeding when none committed).
@@ -171,7 +171,7 @@ jobs:
     name: Playwright image in sync
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           persist-credentials: false
       - name: Assert container image tags match @playwright/test
@@ -246,7 +246,7 @@ jobs:
       pull-requests: read
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         if: github.actor != 'dependabot[bot]' && github.event_name != 'merge_group'
       - uses: wagoid/commitlint-github-action@b948419dd99f3fd78a6548d48f94e3df7f6bf3ed # v6.2.1
         if: github.actor != 'dependabot[bot]' && github.event_name != 'merge_group'
@@ -276,7 +276,7 @@ jobs:
       # merge queue. Skipped there like commitlint/autosquash (which skip as PR
       # commit/comment checks, not because of a base comparison).
       # (No merge_group trigger today; this keeps the job consistent if one is added.)
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         if: github.event_name != 'merge_group'
         with:
           persist-credentials: false   # keep the token out of .git/config (artipacked)
