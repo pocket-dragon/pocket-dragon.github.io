@@ -1,9 +1,17 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import App from './App';
 import { EASY, MEDIUM } from './logic/difficulty';
 import { saveGame } from './logic/gamePersistence';
 import { createInitialState } from './logic/gameState';
+
+const mockUpdate = vi.hoisted(() => ({
+  updateAvailable: false,
+  reload: vi.fn(),
+}));
+vi.mock('./logic/useAppUpdate', () => ({
+  useAppUpdate: () => mockUpdate,
+}));
 
 describe('App', () => {
   it('renders the Pocket Dragon title', () => {
@@ -118,5 +126,66 @@ describe('App', () => {
     const raw = localStorage.getItem('gameState');
     expect(raw).not.toBeNull();
     expect(JSON.parse(raw!).state.successesUntilVictory).toBe(2);
+  });
+});
+
+describe('App reload button', () => {
+  beforeEach(() => {
+    localStorage.clear();
+    mockUpdate.updateAvailable = false;
+    mockUpdate.reload.mockClear();
+  });
+
+  it('is absent when no update is available', () => {
+    mockUpdate.updateAvailable = false;
+    render(<App />);
+    expect(screen.queryByTestId('reload-button')).toBeNull();
+  });
+
+  it('shows before a game starts when an update is available', () => {
+    mockUpdate.updateAvailable = true;
+    render(<App />);
+    expect(screen.getByTestId('reload-button')).toBeTruthy();
+  });
+
+  it('hides while a game is running', () => {
+    mockUpdate.updateAvailable = true;
+    render(<App />);
+    fireEvent.click(screen.getByTestId('start-pause')); // START
+    expect(screen.queryByTestId('reload-button')).toBeNull();
+  });
+
+  it('shows again while a game is paused', () => {
+    mockUpdate.updateAvailable = true;
+    render(<App />);
+    fireEvent.click(screen.getByTestId('start-pause')); // START
+    fireEvent.click(screen.getByTestId('start-pause')); // PAUSE
+    expect(screen.getByTestId('reload-button')).toBeTruthy();
+  });
+
+  it('hides on the game-over screen', () => {
+    mockUpdate.updateAvailable = true;
+    render(<App />);
+    fireEvent.click(screen.getByTestId('start-pause')); // START
+    const logSuccess = screen.getByTestId('log-success');
+    for (let i = 0; i < EASY.goalNumberOfSuccesses; i++) {
+      fireEvent.click(logSuccess);
+    }
+    expect(screen.getByTestId('game-over-heading')).toBeTruthy(); // sanity: we are on the game-over screen
+    expect(screen.queryByTestId('reload-button')).toBeNull();
+  });
+
+  it('hides while the rules modal is open', () => {
+    mockUpdate.updateAvailable = true;
+    render(<App />);
+    fireEvent.click(screen.getByTestId('rules-link'));
+    expect(screen.queryByTestId('reload-button')).toBeNull();
+  });
+
+  it('calls reload when clicked', () => {
+    mockUpdate.updateAvailable = true;
+    render(<App />);
+    fireEvent.click(screen.getByTestId('reload-button'));
+    expect(mockUpdate.reload).toHaveBeenCalledTimes(1);
   });
 });

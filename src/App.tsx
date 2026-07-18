@@ -1,6 +1,7 @@
 import { useReducer, useState, useCallback, useEffect, useRef } from 'react';
 import { RulesModal } from './components/RulesModal';
 import { PdButton } from './components/PdButton';
+import { ReloadButton } from './components/ReloadButton';
 import { getBuildVersion } from './logic/buildVersion';
 import {
   createInitialState,
@@ -18,6 +19,9 @@ import {
 import { loadSoundEnabled, saveSoundEnabled } from './logic/soundSettings';
 import { loadGame, saveGame } from './logic/gamePersistence';
 import { DifficultyConfig, EASY, MEDIUM, HARD } from './logic/difficulty';
+import { useAppUpdate } from './logic/useAppUpdate';
+import { shouldShowReloadButton } from './logic/updateVisibility';
+import { isOfflineCopy } from './logic/runtimeEnv';
 import './App.css';
 // beep1x/2x/3x keep the existing SoundEffect / timerBeep*Ref vocabulary; the
 // underlying files are the cling_2* sound assets (cling_2 = 1x, -2x, -3x).
@@ -140,6 +144,14 @@ function App() {
   const generalClueAllowed = isGeneralClueAllowed(state);
   const specificClueAllowed = isSpecificClueAllowed(state);
   const buildVersion = getBuildVersion();
+  const { updateAvailable, reload } = useAppUpdate();
+  const showReloadButton = shouldShowReloadButton({
+    updateAvailable,
+    isRunning: state.isRunning,
+    gameResult: state.gameResult,
+    rulesOpen,
+    isOffline: isOfflineCopy(),
+  });
 
   return (
     <div className="app">
@@ -357,6 +369,7 @@ function App() {
           <source src={beep3xWav} type="audio/wav" />
         </audio>
       </main>
+      <ReloadButton visible={showReloadButton} onReload={reload} />
       {buildVersion && (
         <span className="app-version" aria-hidden="true">
           {buildVersion}
