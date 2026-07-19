@@ -72,6 +72,19 @@ export default defineConfig({
       },
       workbox: {
         clientsClaim: true,
+        // vite-plugin-pwa defaults dontCacheBustURLsMatching to /^assets\//,
+        // assuming everything under assets/ is Vite-content-hashed and therefore
+        // self-versioning — so it precaches those with revision:null. That's wrong
+        // for public/assets/icon/* files, which are copied verbatim (no hash): they
+        // matched ^assets/, got revision:null, and could never refresh if their
+        // bytes changed (issue #115). Scope it to only genuinely hashed filenames
+        // (a Vite `-<8 base64url chars>` suffix before the extension) so unhashed
+        // public assets instead get a Workbox-computed md5 revision.
+        //
+        // tests/pwaBuild.ts's HASHED_URL keeps a deliberate independent copy of this
+        // same regex so the build-time validator can catch a regression here; keep
+        // the two in sync by hand.
+        dontCacheBustURLsMatching: /-[A-Za-z0-9_-]{8}\.[^./]+$/,
         // Exclude android-icon-*.png and manifest.webmanifest from glob —
         // VitePWA injects these from the manifest config with revision hashes.
         // Including them in both creates conflicting entries that cause Workbox

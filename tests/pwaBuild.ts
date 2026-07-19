@@ -34,6 +34,45 @@ const ENTRY_ASSETS: ReadonlyArray<{ pattern: RegExp; label: string; example: str
 // precacheAndRoute([]) — means nothing would be cached for offline use.
 const EMPTY_PRECACHE = /precacheAndRoute\(\s*\[\s*\]/;
 
+// A URL is "content-hashed" (self-versioning) when its filename ends in a Vite
+// build hash: a dash followed by 8 base64url chars right before the extension,
+// e.g. index-AbCd1234.js or promo-trickerion-EqB_91UC.jpg. Such a URL is safe to
+// precache with revision:null because any byte change also changes the URL.
+//
+// This is intentionally a duplicate of vite.config.ts's `dontCacheBustURLsMatching`
+// regex, NOT a shared import: the two must express the same notion of "hashed", but
+// keeping this an independent copy lets it act as an oracle — if the config's
+// definition regresses (e.g. reverts to the /^assets\// default), this check still
+// fires on the now-unhashed URLs it wrongly pins with revision:null. Keep the two
+// regexes in sync by hand; the neighboring test fixtures pin the behavior.
+const HASHED_URL = /-[A-Za-z0-9_-]{8}\.[^./]+$/;
+
+export interface PrecacheEntry {
+  url: string;
+  // The Workbox revision: an md5 string, or null meaning "the URL self-versions".
+  // undefined when an entry had no revision field at all (shouldn't happen).
+  revision: string | null | undefined;
+}
+
+// Extracts the {url, revision} entries from a workbox precacheAndRoute([...]) call.
+// Handles both the minified real sw.js ({url:"…",revision:null}, unquoted keys)
+// and quoted/reordered test fixtures ({"revision":null,"url":"…"}). Returns [] if
+// no precache array is present (callers already diagnose that separately).
+export function parsePrecacheEntries(swSource: string): PrecacheEntry[] {
+  // Precache entries contain no ']' of their own, so stop at the first one.
+  const manifest = swSource.match(/precacheAndRoute\(\s*(\[[^\]]*\])/)?.[1];
+  if (!manifest) return [];
+  const entries: PrecacheEntry[] = [];
+  for (const object of manifest.match(/\{[^{}]*\}/g) ?? []) {
+    const url = object.match(/["']?url["']?\s*:\s*["']([^"']+)["']/)?.[1];
+    if (!url) continue;
+    const revisionMatch = object.match(/["']?revision["']?\s*:\s*(?:null|["']([^"']*)["'])/);
+    const revision = revisionMatch ? (revisionMatch[1] ?? null) : undefined;
+    entries.push({ url, revision });
+  }
+  return entries;
+}
+
 // Returns the first asset matching `pattern`. A normal Vite build emits exactly
 // one hashed entry chunk / stylesheet, so first-match is sufficient; if a build
 // ever emitted several we'd only assert that one of them is referenced.
@@ -74,6 +113,17 @@ export function inspectPwaBuild(input: PwaBuildInput): PwaBuildReport {
     } else if (!swSource.includes(asset)) {
       errors.push(
         `dist/sw.js does not reference the ${label} ${asset} — the precache list looks wrong`,
+      );
+    }
+  }
+
+  // Issue #115: an unhashed URL precached with revision:null can never be
+  // refreshed — Workbox treats null as "this URL self-versions". Only genuinely
+  // content-hashed URLs may carry revision:null; anything else needs a revision.
+  for (const { url, revision } of parsePrecacheEntries(swSource)) {
+    if (revision === null && !HASHED_URL.test(url)) {
+      errors.push(
+        `dist/sw.js precache entry ${url} has revision:null but its URL is not content-hashed — installed clients would never fetch a changed version; scope workbox dontCacheBustURLsMatching to hashed filenames`,
       );
     }
   }
