@@ -1,10 +1,10 @@
 # Per-PR preview deploy for manual testing
 
 **Date:** 2026-07-19
-**Status:** Designed — not yet implemented
-**Scope:** `upstream` repo (one new workflow + one new secret), plus a **new GitHub
-org** `pocket-dragon-pr-preview` owning a Pages repo used purely as a static host.
-The `fork` (staging) and `upstream` (production) deploy paths are unchanged.
+**Status:** Designed — infra provisioned, workflow not yet written
+**Scope:** `upstream` repo (one new workflow only), plus a **new GitHub org**
+`pocket-dragon-pr-preview` owning a Pages repo used purely as a static host. The
+`fork` (staging) and `upstream` (production) deploy paths are unchanged.
 
 ## Goal
 
@@ -62,6 +62,7 @@ push to a human PR branch
         ▼
 preview-deploy.yml   (on: pull_request [opened, synchronize, reopened])
         │
+  guard: skip if repository != 'pocket-dragon/pocket-dragon.github.io'  (dormant on the fork)
   guard: skip if actor == 'dependabot[bot]'
   guard: skip if head.repo.full_name != github.repository   (fork PRs — no secrets)
         │
@@ -69,7 +70,8 @@ preview-deploy.yml   (on: pull_request [opened, synchronize, reopened])
   2. set-up-node → npm ci
   3. npm run build            (absolute base '/', VITE_APP_VERSION = preview id)
   4. publish dist/ → pocket-dragon-pr-preview.github.io  gh-pages root
-     using PREVIEW_DEPLOY_TOKEN
+     using the PREVIEW_DEPLOY_KEY SSH deploy key
+  5. write preview URL + build marker to $GITHUB_STEP_SUMMARY
         │
         ▼
    https://pocket-dragon-pr-preview.github.io/   (live after Pages build, ~1 min)
@@ -78,33 +80,47 @@ preview-deploy.yml   (on: pull_request [opened, synchronize, reopened])
 - **Trigger:** `pull_request`, types `opened, synchronize, reopened`. Auto-deploys
   on **every push** to an eligible PR — no comment, no label, no manual step
   (decision: convenience over collision-proofing; see "Single root site" below).
-- **Guards / why secrets are safe:** the two `if` guards mean the job only ever runs
+- **Guards / why secrets are safe:** three `if` guards mean the job only ever runs
   for **our own human branches**. `pull_request` from a **same-repo** branch **does**
-  expose secrets (only fork-originated PRs have them withheld), so `PREVIEW_DEPLOY_TOKEN`
+  expose secrets (only fork-originated PRs have them withheld), so `PREVIEW_DEPLOY_KEY`
   is available without resorting to `pull_request_target` and its untrusted-checkout
-  hazards. Dependabot is skipped by actor; fork PRs by head-repo check.
+  hazards. Dependabot is skipped by actor; fork PRs by head-repo check; and a
+  `github.repository == 'pocket-dragon/pocket-dragon.github.io'` guard keeps the job
+  **dormant on the fork** — `orchestrate-deploy.yml` mirrors this file onto the fork,
+  which has no `PREVIEW_DEPLOY_KEY`, so a PR opened there is skipped rather than failing
+  red at the publish step (this matches the identical guard on `orchestrate-deploy.yml`).
 - **Build identifier:** set `VITE_APP_VERSION` to a preview marker (e.g.
   `pr<number>-<short-sha>`) so the in-app build indicator makes clear you're looking
   at a preview build, not staging or prod.
-- **Publish step:** publish `dist/` to the preview repo's `gh-pages` branch with a
-  pinned publish action (e.g. `peaceiris/actions-gh-pages`) authenticated by
-  `PREVIEW_DEPLOY_TOKEN`; a hand-rolled `git` force-push of the built tree using the
-  token (mirroring the `git push https://x-access-token:…` style in
-  `orchestrate-deploy.yml`) is an acceptable alternative. Each deploy **replaces**
-  the whole site (single-PR root model), so a force-push / clean publish is correct.
+- **Publish step:** publish `dist/` to the preview repo's `gh-pages` branch with the
+  pinned `peaceiris/actions-gh-pages` action, authenticated by the
+  `PREVIEW_DEPLOY_KEY` SSH deploy key (`deploy_key:` input, pushing over
+  `git@github.com:…`). Each deploy **replaces** the whole site (single-PR root
+  model): the workflow sets `force_orphan: true`, so `gh-pages` is force-rewritten to
+  a **single commit** every deploy and never accumulates history on the throwaway host.
+- **Run summary:** a final step writes the preview URL and build marker to
+  `$GITHUB_STEP_SUMMARY`, surfacing them on the workflow-run summary page (reachable via
+  the PR's Checks tab). It only runs if the publish succeeded, so it doubles as a
+  success signal.
 - **Concurrency:** `concurrency: { group: preview-${{ github.event.pull_request.number }},
   cancel-in-progress: true }` so rapid pushes to one PR don't stack builds.
 - **Not a required check.** The deploy is informational; a failed or absent preview
   never blocks merge, matching "manual testing only."
 
-### Token
+### Credential: SSH deploy key (not a PAT)
 
-`PREVIEW_DEPLOY_TOKEN` — a **fine-grained PAT**, resource owner
-`pocket-dragon-pr-preview`, repo access limited to
-`pocket-dragon-pr-preview.github.io`, permission **Contents: read/write** (enough to
-push the `gh-pages` branch; branch-source Pages needs no Pages-API permission).
-Stored as an **Actions secret in the `upstream` repo**. The org must have
-fine-grained PAT access enabled.
+`PREVIEW_DEPLOY_KEY` — an **ed25519 SSH deploy key** whose **public** half is
+registered as a **write-enabled deploy key on the preview repo only**, and whose
+**private** half is stored as an **Actions secret in the `upstream` repo**. This is
+tighter than a fine-grained PAT (write to exactly one repo, no org-wide identity, no
+org PAT-policy dependency) and, unlike a PAT, was created entirely via API — no
+human token-minting step.
+
+Provisioned 2026-07-19: keypair generated locally, private half `gh secret set` into
+`upstream`, public half added as deploy key (id `157713812`, `verified: true`), local
+private half deleted. Enabling this first required flipping the org policy
+`deploy_keys_enabled_for_repositories` to `true` (it defaults to `false` on new
+orgs).
 
 ## Out of scope (explicitly deferred)
 
@@ -133,19 +149,18 @@ Secondary note: there is a short delay (~1 min) between the workflow's branch pu
 and the preview being live, because GitHub's `pages-build-deployment` runs after the
 push.
 
-## Manual setup (human-only, one time)
+## Infrastructure (provisioned 2026-07-19 — all done)
 
-1. Create org **`pocket-dragon-pr-preview`** (personal account; contact email is
-   your own — it need not match `pocket-dragon`, and the personal-vs-business choice
-   is non-functional).
-2. Create repo **`pocket-dragon-pr-preview.github.io`** in that org (can be empty;
-   the workflow creates/updates the `gh-pages` branch).
-3. Set the repo's **Pages source** to branch **`gh-pages`**, root.
-4. Enable **fine-grained PAT access** for the org, create the scoped
-   `PREVIEW_DEPLOY_TOKEN` (Contents: RW on that repo), and add it as an Actions
-   secret in the `upstream` repo.
-5. (Optional) Accept the bot's org invite so `gh`-based config help is possible
-   later — not required for the deploy itself.
+1. ✅ Org **`pocket-dragon-pr-preview`** created (by the human owner).
+2. ✅ Repo **`pocket-dragon-pr-preview.github.io`** created; seeded with a
+   placeholder `index.html` on `main` and a `gh-pages` branch.
+3. ✅ **Pages** enabled, source **`gh-pages`/root** (`build_type: legacy`,
+   deploy-from-branch). Serves at https://pocket-dragon-pr-preview.github.io/.
+4. ✅ **`PREVIEW_DEPLOY_KEY`** deploy key provisioned (see "Credential" above).
+5. ✅ Bot (`adrianschmidt-bot`) is an **owner** of the preview org.
+
+**Nothing human-only remains.** The only work left is writing `preview-deploy.yml`
+in `upstream` (the implementation plan).
 
 ## Alternatives considered
 
