@@ -1,0 +1,82 @@
+name: Preview deploy
+
+# Deploy each human PR's build to the PR-preview Pages host so it can be tested
+# by hand in a real browser before merge. Manual testing only: this runs no
+# automated tests and is not a required check, so a failed or absent preview
+# never blocks merge. Design:
+# docs/superpowers/specs/2026-07-19-pr-preview-deploy-design.md
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+# Only the checkout needs a token; the publish step pushes with the
+# PREVIEW_DEPLOY_KEY SSH deploy key, not GITHUB_TOKEN.
+permissions:
+  contents: read
+
+# One preview build per PR at a time; a newer push cancels an in-flight build.
+concurrency:
+  group: preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    # Skip Dependabot (dependency bumps don't need a manual look, and Dependabot's
+    # restricted secret access can't reach PREVIEW_DEPLOY_KEY) and fork PRs (a
+    # pull_request from a fork gets no secrets, so the deploy key would be absent).
+    # Both guards mean this only runs for our own same-repo human branches, which
+    # DO get secret access on pull_request. The repository guard keeps this dormant
+    # on the fork (orchestrate-deploy.yml mirrors this file there), matching the
+    # same guard on orchestrate-deploy.yml, so a PR opened on the fork — which has
+    # no PREVIEW_DEPLOY_KEY — is skipped rather than failing red at the publish step.
+    if: >-
+      github.repository == 'pocket-dragon/pocket-dragon.github.io' &&
+      github.actor != 'dependabot[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    # A non-required preview job runs on every PR push; cap it so a hung npm ci
+    # or build can't tie up a runner for the 6h default.
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          # Build the PR's actual head commit, not the pull_request merge ref.
+          ref: ${{ github.event.pull_request.head.sha }}
+          # This job never pushes via git credentials (the deploy key handles the
+          # publish), so keep the token out of .git/config (artipacked guard).
+          persist-credentials: false
+      - uses: ./.github/actions/set-up-node
+      # Short head SHA for a compact in-app build marker (e.g. pr42-49a8b60).
+      - name: Compute short SHA
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Build with a preview build marker
+        run: |
+          echo "Building $VITE_APP_VERSION"
+          npm ci
+          npm run build
+        env:
+          # Distinguishes preview builds from staging/prod in the in-app indicator.
+          VITE_APP_VERSION: "pr${{ github.event.pull_request.number }}-${{ steps.vars.outputs.sha_short }}"
+      - name: Publish dist/ to the preview Pages host
+        uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # v4.1.0
+        with:
+          # SSH deploy key: write-enabled on the preview repo only, private half in
+          # this repo's Actions secrets. Credential-model rationale in the design spec
+          # ("Credential: SSH deploy key (not a PAT)").
+          deploy_key: ${{ secrets.PREVIEW_DEPLOY_KEY }}
+          external_repository: pocket-dragon-pr-preview/pocket-dragon-pr-preview.github.io
+          publish_branch: gh-pages
+          publish_dir: ./dist
+          # Throwaway host: keep gh-pages a single commit and force-replace it each
+          # deploy, so the branch never accumulates history.
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: "deploy: PR #${{ github.event.pull_request.number }} (${{ steps.vars.outputs.sha_short }})"
+      # Surface where to look and which build marker to expect on the workflow run
+      # summary (via the PR's Checks tab).
+      # Only runs if the publish above succeeded, so it doubles as a success signal.
+      - name: Summarize the preview URL and build marker
+        run: |
+          echo "Preview: https://pocket-dragon-pr-preview.github.io/  (pr${{ github.event.pull_request.number }}-${{ steps.vars.outputs.sha_short }})" >> "$GITHUB_STEP_SUMMARY"
