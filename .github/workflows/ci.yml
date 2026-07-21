@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       # This job never pushes, so keep the token out of .git/config while npm ci
       # and build run dependency lifecycle scripts (guards against "artipacked").
       with:
@@ -100,7 +100,7 @@ jobs:
       PLAYWRIGHT_VISUAL: '1'
       CI: 'true'
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         # This job only compares — it never pushes — so keep the token out of
         # .git/config while npm ci / build run dependency lifecycle scripts.
         with:
@@ -171,7 +171,7 @@ jobs:
     name: Playwright image in sync
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Assert container image tags match @playwright/test
@@ -246,7 +246,7 @@ jobs:
       pull-requests: read
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         if: github.actor != 'dependabot[bot]' && github.event_name != 'merge_group'
       - uses: wagoid/commitlint-github-action@b948419dd99f3fd78a6548d48f94e3df7f6bf3ed # v6.2.1
         if: github.actor != 'dependabot[bot]' && github.event_name != 'merge_group'
@@ -276,7 +276,7 @@ jobs:
       # merge queue. Skipped there like commitlint/autosquash (which skip as PR
       # commit/comment checks, not because of a base comparison).
       # (No merge_group trigger today; this keeps the job consistent if one is added.)
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         if: github.event_name != 'merge_group'
         with:
           persist-credentials: false   # keep the token out of .git/config (artipacked)
