@@ -8,6 +8,14 @@ updates:
     schedule:
       interval: "daily"
     open-pull-requests-limit: 10
+    # Delay adopting brand-new releases so a compromised version has time to be
+    # spotted and yanked before we pull it in. Applies to version updates only;
+    # Dependabot security updates are exempt, so real fixes still land promptly.
+    cooldown:
+      default-days: 7
+      semver-major-days: 14
+      semver-minor-days: 7
+      semver-patch-days: 7
     groups:
       react:
         patterns:
@@ -43,6 +51,13 @@ updates:
     schedule:
       interval: "daily"
     open-pull-requests-limit: 10
+    # See the npm block above: cooldown gives a compromised action release time
+    # to be caught before we adopt it. Security updates are exempt here too.
+    # Only default-days here: the semver-*-days keys are unsupported for the
+    # github-actions ecosystem (dependabot/dependabot-core#14628), so every
+    # action bump — major included — is held for default-days.
+    cooldown:
+      default-days: 7
     groups:
       actions:
         patterns:
