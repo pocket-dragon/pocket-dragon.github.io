@@ -297,7 +297,7 @@ jobs:
       # (default true) turns the check red on an issues verdict. Not a required
       # check yet (see the design doc). A whole-repo scan is a different command
       # (`command: ''`), not a gate flag — see the design doc's baseline appendix.
-      - uses: fallow-rs/fallow@28810138faa8fdbc830b8d585d0c15d65c39c3fd # v3.10.0
+      - uses: fallow-rs/fallow@4274c9397ca6a46eb0277bee312baeff96b408c4 # v3.13.0
         if: github.event_name != 'merge_group'
         with:
           command: audit
